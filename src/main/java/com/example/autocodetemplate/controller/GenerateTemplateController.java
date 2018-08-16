@@ -4,15 +4,15 @@ import com.example.autocodetemplate.domain.TableStructure;
 import com.example.autocodetemplate.filter.GenerateTempFilter;
 import com.example.autocodetemplate.service.GenerateTemplateService;
 import com.example.autocodetemplate.service.TargetTableService;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.Collection;
@@ -54,6 +54,8 @@ public class GenerateTemplateController {
      * @param tempFilter
      * @return
      */
+    // http://localhost:8080/swagger-ui.html 访问swwager文档
+    @ApiOperation(value = "通过表名生成java代码模板",notes = "生成domain，mapper，service，dao")
     @RequestMapping(value = "getTemp.json", method = {RequestMethod.POST})
     @ResponseBody
     public Map<String,Object> generateTemp(@RequestBody() GenerateTempFilter tempFilter) {
