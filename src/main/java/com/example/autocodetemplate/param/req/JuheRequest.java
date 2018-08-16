@@ -1,6 +1,7 @@
 package com.example.autocodetemplate.param.req;
 
 import com.alibaba.fastjson.JSONObject;
+import com.example.autocodetemplate.exception.ServiceRuntimeException;
 
 import java.io.Serializable;
 
@@ -40,7 +41,7 @@ public abstract class JuheRequest implements Serializable {
     /**
      *
      */
-    public abstract void checkParam();
+    public abstract void checkParam() throws ServiceRuntimeException;
     public String getReqestUrl() {
         return reqestUrl;
     }

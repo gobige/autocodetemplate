@@ -1,5 +1,6 @@
 package com.example.autocodetemplate.service;
 
+import com.example.autocodetemplate.exception.ServiceRuntimeException;
 import com.example.autocodetemplate.param.req.LotteryQueryJuheRequest;
 import com.example.autocodetemplate.param.resp.LotteryQueryJuheResponse;
 
@@ -17,5 +18,5 @@ public interface LotteryQueryService {
     /**
      * 开奖结果查询
      */
-    LotteryQueryJuheResponse getLotteryResults(LotteryQueryJuheRequest request);
+    LotteryQueryJuheResponse getLotteryResults(LotteryQueryJuheRequest request) throws ServiceRuntimeException;
 }

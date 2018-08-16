@@ -53,7 +53,7 @@ public class LotteryQueryJuheRequest extends JuheRequest implements Serializable
     }
 
     @Override
-    public void checkParam() {
+    public void checkParam()  throws ServiceRuntimeException{
         if (StringUtils.isEmpty(this.getAppKey())) {
             throw new ServiceRuntimeException("三方接口--请求参数key不能为null-->" + this.getAppKey());
         }

@@ -1,18 +1,20 @@
 package com.example.autocodetemplate.controller;
 
 import com.example.autocodetemplate.domain.TableStructure;
+import com.example.autocodetemplate.exception.ServiceRuntimeException;
 import com.example.autocodetemplate.filter.GenerateTempFilter;
 import com.example.autocodetemplate.service.GenerateTemplateService;
 import com.example.autocodetemplate.service.TargetTableService;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import java.util.Collection;
@@ -58,7 +60,7 @@ public class GenerateTemplateController {
     @ApiOperation(value = "通过表名生成java代码模板",notes = "生成domain，mapper，service，dao")
     @RequestMapping(value = "getTemp.json", method = {RequestMethod.POST})
     @ResponseBody
-    public Map<String,Object> generateTemp(@RequestBody() GenerateTempFilter tempFilter) {
+    public Map<String,Object> generateTemp(@RequestBody() GenerateTempFilter tempFilter) throws ServiceRuntimeException {
         Map<String, Object> result = new HashMap<>();
         tempFilter.setDbPassword(dbPassword);
         tempFilter.setDbUrl(dbUrl);
@@ -72,15 +74,15 @@ public class GenerateTemplateController {
                 tableStructure.setType(tableStructure.getType().substring(0,tableStructure.getType().indexOf("(")));
             }
         }
-        boolean success = generateTemplateService.generateTemplateByTable(tempFilter.getTableName(),tableStructures);
+        logger.info("开始执行生成代码");
+        try {
+            boolean success = generateTemplateService.generateTemplateByTable(tempFilter.getTableName(),tableStructures);
+        } catch (Exception e) {
+            logger.error("生成代码失败{}",e.getMessage());
+            throw new ServiceRuntimeException("自动生成模板出错");
 
-        if(success) {
-            result.put("code","0");
-            result.put("bMessage","success");
-        }else {
-            result.put("code","1");
-            result.put("bMessage","failure");
         }
+        logger.info("生成代码结束");
 
         return result;
     }

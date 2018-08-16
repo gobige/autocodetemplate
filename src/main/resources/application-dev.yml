@@ -25,12 +25,21 @@ spring:
         min-idle: 0
         max-active: 8
         max-wait: -1
-#    sentinel:
-#      master: master8026
-#      nodes: 10.189.80.25:26379,10.189.80.26:26379,10.189.80.27:26378
+  output:
+  ansi:
+  enabled: DETECT
 
-
+### 服务器地址
 server:
     address: 127.0.0.1
     port: 8080
 
+### 日志
+debug: true
+logging:
+  file: my.log
+  path: /var/log
+  level:
+    com:
+      example:
+        autocodetemplate: error

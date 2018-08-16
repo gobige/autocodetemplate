@@ -36,7 +36,7 @@ public class LotteryQueryServiceImpl implements LotteryQueryService {
     @Value("${com.yates.thirdparty.juhe.host}")
     private String host;
     @Override
-    public LotteryQueryJuheResponse getLotteryResults(LotteryQueryJuheRequest request) {
+    public LotteryQueryJuheResponse getLotteryResults(LotteryQueryJuheRequest request)  throws ServiceRuntimeException{
         LotteryQueryJuheResponse response = new LotteryQueryJuheResponse();
         JSONObject jsonObject = handleGetRequest(request);
 
@@ -86,7 +86,7 @@ public class LotteryQueryServiceImpl implements LotteryQueryService {
      * @param <T>
      * @return
      */
-    private <T extends JuheResponse> T pureJsonObjectParse(JSONObject jsonObject,Class<T> clazz) {
+    private <T extends JuheResponse> T pureJsonObjectParse(JSONObject jsonObject,Class<T> clazz) throws ServiceRuntimeException{
         T result = JSONObject.parseObject(jsonObject.toJSONString(),clazz);
         if (result == null) {
             throw new ServiceRuntimeException("聚合数据--jsonobject parse error");
@@ -100,7 +100,7 @@ public class LotteryQueryServiceImpl implements LotteryQueryService {
      * @param request
      * @return
      */
-    private JSONObject handleGetRequest(JuheRequest request) {
+    private JSONObject handleGetRequest(JuheRequest request) throws ServiceRuntimeException{
         if (request == null)
             throw new ServiceRuntimeException("请求参数不能为null！");
 

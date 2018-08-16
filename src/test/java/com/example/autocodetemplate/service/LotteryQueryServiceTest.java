@@ -1,6 +1,7 @@
 package com.example.autocodetemplate.service;
 
 import com.example.autocodetemplate.Enum.EnumLotteryQueryType;
+import com.example.autocodetemplate.exception.ServiceRuntimeException;
 import com.example.autocodetemplate.param.req.LotteryQueryJuheRequest;
 import com.example.autocodetemplate.param.resp.LotteryQueryJuheResponse;
 import org.junit.Test;
@@ -27,7 +28,7 @@ public class LotteryQueryServiceTest {
 
 
     @Test
-    public void testGetssqResult() {
+    public void testGetssqResult()  throws ServiceRuntimeException {
         LotteryQueryJuheRequest request = new LotteryQueryJuheRequest();
         request.setLottery_id(EnumLotteryQueryType.SSQ.getKey());
         request.setLottery_no("18085");
