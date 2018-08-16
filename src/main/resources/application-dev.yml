@@ -1,0 +1,36 @@
+system:
+  user:
+    name: yangchao
+    sex: man
+    age: 22
+
+mybatis:
+  config-locations: classpath:mybatis/mybatis-config.xml
+  mapper-locations: classpath:mapper/*.xml
+
+spring:
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://mysql.dev.car-house.cn:3306/car_house?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&autoReconnect=true&failOverReadOnly=false&maxReconnects=10
+    username: carhouse-database
+    password: root
+  redis:
+    database: 11
+    host: 192.168.0.162
+    password:
+    port: 6379
+    pool:
+      jedis:
+        max-idle: 8
+        min-idle: 0
+        max-active: 8
+        max-wait: -1
+#    sentinel:
+#      master: master8026
+#      nodes: 10.189.80.25:26379,10.189.80.26:26379,10.189.80.27:26378
+
+
+server:
+    address: 127.0.0.1
+    port: 8080
+

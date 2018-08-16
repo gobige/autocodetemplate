@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.autocodetemplate.dao.TargetTableDao">
+    <resultMap id="baseMap" type="com.example.autocodetemplate.domain.TableStructure">
+        <result column="Field" property="field"/>
+        <result column="Type" property="type"/>
+    </resultMap>
+
+    <select id="descTableStru" resultMap="baseMap">
+        desc #{tableName}
+    </select>
+
+
+</mapper>
