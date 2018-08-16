@@ -10,6 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
 import java.util.*;
+import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -25,18 +26,33 @@ import java.util.concurrent.TimeUnit;
 @SpringBootTest
 public class WstBusinessServiceImplTest {
     @Resource
-    private com.example.autocodetemplate.service.SysAppVersionInfoService sysAppVersionInfoService;
+    private TestService testService;
 
     @Autowired
     private RedisTemplate redisTemplate;
 
     @Test
-    public void testGetById() {
-        com.example.autocodetemplate.domain.SysAppVersionInfo sysAppVersionInfo = new com.example.autocodetemplate.domain.SysAppVersionInfo();
-        sysAppVersionInfo.getRemark();
+    public void testGetById() throws Exception{
+        Long startTime = System.currentTimeMillis();
+        Future<String> task1 = testService.doTaskOne();
+        Future<String> task2 = testService.doTaskTwo();
+        Future<String> task3 = testService.doTaskThree();
+        Long endTime = System.currentTimeMillis();
 
-        sysAppVersionInfoService.list(sysAppVersionInfo);
-//        testRedisTemplate();
+        while (true) {
+            if (task1.isDone() && task2.isDone() && task3.isDone()) {
+                break;
+            }
+        }
+        System.out.println("任务1" + task1.get());
+        System.out.println("任务2" + task2.get());
+        System.out.println("任务3" + task3.get());
+        System.out.println("所有任务完成耗时:" + (endTime - startTime));
+    }
+
+    @Test
+    public void testRedis() {
+        testRedisTemplate();
     }
 
     private void testRedisTemplate() {
