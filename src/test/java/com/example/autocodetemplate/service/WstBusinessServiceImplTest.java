@@ -6,6 +6,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.*;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
@@ -31,6 +33,9 @@ public class WstBusinessServiceImplTest {
     @Autowired
     private RedisTemplate redisTemplate;
 
+    @Resource
+    private JavaMailSender mailSender;
+
     @Test
     public void testGetById() throws Exception{
         Long startTime = System.currentTimeMillis();
@@ -48,6 +53,17 @@ public class WstBusinessServiceImplTest {
         System.out.println("任务2" + task2.get());
         System.out.println("任务3" + task3.get());
         System.out.println("所有任务完成耗时:" + (endTime - startTime));
+    }
+
+    @Test
+    public void testSendEmail() {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("569484515@qq.com");
+        message.setTo("394157821@qq.com");
+        message.setSubject("test");
+        message.setText("testtest");
+
+        mailSender.send(message);
     }
 
     @Test
