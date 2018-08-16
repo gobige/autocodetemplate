@@ -42,4 +42,4 @@ logging:
   level:
     com:
       example:
-        autocodetemplate: error
+        autocodetemplate: debug
