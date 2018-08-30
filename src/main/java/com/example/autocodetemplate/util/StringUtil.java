@@ -4,6 +4,7 @@ import com.example.autocodetemplate.controller.GenerateTemplateController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -21,6 +22,45 @@ public class StringUtil {
 
     private static Pattern linePattern = Pattern.compile("_(\\w)");
     private static Pattern humpPattern = Pattern.compile("[A-Z]");
+
+    /**
+     * 从标准domain类中获取set语句(用于do，vo，bo等相互转换时赋值场景)
+     * @param source 文件来源
+     * @param getPrefix get语句前缀（对象句柄名）
+     * @param setPrefix set语句前缀（对象句柄名）
+     */
+    public static String acquireSet(String source, String getPrefix, String setPrefix) {
+        int indexBegin = 0;
+        int subBegin = 0;
+        int subEnd = 0;
+        int num = 0;
+        StringBuilder setCodes = new StringBuilder("");
+        while (true) {
+            subBegin = source.indexOf("private", indexBegin);
+            if (subBegin == -1) {
+                break;
+            }
+            subEnd = source.indexOf(";", subBegin);
+            indexBegin = subEnd;
+            num++;
+            String lines = source.substring(subBegin, subEnd + 1);
+            String[] lineArr = lines.split(" ");
+            if (lineArr.length != 3) {
+                continue;
+            }
+            char[] paramNameChar = lineArr[2].substring(0,lineArr[2].length() - 1).toCharArray();
+            paramNameChar[0] = (char) (paramNameChar[0] - 32);
+
+            // 首字母大写
+            String titleCaseParamName = String.valueOf(paramNameChar);
+
+            setCodes.append(setPrefix +"set" + titleCaseParamName +"(" + getPrefix + "get" + titleCaseParamName + ");\n");
+        }
+        System.out.println("atuo generate getset" + num);
+
+        return setCodes.toString();
+    }
+
 
     /**
      * 下划线转驼峰
@@ -162,5 +202,16 @@ public class StringUtil {
         String excuSql = placeholderFill(preSql, params, placeholder);
 
         return excuSql;
+    }
+
+    public static void main(String[] args) {
+        String source = "";
+        try {
+            source = FileUtil.fileInputStreamToString("c:/暂存/getset.txt");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        source = source.replaceAll("\\s", " ");
+        System.out.println(StringUtil.acquireSet(source, "componentVo.","component."));
     }
 }
