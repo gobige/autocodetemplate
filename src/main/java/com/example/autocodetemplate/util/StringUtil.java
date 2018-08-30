@@ -54,7 +54,7 @@ public class StringUtil {
             // 首字母大写
             String titleCaseParamName = String.valueOf(paramNameChar);
 
-            setCodes.append(setPrefix +"set" + titleCaseParamName +"(" + getPrefix + "get" + titleCaseParamName + ");\n");
+            setCodes.append(setPrefix +"set" + titleCaseParamName +"(" + getPrefix + "get" + titleCaseParamName + "());\n");
         }
         System.out.println("atuo generate getset" + num);
 
@@ -212,6 +212,6 @@ public class StringUtil {
             e.printStackTrace();
         }
         source = source.replaceAll("\\s", " ");
-        System.out.println(StringUtil.acquireSet(source, "componentVo.","component."));
+        System.out.println(StringUtil.acquireSet(source, "extPresale.","activityItemFilterVo."));
     }
 }
