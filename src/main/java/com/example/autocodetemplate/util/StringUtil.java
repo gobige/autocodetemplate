@@ -43,13 +43,21 @@ public class StringUtil {
             subEnd = source.indexOf(";", subBegin);
             indexBegin = subEnd;
             num++;
-            String lines = source.substring(subBegin, subEnd + 1);
+            String lines = source.substring(subBegin, subEnd);
             String[] lineArr = lines.split(" ");
             if (lineArr.length != 3) {
-                continue;
+                if (lines.indexOf("=") < 0) {
+                    continue;
+                } else {
+                    String subStr = lines.substring(0,lines.indexOf("="));
+                    lineArr = subStr.split(" ");
+                }
+
             }
-            char[] paramNameChar = lineArr[2].substring(0,lineArr[2].length() - 1).toCharArray();
-            paramNameChar[0] = (char) (paramNameChar[0] - 32);
+            char[] paramNameChar = lineArr[2].substring(0,lineArr[2].length()).toCharArray();
+            if (123 > paramNameChar[0] && paramNameChar[0] > 96) {
+                paramNameChar[0] = (char) (paramNameChar[0] - 32);
+            }
 
             // 首字母大写
             String titleCaseParamName = String.valueOf(paramNameChar);
@@ -212,6 +220,33 @@ public class StringUtil {
             e.printStackTrace();
         }
         source = source.replaceAll("\\s", " ");
-        System.out.println(StringUtil.acquireSet(source, "extPresale.","activityItemFilterVo."));
+
+
+
+        String getObjClassNamesource = "SmsUserInfo";
+        String setObjClassNametarget = "SmsHistory";
+
+
+
+        char[] paramNameChar = setObjClassNametarget.substring(0,setObjClassNametarget.length()).toCharArray();
+
+        // 首字母转小写
+        if (91 > paramNameChar[0] && paramNameChar[0] > 64) {
+            paramNameChar[0] = (char) (paramNameChar[0] + 32);
+        }
+        String setObjName = String.valueOf(paramNameChar);
+
+        paramNameChar = getObjClassNamesource.substring(0,getObjClassNamesource.length()).toCharArray();
+        if (91 > paramNameChar[0] && paramNameChar[0] > 64) {
+            paramNameChar[0] = (char) (paramNameChar[0] + 32);
+        }
+        String getObjName = String.valueOf(paramNameChar);
+
+
+        System.out.println("public static " + setObjClassNametarget + " " + getObjName + "To" + setObjClassNametarget + "(" + getObjClassNamesource + " " + getObjName + ") {");
+        System.out.println(setObjClassNametarget + " " + setObjName + " = " + "new " + setObjClassNametarget +"();");
+        System.out.println(StringUtil.acquireSet(source, getObjName + ".",setObjName + "."));
+        System.out.println("return " + setObjName + ";");
+        System.out.println("}");
     }
 }
