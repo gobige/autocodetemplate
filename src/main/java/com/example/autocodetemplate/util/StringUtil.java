@@ -212,7 +212,11 @@ public class StringUtil {
         return excuSql;
     }
 
-    public static void main(String[] args) {
+    /**
+     * 自动生成get，set赋值语句
+     * @return
+     */
+    public static void autoGenerateGetSetByVariable() {
         String source = "";
         try {
             source = FileUtil.fileInputStreamToString("c:/暂存/getset.txt");
@@ -221,12 +225,8 @@ public class StringUtil {
         }
         source = source.replaceAll("\\s", " ");
 
-
-
         String getObjClassNamesource = "SmsUserInfo";
         String setObjClassNametarget = "SmsHistory";
-
-
 
         char[] paramNameChar = setObjClassNametarget.substring(0,setObjClassNametarget.length()).toCharArray();
 
@@ -248,5 +248,9 @@ public class StringUtil {
         System.out.println(StringUtil.acquireSet(source, getObjName + ".",setObjName + "."));
         System.out.println("return " + setObjName + ";");
         System.out.println("}");
+    }
+
+    public static void main(String[] args) {
+        autoGenerateGetSetByVariable();
     }
 }
