@@ -17,41 +17,54 @@ import java.util.Optional;
  */
 public class testDel {
     public static void main(String[] args) {
-      List<Integer> s = new ArrayList<>();
-        s.add(1);
-        s.add(2);
-        s.add(3);
-        s.add(4);
-        s.add(5);
-        s.add(6);
-        Optional sum = s.parallelStream().reduce((a,b) -> a + b);
+//      List<Integer> s = new ArrayList<>();
+//        s.add(1);
+//        s.add(2);
+//        s.add(3);
+//        s.add(4);
+//        s.add(5);
+//        s.add(6);
+//        Optional sum = s.parallelStream().reduce((a,b) -> a + b);
+//
+//        if (sum.isPresent()) {
+//            System.out.println("list sum is " + sum.get());
+//        }
+//
+//        Integer sum2 = s.parallelStream().reduce(0, (a,b) -> a+b);
+//        System.out.println("list sum is " + sum2);
+//
+//        Optional sum3 = s.parallelStream().unordered().reduce((a, b) -> a * b);
+//        System.out.println("list sum is " + sum3.get());
+//
+//         Integer sum4 = s.parallelStream().reduce(1, (a,b) -> a*b);
+//        System.out.println("list sum is " + sum4);
+//
+//    testClass1 testClass1 = new testClass1();
+////    testClass1.setName("namesss");
+////    testClass1.setAge("111");
+////    testClass1.setIsTure("true");
+//        property property = new property();
+//        property.setNum(1234213);
+//        testClass1.setProperty(property);
+//    testClass2 testClass2 = new testClass2();
+//
+//        BeanUtils.copyProperties(testClass1,testClass2);
+//        System.out.println(testClass2.toString());
 
-        if (sum.isPresent()) {
-            System.out.println("list sum is " + sum.get());
+        try {
+            throw new MyException("hahah exception");
+        } catch (MyException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
-
-        Integer sum2 = s.parallelStream().reduce(0, (a,b) -> a+b);
-        System.out.println("list sum is " + sum2);
-
-        Optional sum3 = s.parallelStream().unordered().reduce((a, b) -> a * b);
-        System.out.println("list sum is " + sum3.get());
-
-         Integer sum4 = s.parallelStream().reduce(1, (a,b) -> a*b);
-        System.out.println("list sum is " + sum4);
-
-    testClass1 testClass1 = new testClass1();
-//    testClass1.setName("namesss");
-//    testClass1.setAge("111");
-//    testClass1.setIsTure("true");
-        property property = new property();
-        property.setNum(1234213);
-        testClass1.setProperty(property);
-    testClass2 testClass2 = new testClass2();
-
-        BeanUtils.copyProperties(testClass1,testClass2);
-        System.out.println(testClass2.toString());
     }
 
+}
+
+class MyException extends Exception {
+    MyException(String str) {
+        System.out.println("excption" + str);
+    }
 }
 
 class testClass1 {
