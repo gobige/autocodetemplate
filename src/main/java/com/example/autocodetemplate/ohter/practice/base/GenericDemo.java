@@ -2,6 +2,7 @@ package com.example.autocodetemplate.ohter.practice.base;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 泛型 demo
@@ -20,6 +21,39 @@ public class GenericDemo {
     }
 }
 
+/**
+ * 泛型接口
+ * @param <T>
+ */
+interface generator<T> {
+    T next();
+}
+
+/**
+ * 斐波那契数
+ */
+class Fibonacci implements generator<Integer>{
+    private int count = 0;
+    @Override
+    public Integer next() {
+        return fib(count++);
+    }
+
+    Integer fib(int num) {
+        if (num < 2) {
+            return 1;
+        } else {
+            return fib(num - 1) + fib(num - 2);
+        }
+    }
+
+    public static void main(String[] args) {
+        Fibonacci fibonacci = new Fibonacci();
+        for (int i = 0; i < 19; i++) {
+            System.out.print(fibonacci.next() + ",");
+        }
+    }
+}
 
 /**
  * 泛型类
@@ -47,6 +81,20 @@ class genericMethod {
         System.out.println(t);
     }
 
+    /**
+     * 可变参数
+     * @param args
+     * @param <T>
+     * @return
+     */
+    public static <T> List<T> makeList(T... args) {
+        List<T> results = new ArrayList<>();
+        for (T t: args) {
+            results.add(t);
+        }
+
+        return results;
+    }
 }
 
 /**
