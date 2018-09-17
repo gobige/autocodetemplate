@@ -76,3 +76,46 @@ class notSureTypeClass<T> implements inter<T> {
         System.out.println(t);
     }
 }
+
+class building{}
+class house extends building{}
+
+/**
+ * 擦除补偿 补偿运行时由于类型擦除所丧失的某些操作能力
+ * @param <T>
+ */
+class GenericCompenate<T> {
+    Class<T> kind;
+
+    GenericCompenate(Class<T> kind) {
+        this.kind = kind;
+    }
+
+    public boolean f(Object obj) {
+        return kind.isInstance(obj);
+    }
+
+    public static void main(String[] args) {
+        GenericCompenate<building> b = new GenericCompenate<building>(building.class);
+        System.out.println(b.f(new building()));
+        System.out.println(b.f(new house()));
+        GenericCompenate<house> h = new GenericCompenate<house>(house.class);
+        System.out.println(h.f(new building()));
+        System.out.println(h.f(new house()));
+
+        List<? super test2> list = new ArrayList<>();
+        list.add(new test3());
+
+
+    }
+}
+
+class test {
+}
+
+class test2 extends test {
+
+}
+class test3 extends test2 {
+
+}
