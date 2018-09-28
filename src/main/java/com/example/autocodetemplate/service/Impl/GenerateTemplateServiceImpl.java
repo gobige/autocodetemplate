@@ -286,7 +286,7 @@ public class GenerateTemplateServiceImpl implements GenerateTemplateService {
             } else if ("isDelete".equals(paramName)) {
                 insertParamStrBuilder.append("            0,\n");
             } else {
-                insertParamStrBuilder.append("            #{item.").append(paramName).append("},\n");
+                insertParamStrBuilder.append("            #{").append(paramName).append("},\n");
             }
         }
         String insertParamStr = insertParamStrBuilder.toString();
@@ -402,7 +402,7 @@ public class GenerateTemplateServiceImpl implements GenerateTemplateService {
 
         sb.append("public interface ").append(className).append("Dao {\n")
                 .append("    ").append(className).append(" queryById(@Param(\"id\") Integer id);\n\n")
-                .append("    void insert").append(className).append("(@Param(\"item\") ").append(className).append(" item);\n\n")
+                .append("    void insert").append(className).append("(").append(className).append(" item);\n\n")
                 .append("    void insert").append(className).append("s").append("(@Param(\"items\") ").append("List<").append(className).append(">").append(" items);\n\n")
                 .append("    void update").append(className).append("(@Param(\"item\") ").append(className).append(" item);\n\n")
                 .append("    void update").append(className).append("s").append("(@Param(\"items\") ").append("List<").append(className).append(">").append(" items);\n\n")
