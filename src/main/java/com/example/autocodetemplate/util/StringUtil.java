@@ -225,8 +225,8 @@ public class StringUtil {
         }
         source = source.replaceAll("\\s", " ");
 
-        String getObjClassNamesource = "SmsUserInfo";
-        String setObjClassNametarget = "SmsHistory";
+        String getObjClassNamesource = "OssDepartmentAllowResFunctionRelationBO";
+        String setObjClassNametarget = "OssResFunctionBO";
 
         char[] paramNameChar = setObjClassNametarget.substring(0,setObjClassNametarget.length()).toCharArray();
 

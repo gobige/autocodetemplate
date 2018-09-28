@@ -244,7 +244,7 @@ public class GenerateTemplateServiceImpl implements GenerateTemplateService {
         insertParamChar[insertParamChar.length - 2] = ')';
         insertParamStr = String.valueOf(insertParamChar);
 
-        sb.append(insertFieldStr).append("        values (\n").append(insertParamStr).append("        </foreach>").append("\n").append("    </insert>\n\n");
+        sb.append(insertFieldStr).append("        values \n").append(insertParamStr).append("        </foreach>").append("\n").append("    </insert>\n\n");
 
         return sb.toString();
     }
