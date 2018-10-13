@@ -1,20 +1,17 @@
 package com.example.autocodetemplate.ohter.practice.network;
 
 import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLEncoder;
+import java.net.*;
 
 public class Net {
     public static void main(String[] args) throws IOException {
 
-        // InetAddress address = InetAddress.getByName("www.baidu.com");
-        // SecurityManager manager = new SecurityManager();
-        // manager.checkConnect("119.23.28.184",-1);
-        // //System.out.println(address.getLocalHost());
-//		URLencodeTest();
-//		httpGetTest("acfun");
+         InetAddress address = InetAddress.getByName("www.baidu.com");
+         SecurityManager manager = new SecurityManager();
+         manager.checkConnect("119.23.28.184",-1);
+         System.out.println(address.getLocalHost());
+		URLencodeTest();
+		httpGetTest("acfun");
         testDeleteMethod();
     }
 

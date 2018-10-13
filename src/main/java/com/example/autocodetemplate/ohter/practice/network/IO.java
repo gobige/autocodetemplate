@@ -4,17 +4,16 @@ import java.io.*;
 
 public class IO {
     public static void main(String[] args) {
-//		try(OutputStream outputStream = new FileOutputStream("d:\\test.txt");InputStream inputStream = new FileInputStream("d:\\test.txt");) {
-//			writeByteTofile(outputStream);
-//			
-//			byte[] b = readByteTofileByBuf(inputStream);
-//			
-//		  System.out.println(b[2] >= 0 ? b[2] : b[2] + 256);
-//			
-//			
-//		} catch (Exception e) {
-//
-//		}
+		try(OutputStream outputStream = new FileOutputStream("d:\\test.txt");
+            InputStream inputStream = new FileInputStream("d:\\test2.txt");) {
+			writeByteTofile(outputStream);
+
+			byte[] b = readByteTofileByBuf(inputStream);
+
+		  System.out.println(b[2] >= 0 ? b[2] : b[2] + 256);
+		} catch (Exception e) {
+
+		}
 
         try {
             OutputStream OS = new FileOutputStream("d:\\test.txt");
