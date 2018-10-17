@@ -40,11 +40,12 @@ final class BIOClient {
     public static final String SERVER_IP = "192.168.1.120";
     public static final int SERVER_PORT = 14399;
 
+    // java 中的静态方法时公用的，多线程模式下也会造成阻塞
     public static void sendMes(String mes) {
         Socket socket = null;
         try {
             socket = new Socket(SERVER_IP, SERVER_PORT);
-            inputOutStream(socket,mes);
+            clientInputOutStream(socket,mes);
         } catch (Exception e) {
             System.err.println("BIO客户端=》套接字创建失败-》" + e.getMessage());
             return;
@@ -59,7 +60,12 @@ final class BIOClient {
         }
     }
 
-    public static void inputOutStream(Socket socket,String mes) {
+    /**
+     * 客户端获取流
+     * @param socket
+     * @param mes
+     */
+    public static void clientInputOutStream(Socket socket,String mes) {
         BufferedReader bufferedReader = null;
         PrintWriter printWriter =  null;
         try {
@@ -68,6 +74,7 @@ final class BIOClient {
             System.out.println("BIO客户端=》发送数据");
             printWriter.println(mes);
             System.out.println("BIO客户端=》发送数据完成");
+            // 客户端会一直等待服务端的回复或者断开连接的通知
             System.out.println("BIO客户端=》得到服务器答复：" + bufferedReader.readLine());
         }catch (Exception e) {
             System.err.println("BIO客户端=》io流创建失败-》" + e.getMessage());
@@ -109,7 +116,10 @@ final class BIOServer {
         }
     }
 
-
+    /**
+     * 服务端获取流
+     * @param socket
+     */
     public static void serverInputOutputStream(Socket socket) {
         BufferedReader in = null;
         PrintWriter out = null;
@@ -117,14 +127,15 @@ final class BIOServer {
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new PrintWriter(socket.getOutputStream(), true);
             String receiptMes;
-            System.out.println("BIO服务器=》获取到数据:");
             while (true) {
                 try {
+                    // 如果客户端不断开连接或自身服务端不断开连接，服务端会一直等待客户端发送数据
                     if ((receiptMes = in.readLine()) == null) {
                         break;
                     }
-                    System.out.println(receiptMes);
-                    out.println("BIO服务器=》我已收到你的数据:" + receiptMes);
+                    System.out.println("BIO服务器=》获取到数据:" + receiptMes);
+                    Thread.sleep(8000);
+                    out.println("我已收到你的数据:" + receiptMes);
                 } catch (Exception e) {
                     System.err.println("BIO服务器=》流数据读取失败-》" + e.getMessage());
                     return;
