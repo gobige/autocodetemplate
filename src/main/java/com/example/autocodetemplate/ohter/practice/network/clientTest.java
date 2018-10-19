@@ -12,13 +12,35 @@ package com.example.autocodetemplate.ohter.practice.network;
 public class clientTest {
 
     public static void main(String[] args) throws Exception{
-        NIOClient nioClient = new NIOClient("192.168.1.120", 9527);
-        nioClient.run();
-//
-//        Thread.sleep(4000);
-//        nioClient.sendMes("hello world");
-//        Thread.sleep(4000);
-//        nioClient.sendMes("hello world second");
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                NIOClient nioClient = new NIOClient("192.168.1.120", 9527);
+                nioClient.run();
+                try {
+                    Thread.sleep(1000);
+                    nioClient.sendMes("hello world1111111");
+                } catch (Exception e) {
+
+                }
+            }
+        }).start();
+
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                NIOClient nioClient = new NIOClient("192.168.1.120", 9527);
+                nioClient.run();
+                try {
+                    Thread.sleep(1000);
+                    nioClient.sendMes("hello world");
+                } catch (Exception e) {
+
+                }
+            }
+        }).start();
 
     }
 

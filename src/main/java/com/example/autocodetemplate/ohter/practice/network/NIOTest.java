@@ -103,6 +103,7 @@ final class NIOServer {
         }, "nioserver").start();
     }
 
+
     private void handleSelect(SelectionKey selectionKey) {
         if (selectionKey.isValid()) {
             System.out.println("NIO服务器-》key验证通过（channel,selctor没有close，key没有cancel）");
@@ -227,7 +228,7 @@ final class NIOClient {
                 while (started) {
                     // 唤醒选择器
                     try {
-                        selector.select();
+                        selector.select(4000);
                     } catch (Exception e) {
                         System.err.println("NIO客户端-》select唤醒失败" + e);
                         return;
