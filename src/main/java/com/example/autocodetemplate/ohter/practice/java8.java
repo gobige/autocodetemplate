@@ -210,9 +210,17 @@ class StreamTest {
         // List中去除某值形成List
         List<Apple> apples = new ArrayList<Apple>();
         List<Apple> apples2 = new ArrayList<Apple>();
-        Apple a = new Apple();
+        List<Apple> apples3 = null;
+        Apple a = new Apple(1,2,"china");
         apples.add(a);
+
+        // 自动判空元素
+        apples3 = apples3.stream()
+                .filter(item -> Optional.ofNullable(item).isPresent() && item.getWight() > 3).collect(Collectors.toList());
+
+        // List获取指定属性组成list
         List<String> names = apples.stream().map(Apple::getName).collect(Collectors.toList());
+        // List获取指定属性组成set
         Set<String> nameSets = apples.stream().map(Apple::getCountry).collect(Collectors.toSet());
         // List 转map
         Map<Integer, String> map = apples.stream().collect(Collectors.toMap(Apple::getWight, Apple::getCountry));
