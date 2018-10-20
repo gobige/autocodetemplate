@@ -214,21 +214,19 @@ public class StringUtil {
 
     /**
      * 自动生成get，set赋值语句
+     *
      * @return
      */
-    public static void autoGenerateGetSetByVariable() {
-        String source = "";
+    public static void autoGenerateGetSetByVariable(String getObjClassNamesource, String setObjClassNametarget, String sourcePath) {
+        String fileContent = "";
         try {
-            source = FileUtil.fileInputStreamToString("c:/暂存/getset.txt");
+            fileContent = FileUtil.fileInputStreamToString(sourcePath);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        source = source.replaceAll("\\s", " ");
+        fileContent = fileContent.replaceAll("\\s", " ");
 
-        String getObjClassNamesource = "OssDepartmentAllowResFunctionRelationBO";
-        String setObjClassNametarget = "OssResFunctionBO";
-
-        char[] paramNameChar = setObjClassNametarget.substring(0,setObjClassNametarget.length()).toCharArray();
+        char[] paramNameChar = setObjClassNametarget.substring(0, setObjClassNametarget.length()).toCharArray();
 
         // 首字母转小写
         if (91 > paramNameChar[0] && paramNameChar[0] > 64) {
@@ -236,7 +234,7 @@ public class StringUtil {
         }
         String setObjName = String.valueOf(paramNameChar);
 
-        paramNameChar = getObjClassNamesource.substring(0,getObjClassNamesource.length()).toCharArray();
+        paramNameChar = getObjClassNamesource.substring(0, getObjClassNamesource.length()).toCharArray();
         if (91 > paramNameChar[0] && paramNameChar[0] > 64) {
             paramNameChar[0] = (char) (paramNameChar[0] + 32);
         }
@@ -244,13 +242,13 @@ public class StringUtil {
 
 
         System.out.println("public static " + setObjClassNametarget + " " + getObjName + "To" + setObjClassNametarget + "(" + getObjClassNamesource + " " + getObjName + ") {");
-        System.out.println(setObjClassNametarget + " " + setObjName + " = " + "new " + setObjClassNametarget +"();");
-        System.out.println(StringUtil.acquireSet(source, getObjName + ".",setObjName + "."));
+        System.out.println(setObjClassNametarget + " " + setObjName + " = " + "new " + setObjClassNametarget + "();");
+        System.out.println(StringUtil.acquireSet(fileContent, getObjName + ".", setObjName + "."));
         System.out.println("return " + setObjName + ";");
         System.out.println("}");
     }
 
     public static void main(String[] args) {
-        autoGenerateGetSetByVariable();
+        autoGenerateGetSetByVariable("OssAccount","OssAccountVo","c:/暂存/getset.txt");
     }
 }
