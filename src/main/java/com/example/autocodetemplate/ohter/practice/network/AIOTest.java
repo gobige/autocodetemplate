@@ -21,51 +21,74 @@ public class AIOTest {
     public static void main(String[] args) throws Exception{
         AIOServer aioServer = new AIOServer(9527);
         aioServer.start();
-//        Thread.sleep(1000);
-//        AIOClient aioClient = new AIOClient("localhost", 9327);
-//        aioClient.start();
-//        aioClient.sendMsg("hello,good night!!!");
+        Thread.sleep(1000);
+        AIOClient aioClient = new AIOClient("192.168.1.120", 9527);
+        aioClient.start();
+        aioClient.sendMsg("hello,good night!!!");
     }
 }
 
 final class AIOServer {
-    public CountDownLatch latch;
-    public AsynchronousServerSocketChannel channel;
+    public int port = 0;
+    public AsyncServerHandler asyncServerHandler;
     public static int connectCount = 0;
     AIOServer(int port) {
+        this.port = port;
+    }
+
+    public void start() {
+        if (asyncServerHandler == null) {
+            asyncServerHandler = new AsyncServerHandler(port);
+        }
+        new Thread(asyncServerHandler, "AIOServer").start();
+    }
+}
+
+final class AsyncServerHandler implements Runnable {
+    public CountDownLatch latch;
+    public AsynchronousServerSocketChannel channel;
+
+    AsyncServerHandler(int port) {
         try {
             channel = AsynchronousServerSocketChannel.open();
             channel.bind(new InetSocketAddress(port));
+            System.err.println("AIO服务端-》创建开启成功：");
         } catch (IOException e) {
             System.err.println("AIO服务端-》创建开启失败：" + e.getMessage());
             return;
         }
     }
 
-    public void start() {
+    @Override
+    public void run() {
         latch = new CountDownLatch(1);
         channel.accept(this,new ServerAcceptHandler());
+        try {
+            latch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
-
 // 处理客户端连接请求
-final class ServerAcceptHandler implements CompletionHandler<AsynchronousSocketChannel, AIOServer> {
+final class ServerAcceptHandler implements CompletionHandler<AsynchronousSocketChannel, AsyncServerHandler> {
     @Override
-    public void completed(AsynchronousSocketChannel channel, AIOServer aioServer) {
+    public void completed(AsynchronousSocketChannel channel, AsyncServerHandler asyncServerHandler) {
         AIOServer.connectCount++;
-        System.out.println("当前客户端连接请求数为:" + AIOServer.connectCount);
+        System.out.println("AIO服务端-》当前客户端连接请求数为:" + AIOServer.connectCount);
 
-        aioServer.channel.accept(aioServer, this);
+        asyncServerHandler.channel.accept(asyncServerHandler, this);
 
         ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
         channel.read(byteBuffer, byteBuffer, new ServerReadHandler(channel));
     }
 
     @Override
-    public void failed(Throwable exc, AIOServer attachment) {
+    public void failed(Throwable exc, AsyncServerHandler asyncServerHandler) {
         exc.printStackTrace();
-        attachment.latch.countDown();
+        asyncServerHandler.latch.countDown();
     }
+
 }
 
 final class ServerReadHandler implements CompletionHandler<Integer, ByteBuffer> {
@@ -126,9 +149,9 @@ final class ServerReadHandler implements CompletionHandler<Integer, ByteBuffer> 
 }
 
 final class AIOClient {
-    private static String host;
-    private static int port;
-    private static AsyncClientHandler asyncClientHandler;
+    private  String host;
+    private  int port;
+    public AsyncClientHandler asyncClientHandler;
 
     AIOClient(String host,int port) {
         this.host = host;
@@ -149,10 +172,10 @@ final class AIOClient {
 
 class AsyncClientHandler implements CompletionHandler<Void, AsyncClientHandler>, Runnable {
 
-    private static String host;
-    private static AsynchronousSocketChannel clientChannel;
-    private static int port;
-    private static CountDownLatch latch;
+    private  String host;
+    private  AsynchronousSocketChannel clientChannel;
+    private  int port;
+    private  CountDownLatch latch;
 
     AsyncClientHandler(String host,int port) {
         this.host = host;

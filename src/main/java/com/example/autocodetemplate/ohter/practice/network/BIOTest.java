@@ -23,13 +23,13 @@ public class BIOTest {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                int i = 10;
-                while (true) {
-                    if (i < 0) {
-                        break;
-                    }
-                    BIOClient.sendMes("我向你发送数字：" + i);
-                    i--;
+                NIOClient nioClient = new NIOClient("192.168.1.120", 9527);
+                nioClient.run();
+                try {
+                    Thread.sleep(1000);
+                    nioClient.sendMes("hello world");
+                } catch (Exception e) {
+
                 }
             }
         }).start();
