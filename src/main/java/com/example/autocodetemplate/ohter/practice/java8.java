@@ -35,7 +35,12 @@ public class java8 {
      * Function   return obj
      */
 
-
+    /**
+     * FunctionalInterface test
+     * @param brp
+     * @return
+     * @throws IOException
+     */
     public static String processFile(bufferReaderProcessor brp) throws IOException {
         try (BufferedReader br = new BufferedReader(new FileReader("c:暂存/test.txt"))) {
             return brp.process(br);
@@ -136,6 +141,12 @@ public class java8 {
         if (nowTime2.isAfter(startTime)) {
             System.out.println("yes nowtime is after starttime!!!!!!!!!!!!!!!!!!!");
         }
+
+
+        // 获取比当前时间大的最小的时间
+        List<Date> dateList = new ArrayList<>();
+
+        Date mindate = dateList.stream().filter(date -> date.getTime() > System.currentTimeMillis()).min(Comparator.comparing(Date::getTime)).get();
     }
 }
 
@@ -208,36 +219,48 @@ class testNullStreamPut {
 class StreamTest {
     public static void main(String[] args) {
         // List中去除某值形成List
+        // 准备练习数据
         List<Apple> apples = new ArrayList<Apple>();
+        apples.add(new Apple(1,2,"china"));
+        apples.add(new Apple(2,3,"china"));
+        apples.add(new Apple(3,1,"brazil"));
+        apples.add(new Apple(4,3,"china"));
+        apples.add(new Apple(5,2,"brazil"));
+        apples.add(new Apple(6,2,"american"));
+
         List<Apple> apples2 = new ArrayList<Apple>();
-        List<Apple> apples3 = null;
-        Apple a = new Apple(1,2,"china");
-        apples.add(a);
+        apples.add(new Apple(1,2,"china"));
+        apples.add(new Apple(2,11,"spanish"));
+        apples.add(new Apple(3,4,"brazil"));
+        apples.add(new Apple(3,3,"american"));
 
-        // 自动判空元素
-        apples3 = apples3.stream()
-                .filter(item -> Optional.ofNullable(item).isPresent() && item.getWight() > 3).collect(Collectors.toList());
+        List<Apple> apples3 = new ArrayList<Apple>();
 
-        // List获取指定属性组成list
+        List<Apple> apples4 = null;
+
+        // 过滤 1 Stream流合可以对空集合进行操作，2但是不能对空对象进行操作，3而且通过collect()方法得到的是一个新的集合
+        apples3 = apples3.stream().filter(item -> item != null && item.getWight() > 3).collect(Collectors.toList());
+
+        // List获取指定**属性**组成新list
         List<String> names = apples.stream().map(Apple::getName).collect(Collectors.toList());
-        // List获取指定属性组成set
+
+        // List获取指定**属性**组成新set
         Set<String> nameSets = apples.stream().map(Apple::getCountry).collect(Collectors.toSet());
-        // List 转map
-        Map<Integer, String> map = apples.stream().collect(Collectors.toMap(Apple::getWight, Apple::getCountry));
 
-        // List中字段求和
-        Integer test = apples.stream().collect(Collectors.summingInt(Apple::getWight));
-        // 获取比当前时间大的最小的时间
-        List<Date> dateList = new ArrayList<>();
+        // List获取指定**属性或对象**组成新set
+        Map<Integer, String> map = apples.stream().collect(Collectors.toMap(Apple::getSeqNo, Apple::getName));
 
-        Date mindate = dateList.stream().filter(date -> date.getTime() > System.currentTimeMillis()).min(Comparator.comparing(Date::getTime)).get();
+        // List中指定**属性**求和
+        Integer sum = apples.stream().collect(Collectors.summingInt(Apple::getWight));
 
-        // 求交集
-        List<Apple> list3 = apples.stream().filter(item -> apples2.contains(item)).collect(Collectors.toList());
-        // 球最小
+        // 求两个相同类型元素集合的交集
+        List<Apple> Intersections = apples.stream().filter(item -> apples2.contains(item)).collect(Collectors.toList());
+
+        // List中指定**属性**最小元素
         Apple minAppple = apples.stream().min(Comparator.comparing(Apple::getWight)).get();
-        // 求差集
-        List<Apple> list4 = apples.stream().filter(item -> !apples2.contains(item)).collect(Collectors.toList());
+
+        // 求两个相同类型元素集合的差集
+        List<Apple> Difference = apples.stream().filter(item -> !apples2.contains(item)).collect(Collectors.toList());
         // 求去重并集
         apples.addAll(apples2);
         apples.stream().distinct().collect(Collectors.toList());
