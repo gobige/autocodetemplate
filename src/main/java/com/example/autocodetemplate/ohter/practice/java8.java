@@ -256,19 +256,20 @@ class StreamTest {
         // 求两个相同类型元素集合的交集
         List<Apple> Intersections = apples.stream().filter(item -> apples2.contains(item)).collect(Collectors.toList());
 
-        // List中指定**属性**最小元素
+        // List中指定**属性的值**最小元素
         Apple minAppple = apples.stream().min(Comparator.comparing(Apple::getWight)).get();
 
         // 求两个相同类型元素集合的差集
-        List<Apple> Difference = apples.stream().filter(item -> !apples2.contains(item)).collect(Collectors.toList());
+        List<Apple> Differs = apples.stream().filter(item -> !apples2.contains(item)).collect(Collectors.toList());
+
         // 求去重并集
         apples.addAll(apples2);
         apples.stream().distinct().collect(Collectors.toList());
 
-        //循环输出
+        //循环集合内元素并做处理
         apples.stream().forEach(System.out::println);
 
-        // 分组
+        // 以某属性对集合分组
         Map<String, List<Apple>> result2 = apples.stream().collect(Collectors.groupingBy(Apple::getCountry));
 
     }
