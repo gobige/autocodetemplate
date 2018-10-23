@@ -55,20 +55,20 @@ public class java8 {
     }
 
     public static void main(String[] args) {
-//        try {
-//            String online = processFile((BufferedReader br) -> br.readLine());
-//        } catch (Exception e) {
-//
-//        }
-//
-//        Http http = new Http("http", "userToken", "www.imokenet.com", "name", "yates");
-//        Function<String, String> urlStr = Http::addProtocol;
-//
-//
-//        Function<String, String> urlStr2 = urlStr.andThen(Http::addHeader).andThen(Http::addUrl);
-//        // TODO 咋个输出String
-//        System.out.println(urlStr2.apply("1").toString());
-//
+        try {
+            String online = processFile((BufferedReader br) -> br.readLine());
+        } catch (Exception e) {
+
+        }
+
+        Http http = new Http("http", "userToken", "www.imokenet.com", "name", "yates");
+        Function<String, String> urlStr = Http::addProtocol;
+
+
+        Function<String, String> urlStr2 = urlStr.andThen(Http::addHeader).andThen(Http::addUrl);
+        // TODO 咋个输出String
+        System.out.println(urlStr2.apply("1").toString());
+
 
     }
 }
@@ -153,7 +153,7 @@ class TimeTest {
 
         Duration duration = Duration.between(custldt2, custldt1);
         System.out.println("时间1和时间2的duration：" + duration);
-        System.out.println("时间1和时间2的period：" + Period.between(custDate2, custDate1));
+        System.out.println("时间1和时间2的间隔天数：" + Period.between(custDate2, custDate1).getDays());
         System.out.println("时间1是否在时间2之后:" + custldt1.isAfter(custldt2));
 
         List<Date> dateList = new ArrayList<>();
