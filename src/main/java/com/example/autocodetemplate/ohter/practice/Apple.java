@@ -25,6 +25,13 @@ public class Apple implements Serializable {
         this.country = country;
     }
 
+    public Apple(Integer seqNo, Integer wight, String country,String name) {
+        this.seqNo = seqNo;
+        this.wight = wight;
+        this.country = country;
+        this.name = name;
+    }
+
     private Integer seqNo;
     private Integer wight;
     private String country;

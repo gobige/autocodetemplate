@@ -1,5 +1,7 @@
 package com.example.autocodetemplate.ohter.practice;
 
+import com.example.autocodetemplate.util.TimeUtil;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -35,6 +37,11 @@ public class java8 {
      * Function   return obj
      */
 
+    @FunctionalInterface
+    interface bufferReaderProcessor {
+        String process(BufferedReader reader) throws IOException;
+    }
+
     /**
      * FunctionalInterface test
      * @param brp
@@ -48,105 +55,21 @@ public class java8 {
     }
 
     public static void main(String[] args) {
-        try {
-            String online = processFile((BufferedReader br) -> br.readLine());
-        } catch (Exception e) {
+//        try {
+//            String online = processFile((BufferedReader br) -> br.readLine());
+//        } catch (Exception e) {
+//
+//        }
+//
+//        Http http = new Http("http", "userToken", "www.imokenet.com", "name", "yates");
+//        Function<String, String> urlStr = Http::addProtocol;
+//
+//
+//        Function<String, String> urlStr2 = urlStr.andThen(Http::addHeader).andThen(Http::addUrl);
+//        // TODO 咋个输出String
+//        System.out.println(urlStr2.apply("1").toString());
+//
 
-        }
-        List<Apple> list = new ArrayList<Apple>();
-        Apple a1 = new Apple();
-        a1.setWight(100);
-        a1.setCountry("chiana");
-        Apple a2 = new Apple();
-        a2.setWight(50);
-        a2.setCountry("japan");
-        Apple a3 = new Apple();
-        a3.setWight(500);
-        a3.setCountry("danmai");
-        Apple a4 = new Apple();
-        a4.setWight(500);
-        a4.setCountry("Australian");
-
-        list.add(a1);
-        list.add(a2);
-        list.add(a3);
-        list.add(a4);
-        list.sort(Comparator.comparing(Apple::getWight));
-        list.sort(Comparator.comparing(Apple::getWight).reversed());
-        list.sort(Comparator.comparing(Apple::getWight).reversed().thenComparing(Apple::getCountry));
-        System.out.println(list);
-
-        List<Apple> apples = list.stream().filter(apple -> apple.getWight() > 100).collect(Collectors.toList());
-        Map appleMaps = list.stream().filter(apple -> apple.getWight() > 100).collect(Collectors.toMap(Apple::getCountry, Function.identity()));
-        Function<Integer, Integer> f = x -> x + 1;
-        Function<Integer, Integer> f2 = x -> x * 2;
-        System.out.println(f.andThen(f2).apply(1)); //(T t) -> after.apply(apply(t));
-        System.out.println(f.compose(f2).apply(1));  //(V v) -> apply(before.apply(v));
-        Http http = new Http("http", "userToken", "www.imokenet.com", "name", "yates");
-        Function<String, String> urlStr = Http::addProtocol;
-
-
-        Function<String, String> urlStr2 = urlStr.andThen(Http::addHeader).andThen(Http::addUrl);
-        // TODO 咋个输出String
-        System.out.println(urlStr2.apply("1").toString());
-
-
-        LocalDate nowdate = LocalDate.now();
-        System.out.println("localdate" + nowdate.get(ChronoField.YEAR));
-        LocalTime nowTime = LocalTime.parse("17:17:40");
-        LocalDateTime ldt = LocalDateTime.of(nowdate, nowTime);
-        System.out.println("localDataTime----" + ldt);
-        Instant.now();
-        System.out.println("instant machine" + Instant.now());
-        LocalDate nowOld = LocalDate.of(1993, 9, 29);
-        LocalTime nowTimeOld = LocalTime.parse("17:17:40");
-        LocalDateTime ldtOld = LocalDateTime.of(nowOld, nowTimeOld);
-        System.out.println("ldtOld-----" + ldtOld);
-        System.out.println("1993-09-29T17:17:40 long型数据为-----" + ldtOld.toEpochSecond(ZoneOffset.of("+8")));
-
-        Duration duration = Duration.between(ldt, ldtOld);
-        System.out.println("duration--------" + duration);
-        System.out.println("period------" + Period.between(nowdate, nowOld));
-        try {
-            Thread.sleep(1000L);
-        } catch (Exception e) {
-
-        }
-
-        System.out.println("instant machine " + Instant.now());
-        System.out.println("localdate withyear " + nowdate.withYear(1993));
-        System.out.println("localdate with month " + nowdate.with(ChronoField.MONTH_OF_YEAR, 9));
-        System.out.println("localdate mins days " + nowdate.minusDays(9));
-        System.out.println("localdate with last of the month " + nowOld.with(lastDayOfMonth()));
-        System.out.println("BASIC_ISO_DATE" + nowdate.format(DateTimeFormatter.BASIC_ISO_DATE));
-        System.out.println("ISO_LOCAL_DATE" + nowdate.format(DateTimeFormatter.ISO_LOCAL_DATE));
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
-        System.out.println("user_defined_formatter" + nowdate.format(dateTimeFormatter));
-        ZoneId romaZone = ZoneId.of("Europe/Rome");
-        System.out.println("Europe/Rome time is " + ldt.atZone(romaZone));
-
-        Optional<Apple> optional = Optional.empty();
-        Apple apple = new Apple();
-        Optional<Apple> optional1 = Optional.of(apple);
-
-        // null传入
-        DateTimeFormatter dateTimeFormattertwo = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
-        LocalDateTime startTime;
-        LocalDateTime endTime;
-        LocalDateTime nowTime2 = LocalDateTime.of(LocalDate.now(), LocalTime.now());
-
-        startTime = LocalDateTime.parse("", dateTimeFormattertwo);
-        if (nowTime2.isAfter(startTime)) {
-            System.out.println("yes nowtime is after starttime!!!!!!!!!!!!!!!!!!!");
-        }
-
-
-        // 获取比当前时间大的最小的时间
-        List<Date> dateList = new ArrayList<>();
-
-        Date mindate = dateList.stream().filter(date -> date.getTime() > System.currentTimeMillis()).min(Comparator.comparing(Date::getTime)).get();
     }
 }
 
@@ -187,52 +110,120 @@ class Http {
 }
 
 
-@FunctionalInterface
-interface bufferReaderProcessor {
-    String process(BufferedReader reader) throws IOException;
+class TimeTest {
+    public static void main(String[] args) {
+
+
+        LocalDate nowdate = LocalDate.now();
+        System.out.println("获取当前日期：" + nowdate);
+        System.out.println("获取当前日期的年份:" + nowdate.get(ChronoField.YEAR) + ",月份:" + nowdate.get(ChronoField.MONTH_OF_YEAR) + ",日:" + nowdate.get(ChronoField.DAY_OF_MONTH));
+        System.out.println("修改当前时间的年份" + nowdate.withYear(1993));
+        System.out.println("修改当前时间的月份" + nowdate.with(ChronoField.MONTH_OF_YEAR, 9));
+        System.out.println("修改当前时间的日期" + nowdate.minusDays(9));
+        System.out.println("修改当前时间的日期为当前月份最后一天" + nowdate.with(lastDayOfMonth()));
+        System.out.println("BASIC_ISO_DATE格式化日期" + nowdate.format(DateTimeFormatter.BASIC_ISO_DATE));
+        System.out.println("ISO_LOCAL_DATE格式化日期" + nowdate.format(DateTimeFormatter.ISO_LOCAL_DATE));
+        System.out.println("------------------------------------------------------------");
+
+        LocalTime nowTime = LocalTime.now();
+        LocalDateTime ldt = LocalDateTime.of(nowdate, nowTime);
+        System.out.println("获取当前日期，时间" + ldt);
+        System.out.println("获取从时间纪元到现在偏移量为8的秒数" + ldt.toEpochSecond(ZoneOffset.of("+8")));
+        System.out.println("------------------------------------------------------------");
+
+
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        System.out.println("自定义格式化日期,时间" + ldt.format(dateTimeFormatter));
+        System.out.println("------------------------------------------------------------");
+
+
+        // 必须固定格式,才能解析
+        LocalTime custTime1 = LocalTime.parse("17:17:40");
+        LocalDate custDate1 = LocalDate.parse("1994-09-29");
+        LocalDateTime custldt1 = LocalDateTime.of(custDate1, custTime1);
+        System.out.println("获取自定义日期，时间1:" + custldt1);
+
+        LocalDate custDate2 = LocalDate.of(2993, 11, 12);
+        LocalTime custTime2 = LocalTime.of(1,4,59);
+        LocalDateTime custldt2 = LocalDateTime.of(custDate2, custTime2);
+        System.out.println("获取自定义日期，时间2:" + custldt2);
+
+        LocalDateTime custldt3 = LocalDateTime.parse("2028-05-12 12:11:07", dateTimeFormatter);
+        System.out.println("获取自定义日期，时间3:" + custldt3);
+
+        Duration duration = Duration.between(custldt2, custldt1);
+        System.out.println("时间1和时间2的duration：" + duration);
+        System.out.println("时间1和时间2的period：" + Period.between(custDate2, custDate1));
+        System.out.println("时间1是否在时间2之后:" + custldt1.isAfter(custldt2));
+
+        List<Date> dateList = new ArrayList<>();
+        dateList.add(TimeUtil.localDateTimeToDate(custldt1));
+        dateList.add(TimeUtil.localDateTimeToDate(custldt2));
+        dateList.add(TimeUtil.localDateTimeToDate(custldt3));
+        Long cutTime = System.currentTimeMillis();
+        Date mindate = dateList.stream().filter(date -> date.getTime() > cutTime).min(Comparator.comparing(Date::getTime)).get();
+        System.out.println("通过传统date方式比较,从时间1,2,3中获取比指定时间大的最小时间:" + mindate);
+
+        List<LocalDateTime> localDateTimeList = new ArrayList<>();
+        localDateTimeList.add(custldt1);
+        localDateTimeList.add(custldt2);
+        localDateTimeList.add(custldt3);
+        LocalDateTime cutDateTime = LocalDateTime.of(LocalDate.now(),LocalTime.now());
+        LocalDateTime minDateTime = localDateTimeList.stream().filter(date -> date.isAfter(cutDateTime)).min(Comparator.comparing(Function.identity())).get();
+        System.out.println("通过java8的times方式比较,从时间1,2,3中获取比指定时间大的最小时间:" + minDateTime);
+        System.out.println("------------------------------------------------------------");
+
+        // 从1970-01-01 00：00：00到当前时间的毫秒值,(获取的是美国时间)
+        Instant ins = Instant.now();
+        System.out.println("获取时间纪元开始到现在时间" + ins);
+        // 设置偏移量
+        OffsetDateTime time=ins.atOffset(ZoneOffset.ofHours(8));
+        System.out.println("获取时间纪元开始到现在,偏移8小时时间" + time);
+        ZoneId romaZone = ZoneId.of("Europe/Rome");
+        System.out.println("自定义显示当前时间罗马时区显示 " + ldt.atZone(romaZone));
+        // 获取本地默认时区时间
+        ZonedDateTime zoneDateTime=ins.atZone(ZoneId.systemDefault());
+        System.out.println("获取时间纪元开始到现在,本地时区时间" + zoneDateTime);
+    }
 }
 
 
-class testStringJoiner {
+/**
+ * string test
+ */
+class StringTest {
     public static void main(String[] str) {
+        // StringJoiner类的使用
         StringJoiner sj = new StringJoiner(",", "[", "]");
-        sj.add("is");
-        sj.add("test");
+        sj.add("str1");sj.add("str2");
         StringJoiner sj2 = new StringJoiner(",", "{", "}");
-        sj2.add("yes");
-        sj2.add("work");
+        sj2.add("str3");sj2.add("str4");
+        // 将sj2的元素合并到sj1中
         sj.merge(sj2);
         System.out.println(sj.toString() + sj.length());
     }
 }
 
-class testNullStreamPut {
-    public static void main(String[] args) {
-        List<Integer> testList = null;
-        List<Integer> outPutStream = testList.stream().filter(integer -> integer > 0).collect(Collectors.toList());
-        System.out.println(outPutStream.isEmpty());
-    }
-
-}
-
-
+/**
+ * 流练习
+ */
 class StreamTest {
     public static void main(String[] args) {
         // List中去除某值形成List
         // 准备练习数据
         List<Apple> apples = new ArrayList<Apple>();
-        apples.add(new Apple(1,2,"china"));
-        apples.add(new Apple(2,3,"china"));
-        apples.add(new Apple(3,1,"brazil"));
-        apples.add(new Apple(4,3,"china"));
-        apples.add(new Apple(5,2,"brazil"));
-        apples.add(new Apple(6,2,"american"));
+        apples.add(new Apple(1,2,"china","apple1"));
+        apples.add(new Apple(2,3,"china","apple2"));
+        apples.add(new Apple(3,1,"brazil","apple3"));
+        apples.add(new Apple(4,3,"china","apple4"));
+        apples.add(new Apple(5,7,"brazil","apple5"));
+        apples.add(new Apple(6,2,"american","apple6"));
 
         List<Apple> apples2 = new ArrayList<Apple>();
-        apples.add(new Apple(1,2,"china"));
-        apples.add(new Apple(2,11,"spanish"));
-        apples.add(new Apple(3,4,"brazil"));
-        apples.add(new Apple(3,3,"american"));
+        apples2.add(new Apple(1,2,"china","apple1"));
+        apples2.add(new Apple(4,3,"china","apple4"));
+        apples2.add(new Apple(5,2,"brazil","apple5"));
+        apples2.add(new Apple(3,3,"american","apple2"));
 
         List<Apple> apples3 = new ArrayList<Apple>();
 
@@ -241,23 +232,39 @@ class StreamTest {
         // 过滤 1 Stream流合可以对空集合进行操作，2但是不能对空对象进行操作，3而且通过collect()方法得到的是一个新的集合
         apples3 = apples3.stream().filter(item -> item != null && item.getWight() > 3).collect(Collectors.toList());
 
+        // 过滤 查询某个属性值符合某条件的元素
+        apples = apples.stream().filter(apple -> apple.getWight() > 1).collect(Collectors.toList());
+
+        Function<Integer, Integer> f = x -> x + 1;
+        Function<Integer, Integer> f2 = x -> x * 2;
+        System.out.println(f.andThen(f2).apply(1)); //(T t) -> after.apply(apply(t));
+        System.out.println(f.compose(f2).apply(1));  //(V v) -> apply(before.apply(v));
+
         // List获取指定**属性**组成新list
         List<String> names = apples.stream().map(Apple::getName).collect(Collectors.toList());
 
         // List获取指定**属性**组成新set
         Set<String> nameSets = apples.stream().map(Apple::getCountry).collect(Collectors.toSet());
 
-        // List获取指定**属性或对象**组成新set
+        // List获取指定**属性或对象**组成新map(tomap操作中key值不能重复，value值不能为null，否则会报错)
         Map<Integer, String> map = apples.stream().collect(Collectors.toMap(Apple::getSeqNo, Apple::getName));
+        Map appleMaps = apples.stream().collect(Collectors.toMap(Apple::getName, Function.identity()));
 
         // List中指定**属性**求和
         Integer sum = apples.stream().collect(Collectors.summingInt(Apple::getWight));
 
-        // 求两个相同类型元素集合的交集
+        // 使用户过滤的方式，求两个相同类型集合的**对象**的交集
         List<Apple> Intersections = apples.stream().filter(item -> apples2.contains(item)).collect(Collectors.toList());
 
         // List中指定**属性的值**最小元素
         Apple minAppple = apples.stream().min(Comparator.comparing(Apple::getWight)).get();
+
+        // 根据某个属性值对集合排序 由小到大
+        apples.sort(Comparator.comparing(Apple::getWight));
+        // 根据某个属性值对集合排序 由大到小
+        apples.sort(Comparator.comparing(Apple::getWight).reversed());
+        // 根据某个属性值对集合排序 先按某属性排序，再按另外某属性再次排序
+        apples.sort(Comparator.comparing(Apple::getWight).reversed().thenComparing(Apple::getCountry));
 
         // 求两个相同类型元素集合的差集
         List<Apple> Differs = apples.stream().filter(item -> !apples2.contains(item)).collect(Collectors.toList());
