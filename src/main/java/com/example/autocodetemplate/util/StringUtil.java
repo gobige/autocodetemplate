@@ -213,6 +213,17 @@ public class StringUtil {
     }
 
     /**
+     * 格式化mysql 为单行
+     * @return
+     */
+    public static void formatSqlToSingleLine(String buildSqlStr) {
+        // 去除换行符
+        buildSqlStr = buildSqlStr.replaceAll("\n", " ");
+        buildSqlStr = buildSqlStr.replaceAll("\t","");
+        System.out.println(buildSqlStr);
+    }
+
+    /**
      * 自动生成get，set赋值语句
      *
      * @return
@@ -249,6 +260,31 @@ public class StringUtil {
     }
 
     public static void main(String[] args) {
-        autoGenerateGetSetByVariable("OssAccount","OssAccountVo","c:/暂存/getset.txt");
+
+//        autoFillSql();
+        formatSqlToSingleLine("SELECT\n" +
+                "\t*\n" +
+                "FROM\n" +
+                "\t(\n" +
+                "\t\tSELECT\n" +
+                "\t\t\t*\n" +
+                "\t\tFROM\n" +
+                "\t\t\t`wst_order_delivers` a\n" +
+                "\t\tWHERE\n" +
+                "\t\t\t(a.orderId) IN (\n" +
+                "\t\t\t\tSELECT\n" +
+                "\t\t\t\t\torderId\n" +
+                "\t\t\t\tFROM\n" +
+                "\t\t\t\t\t`wst_order_delivers`\n" +
+                "\t\t\t\tGROUP BY\n" +
+                "\t\t\t\t\torderId\n" +
+                "\t\t\t\tHAVING\n" +
+                "\t\t\t\t\tCOUNT(*) > 1\n" +
+                "\t\t\t)\n" +
+                "\t\tORDER BY\n" +
+                "\t\t\torderId ASC,\n" +
+                "\t\t\tdeliverId DESC\n" +
+                "\t) temp");
+//        autoGenerateGetSetByVariable("OssApplication","OssApplicationVO","c:/暂存/getset.txt");
     }
 }

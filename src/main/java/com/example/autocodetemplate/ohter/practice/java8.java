@@ -279,6 +279,8 @@ class StreamTest {
         // 以某属性对集合分组
         Map<String, List<Apple>> result2 = apples.stream().collect(Collectors.groupingBy(Apple::getCountry));
 
+        Map<Integer, Apple> test = new HashMap<>();
+        test.remove(1);
     }
 
 }
