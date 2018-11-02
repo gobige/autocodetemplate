@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -216,25 +217,36 @@ public class StringUtil {
      * 格式化mysql 为单行
      * @return
      */
-    public static void formatSqlToSingleLine(String buildSqlStr) {
+    public static String formatSqlToSingleLine(String buildSqlStr) {
         // 去除换行符
         buildSqlStr = buildSqlStr.replaceAll("\n", " ");
         buildSqlStr = buildSqlStr.replaceAll("\t","");
-        System.out.println(buildSqlStr);
+
+        return buildSqlStr;
     }
 
     /**
      * 自动生成get，set赋值语句
-     *
+     * @param getObjClassNamesource 源class名
+     * @param setObjClassNametarget 目标class名
+     * @param sourcePath 本地来源文件地址
+     * @param stringContent 现成文件流
      * @return
      */
-    public static void autoGenerateGetSetByVariable(String getObjClassNamesource, String setObjClassNametarget, String sourcePath) {
+    public static String autoGenerateGetSetByVariable(String getObjClassNamesource, String setObjClassNametarget, String sourcePath,String  stringContent) {
+        StringBuilder returnStr = new StringBuilder();
+        Optional optional = Optional.ofNullable(stringContent);
         String fileContent = "";
-        try {
-            fileContent = FileUtil.fileInputStreamToString(sourcePath);
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (optional.isPresent()) {
+            fileContent = (String) optional.get();
+        } else {
+            try {
+                fileContent = FileUtil.fileInputStreamToString(sourcePath);
+            } catch (IOException e) {
+                System.err.println("IO读取文件流出错" + e.getMessage());
+            }
         }
+
         fileContent = fileContent.replaceAll("\\s", " ");
 
         char[] paramNameChar = setObjClassNametarget.substring(0, setObjClassNametarget.length()).toCharArray();
@@ -251,40 +263,18 @@ public class StringUtil {
         }
         String getObjName = String.valueOf(paramNameChar);
 
+        returnStr.append("public static " + setObjClassNametarget + " " + getObjName + "To" + setObjClassNametarget + "(" + getObjClassNamesource + " " + getObjName + ") {")
+                .append(setObjClassNametarget + " " + setObjName + " = " + "new " + setObjClassNametarget + "();")
+                .append(StringUtil.acquireSet(fileContent, getObjName + ".", setObjName + "."))
+                .append("return " + setObjName + ";")
+                .append("}");
 
-        System.out.println("public static " + setObjClassNametarget + " " + getObjName + "To" + setObjClassNametarget + "(" + getObjClassNamesource + " " + getObjName + ") {");
-        System.out.println(setObjClassNametarget + " " + setObjName + " = " + "new " + setObjClassNametarget + "();");
-        System.out.println(StringUtil.acquireSet(fileContent, getObjName + ".", setObjName + "."));
-        System.out.println("return " + setObjName + ";");
-        System.out.println("}");
+        return returnStr.toString();
     }
 
     public static void main(String[] args) {
-
-//        autoFillSql();
-        formatSqlToSingleLine("SELECT\n" +
-                "\t*\n" +
-                "FROM\n" +
-                "\t(\n" +
-                "\t\tSELECT\n" +
-                "\t\t\t*\n" +
-                "\t\tFROM\n" +
-                "\t\t\t`wst_order_delivers` a\n" +
-                "\t\tWHERE\n" +
-                "\t\t\t(a.orderId) IN (\n" +
-                "\t\t\t\tSELECT\n" +
-                "\t\t\t\t\torderId\n" +
-                "\t\t\t\tFROM\n" +
-                "\t\t\t\t\t`wst_order_delivers`\n" +
-                "\t\t\t\tGROUP BY\n" +
-                "\t\t\t\t\torderId\n" +
-                "\t\t\t\tHAVING\n" +
-                "\t\t\t\t\tCOUNT(*) > 1\n" +
-                "\t\t\t)\n" +
-                "\t\tORDER BY\n" +
-                "\t\t\torderId ASC,\n" +
-                "\t\t\tdeliverId DESC\n" +
-                "\t) temp");
+        autoFillSql("3319(Integer), 3(Integer), 3(Integer)",",","select * from wst_log_user_login WHERE 1=1 AND user_id = ? and user_type = ? and paltform = ? order by create_time desc","\\?");
+//        formatSqlToSingleLine("");
 //        autoGenerateGetSetByVariable("OssApplication","OssApplicationVO","c:/暂存/getset.txt");
     }
 }

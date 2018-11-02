@@ -62,10 +62,10 @@ public class GenerateTemplateController {
     @ResponseBody
     public Map<String,Object> generateTemp(@RequestBody() GenerateTempFilter tempFilter) throws ServiceRuntimeException {
         Map<String, Object> result = new HashMap<>();
-        tempFilter.setDbPassword(dbPassword);
-        tempFilter.setDbUrl(dbUrl);
-        tempFilter.setDbUserName(dbUserName);
-        tempFilter.setJdbcDriver(jdbcDriver);
+        tempFilter.setDbPassword(StringUtils.isEmpty(tempFilter.getDbPassword()) ? dbPassword : tempFilter.getDbPassword());
+        tempFilter.setDbUrl(StringUtils.isEmpty(tempFilter.getDbUrl()) ? dbUrl : tempFilter.getDbUrl());
+        tempFilter.setDbUserName(StringUtils.isEmpty(tempFilter.getDbUserName()) ? dbUserName : tempFilter.getDbUserName());
+        tempFilter.setJdbcDriver(StringUtils.isEmpty(tempFilter.getJdbcDriver()) ? jdbcDriver : tempFilter.getJdbcDriver());
 //        Collection<TableStructure> tableStructures = targetTableService.descTableStru(tempFilter);
         Collection<TableStructure> tableStructures = targetTableService.jdbcGetTableStru(tempFilter);
 

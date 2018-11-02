@@ -46,7 +46,7 @@ spring:
 ### 服务器地址
 server:
     address: 127.0.0.1
-    port: 8080
+    port: 8090
 
 ### 日志
 debug: true
