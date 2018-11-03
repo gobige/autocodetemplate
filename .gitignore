@@ -24,3 +24,7 @@
 /nbdist/
 /.nb-gradle/
 *.log
+
+### project
+*.yml
+*.properties
