@@ -212,6 +212,7 @@ class StreamTest {
         // List中去除某值形成List
         // 准备练习数据
         List<Apple> apples = new ArrayList<Apple>();
+
         apples.add(new Apple(1,2,"china","apple1"));
         apples.add(new Apple(2,3,"china","apple2"));
         apples.add(new Apple(3,1,"brazil","apple3"));
@@ -261,6 +262,9 @@ class StreamTest {
 
         // 根据某个属性值对集合排序 由小到大
         apples.sort(Comparator.comparing(Apple::getWight));
+
+        // 获取第一个元素(集合元素为0会报错)
+        apples.stream().findFirst().get();
         // 根据某个属性值对集合排序 由大到小
         apples.sort(Comparator.comparing(Apple::getWight).reversed());
         // 根据某个属性值对集合排序 先按某属性排序，再按另外某属性再次排序
