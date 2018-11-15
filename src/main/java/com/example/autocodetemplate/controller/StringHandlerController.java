@@ -5,6 +5,8 @@ import com.example.autocodetemplate.controller.vo.AutoGenerateGetSetVO;
 import com.example.autocodetemplate.service.TestService;
 import com.example.autocodetemplate.util.StringUtil;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
@@ -55,6 +57,15 @@ public class StringHandlerController {
     @RequestMapping("sql/multi/convert.json")
     public Map<String, Object> formatSqlToSingleLine(@RequestParam() String mutiSqlStr) {
         Map<String, Object> result = new HashMap<>();
+        Subject subject = SecurityUtils.getSubject();
+
+        if (!subject.isAuthenticated()) {
+            result.put("code",0);
+            result.put("bcode",1);
+            result.put("mes","you not autority！please login");
+            return result;
+        }
+
         String singleSqlStr = StringUtil.formatSqlToSingleLine(mutiSqlStr);
         result.put("singleSqlStr", singleSqlStr);
         result.put("code",0);

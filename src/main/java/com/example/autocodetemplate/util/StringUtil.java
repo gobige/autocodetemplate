@@ -263,18 +263,18 @@ public class StringUtil {
         }
         String getObjName = String.valueOf(paramNameChar);
 
-        returnStr.append("public static " + setObjClassNametarget + " " + getObjName + "To" + setObjClassNametarget + "(" + getObjClassNamesource + " " + getObjName + ") {")
-                .append(setObjClassNametarget + " " + setObjName + " = " + "new " + setObjClassNametarget + "();")
+        returnStr.append("public static " + setObjClassNametarget + " " + getObjName + "To" + setObjClassNametarget + "(" + getObjClassNamesource + " " + getObjName + ") {\n")
+                .append(setObjClassNametarget + " " + setObjName + " = " + "new " + setObjClassNametarget + "();\n")
                 .append(StringUtil.acquireSet(fileContent, getObjName + ".", setObjName + "."))
-                .append("return " + setObjName + ";")
+                .append("return " + setObjName + ";\n")
                 .append("}");
 
         return returnStr.toString();
     }
 
     public static void main(String[] args) {
-        autoFillSql("3319(Integer), 3(Integer), 3(Integer)",",","select * from wst_log_user_login WHERE 1=1 AND user_id = ? and user_type = ? and paltform = ? order by create_time desc","\\?");
+//        autoFillSql("3319(Integer), 3(Integer), 3(Integer)",",","select * from wst_log_user_login WHERE 1=1 AND user_id = ? and user_type = ? and paltform = ? order by create_time desc","\\?");
 //        formatSqlToSingleLine("");
-//        autoGenerateGetSetByVariable("OssApplication","OssApplicationVO","c:/暂存/getset.txt");
+        System.out.println(autoGenerateGetSetByVariable("StatAccountBalanceDay","StatAccountBalanceDayBO","c:/暂存/getset.txt",null));
     }
 }
