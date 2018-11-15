@@ -2,6 +2,7 @@ package com.example.autocodetemplate.controller;
 
 import com.example.autocodetemplate.controller.vo.AutoFillSqlVO;
 import com.example.autocodetemplate.controller.vo.AutoGenerateGetSetVO;
+import com.example.autocodetemplate.service.TestService;
 import com.example.autocodetemplate.util.StringUtil;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -9,6 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
+import javax.xml.ws.RequestWrapper;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,6 +29,26 @@ import java.util.Map;
 public class StringHandlerController {
 
     private final Logger logger = LoggerFactory.getLogger(GenerateTemplateController.class);
+
+    @Resource
+    private TestService testService;
+
+    @RequestMapping(value = "testMethodExec.json")
+    public  Map<String, Object> test(@RequestParam("task") Integer task) throws Exception{
+        Map<String, Object> result = new HashMap<>();
+
+        if (task == 1) {
+            testService.doTaskOne();
+        } else if (task == 2) {
+            testService.doTaskTwo();
+        } else if (task == 3) {
+            testService.doTaskThree();
+        }
+
+        result.put("code",0);
+        result.put("bcode",0);
+        return result;
+    }
 
     @ApiOperation(value = "格式化多行sql为单行",notes = "格式化多行sql为单行")
     @ResponseBody

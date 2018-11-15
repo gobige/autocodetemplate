@@ -18,18 +18,18 @@ public class TestServiceImpl implements TestService {
         Thread.sleep(new Random().nextInt(3000));
         System.out.println("第一个任务完成");
         Long endTime = System.currentTimeMillis();
-
+        System.out.println(endTime - startTime);
         return new AsyncResult<>("任务1完成,耗时:" + (endTime - startTime));
     }
 
     @Override
-    @Async
     public Future<String> doTaskTwo() throws Exception {
         Long startTime = System.currentTimeMillis();
         System.out.println("开始第二个任务");
         Thread.sleep(new Random().nextInt(3000));
         System.out.println("第二个任务完成");
         Long endTime = System.currentTimeMillis();
+        System.out.println(endTime - startTime);
 
         return new AsyncResult<>("任务2完成,耗时:" + (endTime - startTime));
     }
@@ -42,6 +42,7 @@ public class TestServiceImpl implements TestService {
         Thread.sleep(new Random().nextInt(3000));
         System.out.println("第仨个任务完成");
         Long endTime = System.currentTimeMillis();
+        System.out.println(endTime - startTime);
 
         return new AsyncResult<>("任务3完成,耗时:" + (endTime - startTime));
     }
