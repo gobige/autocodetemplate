@@ -2,6 +2,7 @@ package com.example.autocodetemplate.controller;
 
 import com.example.autocodetemplate.controller.vo.AutoFillSqlVO;
 import com.example.autocodetemplate.controller.vo.AutoGenerateGetSetVO;
+import com.example.autocodetemplate.filter.TestFilter;
 import com.example.autocodetemplate.service.TestService;
 import com.example.autocodetemplate.util.StringUtil;
 import io.swagger.annotations.ApiOperation;
@@ -35,8 +36,22 @@ public class StringHandlerController {
     @Resource
     private TestService testService;
 
+
+    @RequestMapping(value = "testDateTimeFormat.json")
+    @ResponseBody
+    public Map<String, Object> testDateTimeFormat(@RequestBody() TestFilter filter) throws Exception{
+        Map<String, Object> result = new HashMap<>();
+
+        System.out.println(filter.getStartTime());
+
+        result.put("code",0);
+        result.put("bcode",0);
+        result.put("mes",filter.getStartTime());
+        return result;
+    }
+
     @RequestMapping(value = "testMethodExec.json")
-    public  Map<String, Object> test(@RequestParam("task") Integer task) throws Exception{
+    public Map<String, Object> test(@RequestParam("task") Integer task) throws Exception{
         Map<String, Object> result = new HashMap<>();
 
         if (task == 1) {
