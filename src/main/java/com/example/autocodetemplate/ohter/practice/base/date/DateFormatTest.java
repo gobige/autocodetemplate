@@ -1,16 +1,12 @@
 package com.example.autocodetemplate.ohter.practice.base.date;
 
 import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.Locale;
 
 /**
- *
+ *  ldt format的任何datetimeformat模板时候不会报错  而parse的时候必须模板和传入时间字符串格式必须一致,否则会报错,而且ldt不能解析只有年月日格式的字符串和模板，只能使用ld
  */
 public class DateFormatTest {
     private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
