@@ -1,5 +1,7 @@
 package com.example.autocodetemplate.util;
 
+import org.apache.http.HttpRequest;
+import org.apache.http.client.HttpClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
@@ -9,6 +11,9 @@ import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.channels.FileChannel;
+import java.nio.file.Files;
+import java.util.ArrayList;
 
 /**
  * Simple utility methods for file and stream copying.
@@ -237,6 +242,35 @@ public abstract class CopyFileUtil {
         StringWriter out = new StringWriter();
         copy(in, out);
         return out.toString();
+    }
+
+    public static void main(String[] args) throws IOException{
+        File file1 = new File("c:/暂存/getset.txt");
+        File file2 = new File("c:/暂存/copy.txt");
+         try {
+            CopyFileUtil.copyFileByChannel(file1, file2);
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+        int test = 221_121_121;
+    }
+
+    /**
+     * 基于NIO的transform和to方式拷贝文件，比input/outputStream要快些
+     * @param source
+     * @param target
+     * @throws IOException
+     */
+    public static void copyFileByChannel(File source, File target) throws IOException {
+        try (FileChannel inputChannel = new FileInputStream(source).getChannel();
+             FileChannel outputChannel = new FileOutputStream(target).getChannel();) {
+
+            for (long count = inputChannel.size(); count > 0; ) {
+                long transfered = inputChannel.transferTo(inputChannel.position(), count, outputChannel);
+                inputChannel.position(inputChannel.position() + transfered);
+                count -= transfered;
+            }
+        }
     }
 
 }
