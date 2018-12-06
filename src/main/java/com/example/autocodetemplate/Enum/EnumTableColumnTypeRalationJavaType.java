@@ -24,6 +24,7 @@ public enum EnumTableColumnTypeRalationJavaType {
     DECIMAL("decimal", "Double", "科学计算数"),
     CHAR("char", "Character", "字符"),
     DATETIME("datetime", "Date", "时间"),
+    DATE("date", "Date", "日期"),
     TIMESTAMP("timestamp", "Date", "时间戳"),
     VARCHAR("varchar", "String", "字符串");
 

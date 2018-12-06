@@ -20,7 +20,6 @@ public class CustomJsonDateDeserializer extends JsonDeserializer<Date> {
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
-
     }}
 
 
