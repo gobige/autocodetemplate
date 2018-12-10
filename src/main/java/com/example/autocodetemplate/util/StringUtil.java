@@ -275,6 +275,6 @@ public class StringUtil {
     public static void main(String[] args) {
 //        autoFillSql("3319(Integer), 3(Integer), 3(Integer)",",","select * from wst_log_user_login WHERE 1=1 AND user_id = ? and user_type = ? and paltform = ? order by create_time desc","\\?");
 //        formatSqlToSingleLine("");
-        System.out.println(autoGenerateGetSetByVariable("StatAccountBalanceDay","StatAccountBalanceDayBO","c:/暂存/getset.txt",null));
+        System.out.println(autoGenerateGetSetByVariable("CPSOrder","CPSOrderBO","c:/暂存/getset.txt",null));
     }
 }

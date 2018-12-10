@@ -10,7 +10,7 @@ public class HashMapTest {
         hashMapTest.hashConflict();
 
         Map<Integer,Object> map = new HashMap<>();
-        map.put(1, "12");
+        map.put(null, null);
         System.out.println(map.isEmpty());
     }
 

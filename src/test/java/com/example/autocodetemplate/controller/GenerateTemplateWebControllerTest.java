@@ -42,7 +42,7 @@ public class GenerateTemplateWebControllerTest {
     public void getTempletTest() throws Exception {
         RestTemplate rest = new RestTemplate();
         com.example.autocodetemplate.filter.GenerateTempFilter tempFilter = new com.example.autocodetemplate.filter.GenerateTempFilter();
-        tempFilter.setTableName("oss_department");
+        tempFilter.setTableName("cps_integral_sign_adv_config");
 
         ResponseEntity responseEntity = rest.postForEntity("http://localhost:8080/yates/template/getTemp.json", tempFilter, String.class);
 
