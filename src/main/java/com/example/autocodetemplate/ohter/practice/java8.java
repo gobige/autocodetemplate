@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoField;
 import java.util.*;
 import java.util.function.Function;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import static java.time.temporal.TemporalAdjusters.lastDayOfMonth;
@@ -212,7 +213,7 @@ class StreamTest {
         // List中去除某值形成List
         // 准备练习数据
         List<Apple> apples = new ArrayList<Apple>();
-        apples.add(null);
+//        apples.add(null);
         apples.add(new Apple(7,2,"china","apple1"));
         apples.stream().forEach(bo -> {
             if (Optional.ofNullable(bo).isPresent()) {
@@ -230,7 +231,11 @@ class StreamTest {
         apples.add(new Apple(4,3,"china","apple4"));
         apples.add(new Apple(5,7,"brazil","apple5"));
         apples.add(new Apple(6,2,"american","apple6"));
-
+        //1.针对重复key的  覆盖之前的value  不加(k,v)->v)遇到重复key时会报错
+        //        apples.add(new Apple(6,2,"american","apple6"));
+        apples.stream().collect(Collectors.toMap(Apple::getSeqNo, Apple::getName,(k,v)->v));
+        //2.value为空,直接存放  不调用map.merge。同样适用于1(key重复的情况)
+        apples.stream().collect(Collector.of(HashMap::new, (m, per)->m.put(per.getSeqNo(),per.getName()), (k, v)->v, Collector.Characteristics.IDENTITY_FINISH));
 
         List<Apple> apples2 = new ArrayList<Apple>();
 

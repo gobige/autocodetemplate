@@ -273,8 +273,15 @@ public class StringUtil {
     }
 
     public static void main(String[] args) {
-//        autoFillSql("3319(Integer), 3(Integer), 3(Integer)",",","select * from wst_log_user_login WHERE 1=1 AND user_id = ? and user_type = ? and paltform = ? order by create_time desc","\\?");
-//        formatSqlToSingleLine("");
-        System.out.println(autoGenerateGetSetByVariable("CPSOrder","CPSOrderBO","c:/暂存/getset.txt",null));
+ //        formatSqlToSingleLine("");
+
+        String singleSqlStr = StringUtil.autoFillSql("1(Integer), 110101000(Integer), 110102000(Integer), 110105000(Integer), 110106000(Integer), 110107000(Integer), 110108000(Integer), 110109000(Integer), 110111000(Integer), 110112000(Integer), 110113000(Integer), 110114000(Integer), 110115000(Integer), 110116000(Integer), 110117000(Integer), 110118000(Integer), 110119000(Integer), 2018-10-01 00:00:00.0(Timestamp), 2018-12-31 00:00:00.0(Timestamp)",
+                ",",
+                "SELECT SUM(today_income_integral) point,user_type,user_id FROM stat_income_integral_userinfo_day WHERE 1= 1 AND user_type = ? AND area_id IN ( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? ) AND stat_date BETWEEN ? AND ? GROUP BY user_type,user_id ORDER BY SUM(today_income_integral) DESC",
+                "\\?");
+        System.out.println(singleSqlStr);
+
+
+//        System.out.println(autoGenerateGetSetByVariable("CPSOrder","CPSOrderBO","c:/暂存/getset.txt",null));
     }
 }
