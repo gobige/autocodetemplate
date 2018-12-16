@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoField;
 import java.util.*;
 import java.util.function.Function;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import static java.time.temporal.TemporalAdjusters.lastDayOfMonth;
@@ -212,6 +213,17 @@ class StreamTest {
         // List中去除某值形成List
         // 准备练习数据
         List<Apple> apples = new ArrayList<Apple>();
+//        apples.add(null);
+        apples.add(new Apple(7,2,"china","apple1"));
+        apples.stream().forEach(bo -> {
+            if (Optional.ofNullable(bo).isPresent()) {
+                System.out.println(bo.getCountry());
+            }
+        });
+
+        // 而且通过collect()方法得到的是一个新的集合
+        List<String> list = apples.stream().map(Apple::getName).collect(Collectors.toList());
+        Optional<Apple> wightThanThree = apples.stream().filter(a -> a.getWight() > 3).findAny();
 
         apples.add(new Apple(1,2,"china","apple1"));
         apples.add(new Apple(2,3,"china","apple2"));
@@ -219,12 +231,20 @@ class StreamTest {
         apples.add(new Apple(4,3,"china","apple4"));
         apples.add(new Apple(5,7,"brazil","apple5"));
         apples.add(new Apple(6,2,"american","apple6"));
+        //1.针对重复key的  覆盖之前的value  不加(k,v)->v)遇到重复key时会报错
+        //        apples.add(new Apple(6,2,"american","apple6"));
+        apples.stream().collect(Collectors.toMap(Apple::getSeqNo, Apple::getName,(k,v)->v));
+        //2.value为空,直接存放  不调用map.merge。同样适用于1(key重复的情况)
+        apples.stream().collect(Collector.of(HashMap::new, (m, per)->m.put(per.getSeqNo(),per.getName()), (k, v)->v, Collector.Characteristics.IDENTITY_FINISH));
 
         List<Apple> apples2 = new ArrayList<Apple>();
+
         apples2.add(new Apple(1,2,"china","apple1"));
         apples2.add(new Apple(4,3,"china","apple4"));
         apples2.add(new Apple(5,2,"brazil","apple5"));
         apples2.add(new Apple(3,3,"american","apple2"));
+
+        Map appleMaps = apples2.stream().collect(Collectors.toMap(Apple::getCountry, Function.identity()));
 
         List<Apple> apples3 = new ArrayList<Apple>();
 
@@ -249,7 +269,7 @@ class StreamTest {
 
         // List获取指定**属性或对象**组成新map(tomap操作中key值不能重复，value值不能为null，否则会报错)
         Map<Integer, String> map = apples.stream().collect(Collectors.toMap(Apple::getSeqNo, Apple::getName));
-        Map appleMaps = apples.stream().collect(Collectors.toMap(Apple::getName, Function.identity()));
+//        Map appleMaps = apples.stream().collect(Collectors.toMap(Apple::getName, Function.identity()));
 
         // List中指定**属性**求和
         Integer sum = apples.stream().collect(Collectors.summingInt(Apple::getWight));
