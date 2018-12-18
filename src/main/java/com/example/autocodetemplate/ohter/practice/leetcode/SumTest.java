@@ -28,7 +28,7 @@ public class SumTest {
         int[] returnArr = new SumTest().getIndexBySum(arrays, target);
 
         for (int i = 0; i < returnArr.length; i++) {
-            System.out.println(returnArr[i] + ",");
+            System.out.println(Math.sqrt(4));
         }
 
     }
@@ -51,4 +51,6 @@ public class SumTest {
 
         return returnArrays;
     }
+
+
 }
