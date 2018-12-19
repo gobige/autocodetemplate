@@ -2,15 +2,7 @@ package com.example.autocodetemplate.domain;
 
 import java.io.Serializable;
 
-/**
- * <p>爱车小屋</p>
- * <p>Project: carhouse-xx</p>
- * <p>ModuleID: xx</p>
- * <p>Comments: xx</p>
- * <p>JDK version used JDK1.8</p>
- *
- * @version 1.0
- */
+
 public class SysAccount implements Serializable {
 
     private static final long serialVersionUID = -1391329771056753154L;
