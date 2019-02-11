@@ -10,6 +10,7 @@ public class SysAppVersionInfo implements Serializable {
     private Integer isDelete;
     private String downloadUrl;
     private String remark;
+    private String testResultRemark;
     private Date updateTime;
     private String version;
     private Integer platform;
@@ -19,6 +20,14 @@ public class SysAppVersionInfo implements Serializable {
     private Integer appType;
     private Integer id;
     private Integer isForceUpdate;
+
+    public String getTestResultRemark() {
+        return testResultRemark;
+    }
+
+    public void setTestResultRemark(String testResultRemark) {
+        this.testResultRemark = testResultRemark;
+    }
 
     public void setAppVersion(Integer appVersion) {
         this.appVersion = appVersion;

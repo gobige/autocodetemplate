@@ -1,15 +1,22 @@
 package com.example.autocodetemplate.service.Impl;
 
+import com.example.autocodetemplate.dao.SysAppVersionInfoDao;
+import com.example.autocodetemplate.domain.SysAppVersionInfo;
 import com.example.autocodetemplate.service.TestService;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.Random;
 import java.util.concurrent.Future;
 
 @Service("testService")
 public class TestServiceImpl implements TestService {
+
+    @Resource
+    private SysAppVersionInfoDao sysAppVersionInfoDao;
+
     @Override
     @Async
     public Future<String> doTaskOne() throws Exception {
@@ -46,4 +53,12 @@ public class TestServiceImpl implements TestService {
 
         return new AsyncResult<>("任务3完成,耗时:" + (endTime - startTime));
     }
+
+    @Override
+    public SysAppVersionInfo testGetSql() {
+        SysAppVersionInfo sysAppVersionInfo = sysAppVersionInfoDao.queryByIdBySelectProvider(15);
+
+        return sysAppVersionInfo;
+    }
+
 }
