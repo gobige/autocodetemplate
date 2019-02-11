@@ -26,7 +26,8 @@ public class StringUtil {
 
     /**
      * 从标准domain类中获取set语句(用于do，vo，bo等相互转换时赋值场景)
-     * @param source 文件来源
+     *
+     * @param source    文件来源
      * @param getPrefix get语句前缀（对象句柄名）
      * @param setPrefix set语句前缀（对象句柄名）
      */
@@ -50,12 +51,12 @@ public class StringUtil {
                 if (lines.indexOf("=") < 0) {
                     continue;
                 } else {
-                    String subStr = lines.substring(0,lines.indexOf("="));
+                    String subStr = lines.substring(0, lines.indexOf("="));
                     lineArr = subStr.split(" ");
                 }
 
             }
-            char[] paramNameChar = lineArr[2].substring(0,lineArr[2].length()).toCharArray();
+            char[] paramNameChar = lineArr[2].substring(0, lineArr[2].length()).toCharArray();
             if (123 > paramNameChar[0] && paramNameChar[0] > 96) {
                 paramNameChar[0] = (char) (paramNameChar[0] - 32);
             }
@@ -63,7 +64,7 @@ public class StringUtil {
             // 首字母大写
             String titleCaseParamName = String.valueOf(paramNameChar);
 
-            setCodes.append(setPrefix +"set" + titleCaseParamName +"(" + getPrefix + "get" + titleCaseParamName + "());\n");
+            setCodes.append(setPrefix + "set" + titleCaseParamName + "(" + getPrefix + "get" + titleCaseParamName + "());\n");
         }
         System.out.println("atuo generate getset" + num);
 
@@ -215,25 +216,27 @@ public class StringUtil {
 
     /**
      * 格式化mysql 为单行
+     *
      * @return
      */
     public static String formatSqlToSingleLine(String buildSqlStr) {
         // 去除换行符
         buildSqlStr = buildSqlStr.replaceAll("\n", " ");
-        buildSqlStr = buildSqlStr.replaceAll("\t","");
+        buildSqlStr = buildSqlStr.replaceAll("\t", "");
 
         return buildSqlStr;
     }
 
     /**
      * 自动生成get，set赋值语句
+     *
      * @param getObjClassNamesource 源class名
      * @param setObjClassNametarget 目标class名
-     * @param sourcePath 本地来源文件地址
-     * @param stringContent 现成文件流
+     * @param sourcePath            本地来源文件地址
+     * @param stringContent         现成文件流
      * @return
      */
-    public static String autoGenerateGetSetByVariable(String getObjClassNamesource, String setObjClassNametarget, String sourcePath,String  stringContent) {
+    public static String autoGenerateGetSetByVariable(String getObjClassNamesource, String setObjClassNametarget, String sourcePath, String stringContent) {
         StringBuilder returnStr = new StringBuilder();
         Optional optional = Optional.ofNullable(stringContent);
         String fileContent = "";
@@ -273,15 +276,31 @@ public class StringUtil {
     }
 
     public static void main(String[] args) {
- //        formatSqlToSingleLine("");
+        //        formatSqlToSingleLine("");
 
-        String singleSqlStr = StringUtil.autoFillSql("1(Integer), 110101000(Integer), 110102000(Integer), 110105000(Integer), 110106000(Integer), 110107000(Integer), 110108000(Integer), 110109000(Integer), 110111000(Integer), 110112000(Integer), 110113000(Integer), 110114000(Integer), 110115000(Integer), 110116000(Integer), 110117000(Integer), 110118000(Integer), 110119000(Integer), 2018-10-01 00:00:00.0(Timestamp), 2018-12-31 00:00:00.0(Timestamp)",
-                ",",
-                "SELECT SUM(today_income_integral) point,user_type,user_id FROM stat_income_integral_userinfo_day WHERE 1= 1 AND user_type = ? AND area_id IN ( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? ) AND stat_date BETWEEN ? AND ? GROUP BY user_type,user_id ORDER BY SUM(today_income_integral) DESC",
-                "\\?");
-        System.out.println(singleSqlStr);
+//        String singleSqlStr = StringUtil.autoFillSql("1(Integer), 110101000(Integer), 110102000(Integer), 110105000(Integer), 110106000(Integer), 110107000(Integer), 110108000(Integer), 110109000(Integer), 110111000(Integer), 110112000(Integer), 110113000(Integer), 110114000(Integer), 110115000(Integer), 110116000(Integer), 110117000(Integer), 110118000(Integer), 110119000(Integer), 2018-10-01 00:00:00.0(Timestamp), 2018-12-31 00:00:00.0(Timestamp)",
+//                ",",
+//                "SELECT SUM(today_income_integral) point,user_type,user_id FROM stat_income_integral_userinfo_day WHERE 1= 1 AND user_type = ? AND area_id IN ( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? ) AND stat_date BETWEEN ? AND ? GROUP BY user_type,user_id ORDER BY SUM(today_income_integral) DESC",
+//                "\\?");
+//        System.out.println(singleSqlStr);
 
 
-//        System.out.println(autoGenerateGetSetByVariable("CPSOrder","CPSOrderBO","c:/暂存/getset.txt",null));
+//        System.out.println(autoGenerateGetSetByVariable("CPSOrder", "CPSOrderBO", "c:/暂存/getset.txt", null));
+
+        sqlInStr("c:/暂存/getset.txt");
+    }
+
+    public static String sqlInStr(String sourcePath) {
+        String fileContent = "";
+        try {
+            fileContent = FileUtil.fileInputStreamToString(sourcePath);
+        } catch (IOException e) {
+            System.err.println("IO读取文件流出错" + e.getMessage());
+        }
+
+        fileContent = fileContent.replaceAll("\\r\\n", ",");
+        System.out.println(fileContent);
+
+        return fileContent;
     }
 }
