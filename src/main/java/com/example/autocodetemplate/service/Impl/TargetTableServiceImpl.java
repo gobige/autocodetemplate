@@ -25,18 +25,7 @@ import java.util.Collection;
  */
 @Service(value = "targetTableService")
 public class TargetTableServiceImpl implements TargetTableService {
-    @Resource
-    private TargetTableDao targetTableDao;
     private final Logger logger = LoggerFactory.getLogger(TargetTableServiceImpl.class);
-
-    @Override
-    public Collection<TableStructure> descTableStru(GenerateTempFilter tempFilter) {
-        if (StringUtils.isEmpty(tempFilter) || StringUtils.isEmpty(tempFilter.getTableName())) {
-            return null;
-        }
-
-        return targetTableDao.descTableStru(tempFilter.getTableName());
-    }
 
     @Override
     public Collection<TableStructure> jdbcGetTableStru(GenerateTempFilter tempFilter) {

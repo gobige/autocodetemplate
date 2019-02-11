@@ -3,6 +3,7 @@ package com.example.autocodetemplate.dao;
 import com.example.autocodetemplate.domain.TableStructure;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.stereotype.Repository;
 
@@ -29,4 +30,13 @@ public interface TargetTableDao {
      * @return
      */
     Collection<TableStructure> descTableStru(@Param("tableName") String tableName);
+
+    /**
+     * 使用注解映射sql语句
+     * @param tableName
+     * @return
+     */
+    @Select("desc #{tableName}")
+    Collection<TableStructure> descTableStruByAno(@Param("tableName") String tableName);
+
 }

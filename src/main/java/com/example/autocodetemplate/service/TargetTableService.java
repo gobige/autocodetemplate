@@ -16,11 +16,6 @@ import java.util.Collection;
  * @version 1.0
  */
 public interface TargetTableService {
-    /**
-     * @param tempFilter
-     * @return
-     */
-    Collection<TableStructure> descTableStru(GenerateTempFilter tempFilter);
 
     /**
      * @param tempFilter

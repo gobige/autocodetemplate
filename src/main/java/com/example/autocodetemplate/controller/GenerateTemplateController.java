@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -67,7 +68,8 @@ public class GenerateTemplateController {
         tempFilter.setDbUserName(StringUtils.isEmpty(tempFilter.getDbUserName()) ? dbUserName : tempFilter.getDbUserName());
         tempFilter.setJdbcDriver(StringUtils.isEmpty(tempFilter.getJdbcDriver()) ? jdbcDriver : tempFilter.getJdbcDriver());
 //        Collection<TableStructure> tableStructures = targetTableService.descTableStru(tempFilter);
-        Collection<TableStructure> tableStructures = targetTableService.jdbcGetTableStru(tempFilter);
+        Collection<TableStructure> tableStructures = new ArrayList<>();
+        tableStructures = targetTableService.jdbcGetTableStru(tempFilter);
 
         for(TableStructure tableStructure : tableStructures) {
             if(!StringUtils.isEmpty(tableStructure.getType()) && tableStructure.getType().indexOf("(") > 0) {
