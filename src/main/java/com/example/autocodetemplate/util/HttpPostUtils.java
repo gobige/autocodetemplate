@@ -1,5 +1,6 @@
 package com.example.autocodetemplate.util;
 
+import com.alibaba.fastjson.JSONObject;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -7,6 +8,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
@@ -39,24 +41,25 @@ public class HttpPostUtils {
      * 执行一个HTTP POST请求，返回请求响应的HTML
      *
      * @param url      请求的URL地址
-     * @param paramMap 请求的查询参数,可以为null
+     * @param headerMap      header头(可选)
+     * @param paramObj 请求的查询参数,可以为null
      * @return 返回请求响应的HTML
      */
-    public static String doPost(String url, Map<String, String> paramMap) throws UnsupportedEncodingException {
+    public static String doPost(String url, JSONObject paramObj, Map<String, String> headerMap) throws UnsupportedEncodingException {
         long startTime = System.currentTimeMillis();
         HttpClientBuilder builder = HttpClientBuilder.create();
         HttpClient client = builder.build();
         HttpPost method = new HttpPost(url);
-        method.setHeader("Content-Type", "application/x-www-form-urlencoded; text/html; charset=utf-8");
 
-        List<NameValuePair> params = new ArrayList<NameValuePair>();
-        if (paramMap != null && paramMap.size() > 0) {
-            for (String key : paramMap.keySet()) {
-                params.add(new BasicNameValuePair(key, paramMap.get(key)));
+        if (headerMap != null && headerMap.size() > 0) {
+            for (Map.Entry entry : headerMap.entrySet()) {
+                method.setHeader((String) entry.getKey(), (String) entry.getValue());
             }
+        }else {
+            method.setHeader("Content-Type", "application/x-www-form-urlencoded; text/html; charset=utf-8");
         }
 
-        method.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+        method.setEntity(new StringEntity(paramObj.toString(), "utf-8"));
 
         int statusCode = 0;
         String result;
@@ -71,6 +74,7 @@ public class HttpPostUtils {
         } finally {
             method.releaseConnection();
         }
+
         return result;
     }
 

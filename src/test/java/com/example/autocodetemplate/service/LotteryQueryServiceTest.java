@@ -1,6 +1,7 @@
 package com.example.autocodetemplate.service;
 
 import com.example.autocodetemplate.Enum.EnumLotteryQueryType;
+import com.example.autocodetemplate.domain.OcrRecResult;
 import com.example.autocodetemplate.exception.ServiceRuntimeException;
 import com.example.autocodetemplate.param.req.LotteryQueryJuheRequest;
 import com.example.autocodetemplate.param.resp.LotteryQueryJuheResponse;
@@ -25,6 +26,8 @@ import javax.annotation.Resource;
 public class LotteryQueryServiceTest {
     @Resource
     private LotteryQueryService lotteryQueryService;
+    @Resource
+    private OcrImageRecognitionService ocrImageRecognitionService;
 
 
     @Test
@@ -39,6 +42,13 @@ public class LotteryQueryServiceTest {
                 System.out.println(response.getResult());
             }
         }
+    }
+
+    @Test
+    public void testGetOcrImageRec()  throws ServiceRuntimeException {
+        OcrRecResult response = ocrImageRecognitionService.getOcrImageRec("http://img.car-house.cn/private/business/licenseSTORE/28333/20170627/b4236e0f179c40a19f2e14ec1bda0739.jpg");
+
+        System.out.println(response.toString());
     }
 
 }
