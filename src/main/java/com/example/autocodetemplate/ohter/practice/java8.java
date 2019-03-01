@@ -56,21 +56,9 @@ public class java8 {
     }
 
     public static void main(String[] args) {
-        try {
-            String online = processFile((BufferedReader br) -> br.readLine());
-        } catch (Exception e) {
 
-        }
-
-        Http http = new Http("http", "userToken", "www.imokenet.com", "name", "yates");
-        Function<String, String> urlStr = Http::addProtocol;
-
-
-        Function<String, String> urlStr2 = urlStr.andThen(Http::addHeader).andThen(Http::addUrl);
-        // TODO 咋个输出String
-        System.out.println(urlStr2.apply("1").toString());
-
-
+        LocalDate validPeriod = LocalDate.parse("29991231", DateTimeFormatter.ofPattern("yyyyMMdd"));
+        validPeriod.getDayOfMonth();
     }
 }
 
@@ -116,6 +104,8 @@ class TimeTest {
 
 
         LocalDate nowdate = LocalDate.now();
+        LocalDate test =  nowdate.plusMonths(1);
+        System.out.println(nowdate.compareTo(test));
         System.out.println("获取当前日期：" + nowdate);
         System.out.println("获取当前日期的年份:" + nowdate.get(ChronoField.YEAR) + ",月份:" + nowdate.get(ChronoField.MONTH_OF_YEAR) + ",日:" + nowdate.get(ChronoField.DAY_OF_MONTH));
         System.out.println("修改当前时间的年份" + nowdate.withYear(1993));

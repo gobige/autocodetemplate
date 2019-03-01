@@ -41,7 +41,7 @@ public class GenerateTemplateControllerTest {
     @Test
     public void getTempletTest() throws Exception {
         JSONObject param = new JSONObject();
-        param.put("tableName", "cps_integral_order");
+        param.put("tableName", "wst_coupon_subject_limit");
 
         // 准备http报文 header body
         RequestBuilder request = MockMvcRequestBuilders

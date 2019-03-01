@@ -285,9 +285,9 @@ public class StringUtil {
 //        System.out.println(singleSqlStr);
 
 
-//        System.out.println(autoGenerateGetSetByVariable("CPSOrder", "CPSOrderBO", "c:/暂存/getset.txt", null));
+        System.out.println(autoGenerateGetSetByVariable("SmsBlackList", "this", "c:/暂存/getset.txt", null));
 
-        sqlInStr("c:/暂存/getset.txt");
+//        sqlInStr("c:/暂存/getset.txt");
     }
 
     public static String sqlInStr(String sourcePath) {
@@ -303,4 +303,6 @@ public class StringUtil {
 
         return fileContent;
     }
+
+
 }

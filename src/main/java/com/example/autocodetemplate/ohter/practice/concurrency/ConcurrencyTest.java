@@ -1,18 +1,59 @@
 package com.example.autocodetemplate.ohter.practice.concurrency;
 
+import com.example.autocodetemplate.util.SleepUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.concurrent.locks.LockSupport;
 
 public class ConcurrencyTest {
     private static final long count = 10000000000l;
     private static final Logger logger = LoggerFactory.getLogger(ConcurrencyTest.class);
 
     public static void main(String[] args) throws InterruptedException {
-        concurrency();
-        serial();
+//        concurrency();
+//        serial();
+        LockSupport.pa
+        testMultipeThreadUserMethod();
 
     }
 
+    private static synchronized void testMethod(String threadName) {
+        System.out.println("comn in method,thread " + threadName);
+        SleepUtils.second(5);
+        System.out.println("go out method,thread " + threadName);
+    }
+
+    private static void testMultipeThreadUserMethod() {
+        Thread thread1 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ConcurrencyTest.testMethod("Thread1");
+            }
+        });
+        thread1.start();
+        Thread thread2 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ConcurrencyTest.testMethod("thread2");
+            }
+        });
+        thread2.start();
+        Thread thread3 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ConcurrencyTest.testMethod("thread3");
+            }
+        });
+        thread3.start();
+        Thread thread4 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ConcurrencyTest.testMethod("thread4");
+            }
+        });
+        thread4.start();
+    }
     /**
      * 多线程执行
      *

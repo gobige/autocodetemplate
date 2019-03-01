@@ -9,20 +9,22 @@ public class PrototypePattern {
     public static void main(String[] args) {
         BallCache.loadCache();
         try {
-            BallCache.getBall("footBall");
+            Ball testCloneBall = BallCache.getBall("footBall");
+            System.out.println(testCloneBall);
         }catch (Exception e){
             e.getMessage();
         }
-
     }
 }
 
 class BallCache {
     private static Hashtable<String,Ball> hashtable = new Hashtable();
 
-
     public static Ball getBall(String ballName) throws Exception{
-        return (Ball)hashtable.get(ballName).clone();
+        Ball cloneBall = (Ball) hashtable.get(ballName).clone();
+
+        System.out.println(cloneBall == hashtable.get(ballName));
+        return cloneBall;
     }
 
     public static void loadCache() {
