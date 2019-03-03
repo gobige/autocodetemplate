@@ -13,8 +13,7 @@ public class ConcurrencyTest {
     public static void main(String[] args) throws InterruptedException {
 //        concurrency();
 //        serial();
-        LockSupport.pa
-        testMultipeThreadUserMethod();
+         testMultipeThreadUserMethod();
 
     }
 
