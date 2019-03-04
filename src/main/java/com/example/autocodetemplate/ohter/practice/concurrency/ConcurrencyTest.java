@@ -4,7 +4,9 @@ import com.example.autocodetemplate.util.SleepUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.concurrent.locks.LockSupport;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Hashtable;
 
 public class ConcurrencyTest {
     private static final long count = 10000000000l;
@@ -12,8 +14,22 @@ public class ConcurrencyTest {
 
     public static void main(String[] args) throws InterruptedException {
 //        concurrency();
-//        serial();
-         testMultipeThreadUserMethod();
+////        serial();
+//        LockSupport.park();
+//        testMultipeThreadUserMethod();
+
+        // key 和 value都不能为空
+        Hashtable hashtable = new Hashtable();
+        hashtable.put(null, null);
+
+        // key 和 value都可为null,但key为null节点只能有一个,key一样重复插入会覆盖value值
+        HashMap hashMap = new HashMap();
+        hashtable.put(null, null);
+
+        // 唯一且为可为null
+        HashSet hashSet = new HashSet();
+
+        testMultipeThreadUserMethod();
 
     }
 
