@@ -5,6 +5,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -285,9 +287,17 @@ public class StringUtil {
 //        System.out.println(singleSqlStr);
 
 
-        System.out.println(autoGenerateGetSetByVariable("SmsBlackList", "this", "c:/暂存/getset.txt", null));
+//        System.out.println(autoGenerateGetSetByVariable("SmsBlackList", "this", "c:/暂存/getset.txt", null));
 
 //        sqlInStr("c:/暂存/getset.txt");
+
+
+        char[] chars = "000000000".toCharArray();
+        List<Character> characters = new ArrayList<>();
+        for (char c : chars) {
+            characters.add(c);
+        }
+        System.out.println(recursiveGetNextChar(characters));
     }
 
     public static String sqlInStr(String sourcePath) {
@@ -304,5 +314,52 @@ public class StringUtil {
         return fileContent;
     }
 
+    /**
+     * 递归生成reffercode
+     * @param characters
+     * @return
+     */
+    private static String recursiveGetNextChar(List<Character> characters) {
+        if (characters.size() == 1) {
+            return getNextChar(characters.get(characters.size() - 1)) + "";
+        }else {
+            char pro = getNextChar(characters.get(characters.size() - 1));
+            if (pro == '0') {
+                return recursiveGetNextChar(characters.subList(0, characters.size() - 1)) + pro + "";
+            }else {
+                return readCharFromList(characters.subList(0, characters.size() - 1)) + pro + "";
+            }
+        }
+    }
+
+    private static String readCharFromList(List<Character> characters) {
+        String str = "";
+        for (char c : characters) {
+            str += c;
+        }
+
+        return str;
+    }
+
+    /**
+     *
+     * @param c
+     * @return
+     */
+    private static char getNextChar(char c) {
+        // 0~9
+        if (48 <= (int) c && (int) c < 57) {
+            return (char)((int)c + 1);
+        }else if((int) c == 57){
+            return 'A';
+            // A~Z
+        } else if (65 <= (int) c && (int) c < 90) {
+            return (char)((int)c + 1);
+        }else if ((int) c == 90){
+            return '0';
+        }else {
+            return '~';
+        }
+    }
 
 }

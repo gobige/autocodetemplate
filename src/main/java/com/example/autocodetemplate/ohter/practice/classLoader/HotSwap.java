@@ -11,7 +11,7 @@ public class HotSwap {
         Thread. sleep(1000);// 等待资源被回收
         File fileV2 = new File( "HelloWorld.class");
         File fileV1 = new File(
-                "bin\\com\\csair\\soc\\hotswap\\HelloWorld.class" );
+                "bin\\com\\example\\autocodetemplate\\ohter\\practice\\classLoader\\HelloWorld.class" );
         fileV1.delete(); //删除V1版本
         fileV2.renameTo(fileV1); //更新V2版本
         System. out.println( "Update success!");
@@ -21,7 +21,7 @@ public class HotSwap {
     public static void loadHelloWorld() throws Exception {
         MyClassLoader myLoader = new MyClassLoader(); //自定义类加载器
         Class<?> class1 = myLoader
-                .findClass( "com.csair.soc.hotswap.HelloWorld");//类实例
+                .findClass( "com.example.autocodetemplate.ohter.practice.classLoader.HelloWorld");//类实例
         Object obj1 = class1.newInstance(); //生成新的对象
         Method method = class1.getMethod( "say");
         method.invoke(obj1); //执行方法say
