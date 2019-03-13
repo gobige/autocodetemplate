@@ -1,16 +1,20 @@
 package com.example.autocodetemplate.service;
 
 import com.example.autocodetemplate.Enum.EnumLotteryQueryType;
+import com.example.autocodetemplate.domain.AreaAndPostCodeResult;
 import com.example.autocodetemplate.domain.OcrRecResult;
 import com.example.autocodetemplate.exception.ServiceRuntimeException;
 import com.example.autocodetemplate.param.req.LotteryQueryJuheRequest;
 import com.example.autocodetemplate.param.resp.LotteryQueryJuheResponse;
+import com.example.autocodetemplate.util.FileUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>爱车小屋</p>
@@ -28,6 +32,8 @@ public class LotteryQueryServiceTest {
     private LotteryQueryService lotteryQueryService;
     @Resource
     private OcrImageRecognitionService ocrImageRecognitionService;
+    @Resource
+    private AreaCodeAndPostCodeServcie areaCodeAndPostCodeServcie;
 
 
     @Test
@@ -51,4 +57,30 @@ public class LotteryQueryServiceTest {
         System.out.println(response.toString());
     }
 
+    @Test
+    public void testGetAreaCodeAndPostCode()  throws Exception {
+        String fileContent = FileUtil.fileInputStreamToString("c:/暂存/areaName.txt");
+        fileContent = fileContent.replaceAll("\\r\\n", ",");
+
+        String[] str = fileContent.split(",");
+        List<AreaAndPostCodeResult> responses = new ArrayList<>();
+        for (String s : str) {
+            try {
+                List<AreaAndPostCodeResult> response = getByName(s);
+                responses.addAll(response);
+            } catch (Exception e) {
+                System.out.println("##############################################################################################:" + s);
+            }
+        }
+
+        for (AreaAndPostCodeResult result : responses) {
+            System.out.println(result.toString());
+        }
+    }
+
+    private List<AreaAndPostCodeResult> getByName(String name) throws Exception{
+        List<AreaAndPostCodeResult> response = areaCodeAndPostCodeServcie.getAreaCodeAndPostCode(name);
+
+        return response;
+    }
 }
