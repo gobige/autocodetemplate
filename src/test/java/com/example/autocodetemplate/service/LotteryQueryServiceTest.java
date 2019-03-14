@@ -78,6 +78,42 @@ public class LotteryQueryServiceTest {
         }
     }
 
+    @Test
+    public void testGetSql()  throws Exception {
+        String fileContent = FileUtil.fileInputStreamToString("c:/暂存/省市区号和邮编.txt");
+        fileContent = fileContent.replaceAll("\\r\\n", ":");
+
+        String[] str = fileContent.split(":");
+         for (String s : str) {
+            try {
+                Integer areaIndex = s.indexOf("area");
+                Integer areaStartIndex = areaIndex + 6;
+                Integer areaEndIndex = s.indexOf(",",areaStartIndex);
+                String area = s.substring(areaStartIndex, areaEndIndex-1);
+
+                Integer postcodeIndex = s.indexOf("postCode");
+                Integer postcodeStartIndex = postcodeIndex + 10;
+                Integer postcodeEndIndex = s.indexOf("'",postcodeStartIndex);
+                String postCode = s.substring(postcodeStartIndex, postcodeEndIndex);
+
+                Integer areaCodeIndex = s.indexOf("areaCode");
+                Integer areaCodeStartIndex = areaCodeIndex + 10;
+                Integer areaCodeEndIndex = s.indexOf("'",areaCodeStartIndex);
+                String areaCode = s.substring(areaCodeStartIndex, areaCodeEndIndex);
+
+//                Integer postCodeIndex = s.indexOf("postCode");
+//                Integer areaCodeIndex = s.indexOf("areaCode");
+//                List<AreaAndPostCodeResult> response = getByName(s);
+//                responses.addAll(response);
+                System.out.println("UPDATE wst_areas SET areaCode = '"+areaCode+"',postal_code ="+postCode+" WHERE areaName = '"+area+"';");
+            } catch (Exception e) {
+                System.out.println("##############################################################################################:" + s);
+            }
+        }
+
+    }
+
+
     private List<AreaAndPostCodeResult> getByName(String name) throws Exception{
         List<AreaAndPostCodeResult> response = areaCodeAndPostCodeServcie.getAreaCodeAndPostCode(name);
 
