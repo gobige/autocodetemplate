@@ -1,4 +1,4 @@
-package com.example.autocodetemplate.ohter.practice.network;
+package com.example.autocodetemplate.ohter.practice.IO;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

@@ -1,4 +1,4 @@
-package com.example.autocodetemplate.ohter.practice.network;
+package com.example.autocodetemplate.ohter.practice.IO;
 
 /**
  * <p>爱车小屋</p>

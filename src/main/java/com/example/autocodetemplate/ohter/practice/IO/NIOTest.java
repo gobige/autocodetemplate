@@ -1,4 +1,4 @@
-package com.example.autocodetemplate.ohter.practice.network;
+package com.example.autocodetemplate.ohter.practice.IO;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
