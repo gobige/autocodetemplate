@@ -1,10 +1,19 @@
 package com.example.autocodetemplate;
 
+import com.example.autocodetemplate.dao.SysAppVersionInfoDao;
+import com.example.autocodetemplate.domain.SysAppVersionInfo;
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * TempgeleratorApplication.java不仅是启动引导类，还是配置类
@@ -24,5 +33,28 @@ public class AutocodetemplateApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(AutocodetemplateApplication.class, args);
+        String resource="mybatis-config.xml";
+        InputStream inputStream = null;
+        try {
+             inputStream = Resources.getResourceAsStream(resource);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        SqlSessionFactory sqlSessionFactory=null;
+        sqlSessionFactory=new SqlSessionFactoryBuilder().build(inputStream);
+        SqlSession sqlSession=null;
+        try {
+            sqlSession=sqlSessionFactory.openSession();
+            SysAppVersionInfoDao sysAppVersionInfoDao = sqlSession.getMapper(SysAppVersionInfoDao.class);
+            SysAppVersionInfo role = sysAppVersionInfoDao.queryByIdBySelectProvider(16);
+            System.out.println(role.getId()+":"+role.getRemark()+":"+role.getAppVersion());
+            sqlSession.commit();
+
+        } catch (Exception e) {
+            sqlSession.rollback();
+            e.printStackTrace();
+        }finally {
+            sqlSession.close();
+        }
     }
 }

@@ -14,14 +14,19 @@ import java.util.Properties;
  * @version 1.0
  */
 public class ConfigFileReadTest {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         ConfigFileReadTest configFileReadTest = new ConfigFileReadTest();
 
-        configFileReadTest.getByClassLoader("test.properties");
+        InputStream inputStream = configFileReadTest.getByClassLoader("/test.properties");
+        Properties prop = new Properties();
+        prop.load(inputStream);
+        String key = prop.getProperty("test.name");
+         System.out.println(key);
     }
 
     InputStream getByClassLoader(String path) {
         InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(path);
+        InputStream inputStream2 = this.getClass().getResourceAsStream(path);
 
         return inputStream;
     }

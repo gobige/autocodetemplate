@@ -1,6 +1,7 @@
 package com.example.autocodetemplate.ohter.practice;
 
 import com.example.autocodetemplate.util.TimeUtil;
+import io.netty.util.internal.shaded.org.jctools.queues.MpscArrayQueue;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -215,12 +216,16 @@ class StreamTest {
         List<String> list = apples.stream().map(Apple::getName).collect(Collectors.toList());
         Optional<Apple> wightThanThree = apples.stream().filter(a -> a.getWight() > 3).findAny();
 
-        apples.add(new Apple(1,2,"china","apple1"));
+        apples.add(new Apple(1,2,"china","apple11"));
         apples.add(new Apple(2,3,"china","apple2"));
         apples.add(new Apple(3,1,"brazil","apple3"));
         apples.add(new Apple(4,3,"china","apple4"));
         apples.add(new Apple(5,7,"brazil","apple5"));
         apples.add(new Apple(6,2,"american","apple6"));
+
+
+        Map<String, Object> trestmap = apples.stream().collect(Collectors.toMap(Apple::getName, Function.identity()));
+        trestmap.containsKey("asdf");
         //1.针对重复key的  覆盖之前的value  不加(k,v)->v)遇到重复key时会报错
         //        apples.add(new Apple(6,2,"american","apple6"));
         apples.stream().collect(Collectors.toMap(Apple::getSeqNo, Apple::getName,(k,v)->v));
