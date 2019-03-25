@@ -7,10 +7,10 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.PropertyResourceBundle;
-import java.util.ResourceBundle;
 
 /**
  * <p>爱车小屋</p>
@@ -28,9 +28,6 @@ public class MybatisDebug {
         InputStream inputStream = null;
 
         inputStream = mybatisDebug.getClass().getResourceAsStream(resource);
-
-        ResourceBundle resourceBundle = new PropertyResourceBundle(inputStream);
-        resourceBundle.getString("configuration");
 
         SqlSessionFactory sqlSessionFactory=null;
         sqlSessionFactory=new SqlSessionFactoryBuilder().build(inputStream);
