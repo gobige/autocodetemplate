@@ -23,18 +23,18 @@ public class ConfigFileReadTest {
     public static void main(String[] args) throws IOException {
         ConfigFileReadTest configFileReadTest = new ConfigFileReadTest();
 
-        InputStream inputStream = configFileReadTest.getByClassLoader("/test.properties");
-        InputStream fileInputStream = configFileReadTest.getByFile("C:\\Users\\爱车小屋\\Documents\\GitHub\\autocodetemplate\\src\\main\\resources\\test.properties");
+        InputStream inputStream = configFileReadTest.getByClassLoader("/application.properties");
+        InputStream fileInputStream = configFileReadTest.getByFile("C:\\Users\\爱车小屋\\Documents\\GitHub\\autocodetemplate\\src\\main\\resources\\application.properties");
 
         Properties prop = configFileReadTest.getPropertiesFromInputStream(fileInputStream);
-        String propkey = prop.getProperty("test.name");
+        String propkey = prop.getProperty("com.yates.thirdparty.juhe.host");
 
         // 流只能被导入加载一次 和上面处理方式类似  只是 把properties 封装成hashmap结构
         ResourceBundle resource = new PropertyResourceBundle(fileInputStream);
-        String resourcekey = resource.getString("test.name");
+        String resourcekey = resource.getString("com.yates.thirdparty.juhe.host");
 
-        ResourceBundle resourceBundle = configFileReadTest.getResourceBundle("test");
-        String Bundlekey = resourceBundle.getString("test.name");
+        ResourceBundle resourceBundle = configFileReadTest.getResourceBundle("application");
+        String Bundlekey = resourceBundle.getString("com.yates.thirdparty.juhe.host");
 
 //        InputStream urlInputStream = configFileReadTest.getByUrl("/test.properties");
 
