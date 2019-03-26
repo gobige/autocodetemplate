@@ -35,7 +35,7 @@ public class MybatisDebug {
         try {
             sqlSession=sqlSessionFactory.openSession();
             SysAppVersionInfoDao sysAppVersionInfoDao = sqlSession.getMapper(SysAppVersionInfoDao.class);
-            SysAppVersionInfo role = sysAppVersionInfoDao.queryByIdBySelectProvider(16);
+            SysAppVersionInfo role = sysAppVersionInfoDao.queryById(16);
             System.out.println(role.getId()+":"+role.getRemark()+":"+role.getAppVersion());
             sqlSession.commit();
 
