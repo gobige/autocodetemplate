@@ -2,14 +2,10 @@ package com.example.autocodetemplate.ohter.practice.debugsource;
 
 import com.example.autocodetemplate.dao.SysAppVersionInfoDao;
 import com.example.autocodetemplate.domain.SysAppVersionInfo;
-import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 
 /**
@@ -29,11 +25,11 @@ public class MybatisDebug {
 
         inputStream = mybatisDebug.getClass().getResourceAsStream(resource);
 
-        SqlSessionFactory sqlSessionFactory=null;
-        sqlSessionFactory=new SqlSessionFactoryBuilder().build(inputStream);
-        SqlSession sqlSession=null;
+        SqlSessionFactory sqlSessionFactory = null;
+        sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        SqlSession sqlSession = null;
         try {
-            sqlSession=sqlSessionFactory.openSession();
+            sqlSession = sqlSessionFactory.openSession();
             SysAppVersionInfoDao sysAppVersionInfoDao = sqlSession.getMapper(SysAppVersionInfoDao.class);
             SysAppVersionInfo role = sysAppVersionInfoDao.queryById(16);
             System.out.println(role.getId()+":"+role.getRemark()+":"+role.getAppVersion());
