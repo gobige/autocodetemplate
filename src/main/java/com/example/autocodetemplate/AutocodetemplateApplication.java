@@ -1,10 +1,20 @@
 package com.example.autocodetemplate;
 
+import com.example.autocodetemplate.dao.TargetTableDao;
+import com.example.autocodetemplate.domain.TableStructure;
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Collection;
 
 /**
  * TempgeleratorApplication.java不仅是启动引导类，还是配置类
@@ -24,5 +34,31 @@ public class AutocodetemplateApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(AutocodetemplateApplication.class, args);
+        String resource="/mybatis/mybatis-config.xml";
+        InputStream inputStream=null;
+        try {
+            inputStream = Resources.getResourceAsStream(resource);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        SqlSessionFactory sqlSessionFactory=null;
+        sqlSessionFactory=new SqlSessionFactoryBuilder().build(inputStream);
+        SqlSession sqlSession=null;
+        try {
+            sqlSession=sqlSessionFactory.openSession();
+            TargetTableDao roleMapper=sqlSession.getMapper(TargetTableDao.class);
+            Collection<TableStructure> role=roleMapper.descTableStru("");
+            System.out.println(role.toArray().toString());
+            sqlSession.commit();
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            sqlSession.rollback();
+            e.printStackTrace();
+        }finally {
+            sqlSession.close();
+        }
+
     }
 }
