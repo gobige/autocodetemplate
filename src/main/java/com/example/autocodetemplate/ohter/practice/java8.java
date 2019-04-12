@@ -239,11 +239,7 @@ class StreamTest {
         apples2.add(new Apple(5,2,"brazil","apple5"));
         apples2.add(new Apple(3,3,"american","apple2"));
 
-        Map appleMaps = apples2.stream().collect(Collectors.toMap(Apple::getCountry, Function.identity()));
-
         List<Apple> apples3 = new ArrayList<Apple>();
-
-        List<Apple> apples4 = null;
 
         // 过滤 1 Stream流合可以对空集合进行操作，2但是不能对空对象进行操作，3而且通过collect()方法得到的是一个新的集合
         apples3 = apples3.stream().filter(item -> item != null && item.getWight() > 3).collect(Collectors.toList());

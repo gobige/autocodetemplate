@@ -25,22 +25,17 @@ public class SumTest {
     public static void main(String[] args) {
         int[] arrays = {1, 3, 5, 7, 11};
         int target = 14;
-        int[] returnArr = new SumTest().getIndexBySum(arrays, target);
-
-        for (int i = 0; i < returnArr.length; i++) {
-            System.out.println(Math.sqrt(4));
-        }
 
     }
 
-    public int[] getIndexBySum(int[] arrays, int target) {
+    public static int[] twoSum2(int[] nums, int target) {
         int[] returnArrays = new int[2];
-        for (int i = 0; i < arrays.length; i++) {
-            if (i == arrays.length - 1) {
+        for (int i = 0; i < nums.length; i++) {
+            if (i == nums.length - 1) {
                 break;
             }
-            for (int j = i + 1; j < arrays.length; j++) {
-                int total = arrays[i] + arrays[j];
+            for (int j = i + 1; j < nums.length; j++) {
+                int total = nums[i] + nums[j];
                 if (total == target) {
                     returnArrays[0] = i;
                     returnArrays[1] = j;
@@ -50,6 +45,78 @@ public class SumTest {
         }
 
         return returnArrays;
+    }
+
+
+    public static int[] twoSum(int[] nums, int target) {
+        int max = getMaxNum(nums);
+
+        int[] calNums = generateCalNums(nums, max);
+        if (calNums == null) {
+            return null;
+        }
+
+        if (2 * max < target) {
+            return new int[0];
+        }
+
+        int rangeMin = 0;
+        int rangeMax = max;
+        if (max < target) {
+            rangeMin = target - max;
+        }
+        if (max > target) {
+            rangeMax = target;
+        }
+
+        int[] result = null;
+        while (true) {
+            if (rangeMin > rangeMax) {
+                break;
+            }
+            if (calNums[rangeMin] != -1 && calNums[rangeMax] != -1) {
+                result = new int[2];
+                result[0] = calNums[rangeMin];
+                result[1] = calNums[rangeMax];
+                break;
+            }
+            rangeMin++;
+            rangeMax--;
+        }
+
+
+        return result;
+    }
+
+    private static int[] generateCalNums(int[] nums,int max) {
+
+        if(nums != null && nums.length > 0) {
+            int[] calNums = new int[max+1];
+            for (int j = 0; j < calNums.length; j++) {
+                calNums[j] = -1;
+            }
+            for (int i = 0; i < nums.length; i++) {
+                calNums[nums[i]] = i;
+            }
+
+            return calNums;
+        }
+
+        return null;
+    }
+
+    private static int getMaxNum(int[] nums) {
+        int max = 0;
+        if(nums != null && nums.length > 0) {
+            max = nums[0];
+            for(int num : nums) {
+                if(num > max) {
+                    max = num;
+                }
+            }
+        }
+
+        return max;
     }
 
 
