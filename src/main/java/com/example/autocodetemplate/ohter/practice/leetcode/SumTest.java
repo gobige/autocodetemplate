@@ -25,7 +25,7 @@ public class SumTest {
     public static void main(String[] args) {
         int[] arrays = {1, 3, 5, 7, 11};
         int target = 14;
-
+        twoSum2(arrays, target);
     }
 
     public static int[] twoSum2(int[] nums, int target) {
