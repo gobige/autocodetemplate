@@ -14,7 +14,7 @@ import java.util.Map;
  */
 public class LongestSubstringWithoutRepeatingCharacters {
     public static void main(String[] args) {
-        String str = "angwdvbdfanplw";
+        String str = "dvdf";
 
         int maxSingle = lengthOfLongestSubstring(str);
 
@@ -29,17 +29,31 @@ public class LongestSubstringWithoutRepeatingCharacters {
      * @return
      */
     public static int lengthOfLongestSubstring(String s) {
-        int n = s.length(), ans = 0;
-        Map<Character, Integer> map = new HashMap<>(); // current index of character
-        // try to extend the range [i, j]
-        for (int j = 0, i = 0; j < n; j++) {
-            if (map.containsKey(s.charAt(j))) {
-                i = Math.max(map.get(s.charAt(j)), i);
+        char[] chars = s.toCharArray();
+
+        // 字符 字符最近一次出现的下标位置
+        Map<Character, Integer> characterMap = new HashMap<>(chars.length);
+        Integer maxSingle = 0;
+        Integer index = 0;
+        for (int i = 0; i < chars.length; ) {
+            if (characterMap.containsKey(chars[i])) {
+                if (maxSingle < characterMap.size()) {
+                    maxSingle = characterMap.size();
+                }
+                index = characterMap.get(chars[i]);
+                i = index + 1;
+                characterMap.clear();
+            } else {
+                characterMap.put(chars[i], i);
+                i++;
             }
-            ans = Math.max(ans, j - i + 1);
-            map.put(s.charAt(j), j + 1);
         }
-        return ans;
+
+        if (maxSingle < characterMap.size()) {
+            maxSingle = characterMap.size();
+        }
+
+        return maxSingle;
     }
 
     /**
