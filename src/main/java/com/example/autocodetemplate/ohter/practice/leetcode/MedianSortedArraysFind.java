@@ -1,5 +1,7 @@
 package com.example.autocodetemplate.ohter.practice.leetcode;
 
+import java.math.BigDecimal;
+
 /**
  * <p>爱车小屋</p>
  * <p>Project: carhouse-xx</p>
@@ -12,15 +14,24 @@ package com.example.autocodetemplate.ohter.practice.leetcode;
  * 请你找出这两个有序数组的中位数，并且要求算法的时间复杂度为 O(log(m + n))。
  *
  * 你可以假设 nums1 和 nums2 不会同时为空。
+ *
+ *
+ * 解题思路：先合并有序数组，再获取中位数
  * @version 1.0
  */
 public class MedianSortedArraysFind {
     public static void main(String[] args) {
         int[] nums1 = {1, 5};
-        int[] nums2 = {2, 5, 9, 10};
+        int[] nums2 = {2, 4, 9, 10};
         System.out.println(findMedianSortedArrays(nums1, nums2));
     }
 
+    /**
+     * 获取中位数
+     * @param nums1
+     * @param nums2
+     * @return
+     */
     public static double findMedianSortedArrays(int[] nums1, int[] nums2) {
         int[] combinSortArr = combineArrays(nums1, nums2);
 
@@ -30,15 +41,23 @@ public class MedianSortedArraysFind {
 
             int mediaIndex = combinSortArr.length / 2;
             if (oddNum) {
-                return combinSortArr[mediaIndex];
+                return new Double(combinSortArr[mediaIndex]);
             }else {
-                return (combinSortArr[mediaIndex] + combinSortArr[mediaIndex - 1]) / 2;
+                Double divisor =  new Double((combinSortArr[mediaIndex] + combinSortArr[mediaIndex - 1]));
+                Double divisor2 = new Double(2);
+                return divisor / divisor2;
             }
         }
 
         return 0;
     }
 
+    /**
+     * 归并排序
+     * @param nums1
+     * @param nums2
+     * @return
+     */
     public static int[] combineArrays(int[] nums1, int[] nums2) {
         int[] combinSortArr = new int[nums1.length + nums2.length];
 
