@@ -80,7 +80,7 @@ public class ZShapedTransformation {
 
             // 分配列 可多不可少
             if (modular > numRows) {
-                return (numRows) * column;
+                return (column+1)*2;
             }else {
                 return column*2 + 1;
             }
