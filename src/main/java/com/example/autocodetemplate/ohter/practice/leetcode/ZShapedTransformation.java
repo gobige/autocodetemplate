@@ -8,11 +8,18 @@ public class ZShapedTransformation {
 
     public static void main(String[] args) {
 
-        System.out.println(convert("LEETCODEISHIRING", 4));
+        System.out.println(convert("ABCDE", 4));
     }
 
     public static String convert(String s, int numRows) {
         char[] characters = s.toCharArray();
+
+        if (s == null || s.equals("")) {
+            return "";
+        }
+        if (numRows == 1 || s.length() <= numRows) {
+            return s;
+        }
 
         // 获取需要排列多少列
         int colNums = getColumNum(characters, numRows);
@@ -22,6 +29,7 @@ public class ZShapedTransformation {
         // 填充字符到矩阵
         chars = getMatrixAfterFillChar(chars, characters, numRows, colNums);
 
+        // 从矩阵按规则取出数据
         StringBuilder stringBuilder = new StringBuilder("");
         for (int row = 0; row < numRows; row++) {
             for (int col = 0; col < colNums; col++) {
@@ -44,25 +52,68 @@ public class ZShapedTransformation {
      */
     public static char[][] getMatrixAfterFillChar(char[][] chars, char[] characters, int numRows, int colNums) {
         int get = 0;
-        // 字符插入矩阵
-        for (int col = 0; col < colNums; col++) {
-            for (int row = 0; row < numRows; row++) {
-                // 填充完成，返回填充后矩阵
-                if (get == characters.length) {
-                    return chars;
-                }
 
-                // 首行，尾行，双数列不填充值
-                if ((row == 0 || row == numRows - 1) && col % 2 != 0) {
+        int col = 0;
+        int row = 0;
 
-                } else {
-                    chars[row][col] = characters[get];
-                    get++;
-                }
-            }
-        }
+        vertical(get, characters, chars, numRows, row, col);
 
         return chars;
+    }
+
+    /**
+     * 竖方向数据填充
+     * @param get
+     * @param characters
+     * @param chars
+     * @param numRows
+     * @param row
+     * @param col
+     */
+    public static void vertical(int get, char[] characters, char[][] chars, int numRows, int row, int col) {
+        if (get == characters.length) {
+            return;
+        }
+
+        while (row < numRows) {
+            if (get == characters.length) {
+                return;
+            }
+
+            chars[row][col] = characters[get];
+            row++;
+            get++;
+        }
+
+        oblique(get, characters, chars, numRows, row - 2, col + 1);
+    }
+
+    /**
+     * 斜方向数据填充
+     * @param get
+     * @param characters
+     * @param chars
+     * @param numRows
+     * @param row
+     * @param col
+     */
+    public static void oblique(int get, char[] characters, char[][] chars, int numRows, int row, int col) {
+        if (get == characters.length) {
+            return;
+        }
+
+        while (row > -1) {
+            if (get == characters.length) {
+                return;
+            }
+
+            chars[row][col] = characters[get];
+            row--;
+            col++;
+            get++;
+        }
+
+        vertical(get, characters, chars, numRows, row + 2, col - 1);
     }
 
     /**
@@ -72,21 +123,10 @@ public class ZShapedTransformation {
      * @return
      */
     public static int getColumNum(char[] characters, int numRows) {
-        if (numRows > 2) {
-            int ModularParam = numRows * 2 - 2;
+        int ModularParam = numRows * 2 - 2;
 
-            int column = characters.length / ModularParam;
-            int modular = characters.length % ModularParam;
+        int column = characters.length / ModularParam;
 
-            // 分配列 可多不可少
-            if (modular > numRows) {
-                return (column+1)*2;
-            }else {
-                return column*2 + 1;
-            }
-        }
-
-        return characters.length / numRows + 1;
+        return numRows * (column + 1);
     }
-
 }
