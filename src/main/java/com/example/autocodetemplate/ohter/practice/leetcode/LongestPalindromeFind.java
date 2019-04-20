@@ -1,8 +1,5 @@
 package com.example.autocodetemplate.ohter.practice.leetcode;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * <p>爱车小屋</p>
  * <p>Project: carhouse-xx</p>
@@ -15,36 +12,46 @@ import java.util.Map;
  */
 public class LongestPalindromeFind {
 
-    public String longestPalindrome(String s) {
+    public static void main(String[] args) {
+        System.out.println(longestPalindrome("ac"));
+
+    }
+
+    // 走最长步长开始，相继减少
+    public static String longestPalindrome(String s) {
+        if (s == null || s.length() == 0) {
+            return "";
+        }
+        if (s.length() == 1) {
+            return s;
+        }
         char[] chars = s.toCharArray();
 
-        // 字符 字符最近一次出现的下标位置
-        Map<Character, Integer> characterMap = new HashMap<>(chars.length);
-        Integer maxSingle = 0;
-        Integer maxIndex = 0;
-        Integer minIndex = 0;
-        Integer index = 0;
-        for (int i = 0; i < chars.length; ) {
-            if (characterMap.containsKey(chars[i])) {
-                if (maxSingle < characterMap.size()) {
-                    maxSingle = characterMap.size();
-                    maxIndex =
+        if (s.length() == 2 && chars[0] != chars[1]) {
+            return s.substring(0,1);
+        }
+
+        int beginIndex = 0;
+        int stepSize = s.length() - 1;
+
+
+        while (true) {
+            if (stepSize == 0) {
+                return "";
+            }
+
+            if (beginIndex + stepSize < s.length()) {
+                if (chars[beginIndex] == chars[beginIndex +stepSize]) {
+                    return s.substring(beginIndex, beginIndex +stepSize + 1);
                 }
-                index = characterMap.get(chars[i]);
-                i = index + 1;
-                characterMap.clear();
-            } else {
-                characterMap.put(chars[i], i);
-                i++;
+
+                beginIndex++;
+            }else {
+                stepSize--;
+                beginIndex = 0;
             }
         }
 
-        if (maxSingle < characterMap.size()) {
-            maxSingle = characterMap.size();
-        }
-
-        return maxSingle;
     }
-
 
 }
