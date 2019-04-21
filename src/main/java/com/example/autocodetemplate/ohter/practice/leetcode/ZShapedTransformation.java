@@ -1,17 +1,79 @@
 package com.example.autocodetemplate.ohter.practice.leetcode;
 
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * Z 字形变换
- * 思路：先填充进入矩阵，再通过矩阵获取转换后字符串
+ * 思路：先填充进入矩阵，再通过矩阵获取转换后字符串 空间时间复杂度高)
+ * 思路2：桶排序的思路)
  */
 public class ZShapedTransformation {
 
     public static void main(String[] args) {
 
-        System.out.println(convert("ABCDE", 4));
+        System.out.println(convert("LEETCODEISHIRING", 4));
     }
 
     public static String convert(String s, int numRows) {
+        char[] characters = s.toCharArray();
+
+        LinkedList<Character>[] bukets = new LinkedList[numRows];
+
+        // 入桶
+        int get = 0;
+        int bucketIndex = 0;
+        boolean reverse = false;
+
+        // 第一次入桶特殊处理，避免反转
+        LinkedList<Character> buketList = bukets[bucketIndex];
+        if (buketList == null) {
+            buketList = new LinkedList();
+            bukets[bucketIndex] = buketList;
+        }
+        buketList.addLast(characters[get]);
+        bucketIndex++;
+        get++;
+
+        while (get < characters.length) {
+            buketList = bukets[bucketIndex];
+
+            if (buketList == null) {
+                buketList = new LinkedList();
+                bukets[bucketIndex] = buketList;
+            }
+            buketList.addLast(characters[get]);
+
+            if (bucketIndex == numRows - 1) {
+                reverse = true;
+            } else if (bucketIndex == 0) {
+                reverse = false;
+            }
+
+            if (reverse) {
+                bucketIndex--;
+            }else {
+                bucketIndex++;
+            }
+            get++;
+        }
+
+        // 从桶中取出数据
+        StringBuilder stringBuilder = new StringBuilder("");
+
+        for (LinkedList linkedList : bukets) {
+            if (linkedList != null) {
+                for (Object o : linkedList) {
+                    stringBuilder.append((Character) o);
+                }
+            }
+        }
+
+        return stringBuilder.toString();
+    }
+
+
+    public static String convert2(String s, int numRows) {
         char[] characters = s.toCharArray();
 
         if (s == null || s.equals("")) {
