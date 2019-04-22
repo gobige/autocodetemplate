@@ -1,7 +1,7 @@
 package com.example.autocodetemplate.ohter.practice.leetcode;
 
 /**
- * 是否回文数判断
+ * 是否回文数字判断
  */
 public class NumberOfTracts {
 
