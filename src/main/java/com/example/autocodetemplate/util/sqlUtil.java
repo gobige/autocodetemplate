@@ -1,5 +1,8 @@
 package com.example.autocodetemplate.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * <p>爱车小屋</p>
  * <p>Project: carhouse-xx</p>
@@ -10,6 +13,12 @@ package com.example.autocodetemplate.util;
  * @version 1.0
  */
 public class sqlUtil {
+    private static Logger logger = LoggerFactory.getLogger(sqlUtil.class);
+
+    public static void main(String[] args) {
+
+    }
+
 
     /**
      * 预编译sql和参数合并为完整sql

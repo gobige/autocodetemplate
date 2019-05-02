@@ -26,6 +26,25 @@ public class StringUtil {
     private static Pattern linePattern = Pattern.compile("_(\\w)");
     private static Pattern humpPattern = Pattern.compile("[A-Z]");
 
+
+    /**
+     * 按位数对字串左边进行补零
+     * @param String str
+     * @param int 位数
+     */
+    public static String addLeftZeroForNum(String str, int strLength) {
+        int strLen = str.length();
+        if (strLen < strLength) {
+            while (strLen < strLength) {
+                StringBuffer sb = new StringBuffer();
+                sb.append("0").append(str);// 左补0
+                str = sb.toString();
+                strLen = str.length();
+            }
+        }
+        return str;
+    }
+
     /**
      * 从标准domain类中获取set语句(用于do，vo，bo等相互转换时赋值场景)
      *

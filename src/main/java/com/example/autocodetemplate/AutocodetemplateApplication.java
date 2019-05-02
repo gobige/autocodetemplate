@@ -34,31 +34,32 @@ public class AutocodetemplateApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(AutocodetemplateApplication.class, args);
-        String resource="/mybatis/mybatis-config.xml";
-        InputStream inputStream=null;
-        try {
-            inputStream = Resources.getResourceAsStream(resource);
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        SqlSessionFactory sqlSessionFactory=null;
-        sqlSessionFactory=new SqlSessionFactoryBuilder().build(inputStream);
-        SqlSession sqlSession=null;
-        try {
-            sqlSession=sqlSessionFactory.openSession();
-            TargetTableDao roleMapper=sqlSession.getMapper(TargetTableDao.class);
-            Collection<TableStructure> role=roleMapper.descTableStru("");
-            System.out.println(role.toArray().toString());
-            sqlSession.commit();
 
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            sqlSession.rollback();
-            e.printStackTrace();
-        }finally {
-            sqlSession.close();
-        }
+//        String resource="/mybatis/mybatis-config.xml";
+//        InputStream inputStream=null;
+//        try {
+//            inputStream = Resources.getResourceAsStream(resource);
+//        } catch (IOException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
+//        SqlSessionFactory sqlSessionFactory=null;
+//        sqlSessionFactory=new SqlSessionFactoryBuilder().build(inputStream);
+//        SqlSession sqlSession=null;
+//        try {
+//            sqlSession=sqlSessionFactory.openSession();
+//            TargetTableDao roleMapper=sqlSession.getMapper(TargetTableDao.class);
+//            Collection<TableStructure> role=roleMapper.descTableStru("");
+//            System.out.println(role.toArray().toString());
+//            sqlSession.commit();
+//
+//        } catch (Exception e) {
+//            // TODO Auto-generated catch block
+//            sqlSession.rollback();
+//            e.printStackTrace();
+//        }finally {
+//            sqlSession.close();
+//        }
 
     }
 }
