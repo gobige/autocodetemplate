@@ -18,8 +18,8 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
  * Redis缓存自动配置类
  * author yates
  */
-@Configuration
-@EnableCaching
+//@Configuration
+//@EnableCaching
 public class Redisfig extends CachingConfigurerSupport {
     @Bean
     public CacheManager cacheManager(@SuppressWarnings("rawtypes") RedisTemplate redisTemplate) {

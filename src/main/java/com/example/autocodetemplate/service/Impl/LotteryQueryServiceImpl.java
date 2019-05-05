@@ -31,7 +31,7 @@ public class LotteryQueryServiceImpl implements LotteryQueryService {
 
     private final Logger logger = LoggerFactory.getLogger(LotteryQueryServiceImpl.class);
 
-    @Value(" ${com.yates.thirdparty.juhe.key}")
+    @Value("${com.yates.thirdparty.juhe.key}")
     private String key;
     @Value("${com.yates.thirdparty.juhe.host}")
     private String host;
