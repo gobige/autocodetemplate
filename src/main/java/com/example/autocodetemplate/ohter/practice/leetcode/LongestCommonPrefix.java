@@ -19,6 +19,9 @@ public class LongestCommonPrefix {
             return "";
         }
 
+        if (1 == strs.length ) {
+            return strs[0];
+        }
 
         // 拆分成列表 对象 存储数组结构
         List<CharsAraay> characters = new ArrayList<CharsAraay>(strs.length);
@@ -36,9 +39,8 @@ public class LongestCommonPrefix {
         StringBuilder result = new StringBuilder("");
         int index = 0;
         while (true) {
-            if (index == characters.size()) {
-                return result.toString();
-            }
+
+            // 第一个字符串作为基准
             char[] firstchars = characters.get(0).getChars();
             if (firstchars.length == index) {
                 return result.toString();
@@ -62,7 +64,7 @@ public class LongestCommonPrefix {
     }
 
     public static void main(String[] args) {
-        System.out.println(longestCommonPrefix(new String[]{"aa","ab"}));
+        System.out.println(longestCommonPrefix(new String[]{"abca","abc"}));
     }
 }
 
