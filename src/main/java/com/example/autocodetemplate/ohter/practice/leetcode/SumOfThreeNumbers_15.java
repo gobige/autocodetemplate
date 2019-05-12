@@ -18,7 +18,7 @@ import java.util.*;
 public class SumOfThreeNumbers_15 {
     /**
      * 双指针
-     * 时间复杂度
+     * 时间复杂度 N的阶乘
      * 空间复杂度 最大3N 最小N
      * @param nums
      * @return
