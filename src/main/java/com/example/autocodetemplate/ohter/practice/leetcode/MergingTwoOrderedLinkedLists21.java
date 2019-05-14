@@ -65,61 +65,6 @@ public class MergingTwoOrderedLinkedLists21 {
     }
 
 
-
-    public ListNode mergeTwoLists1(ListNode l1, ListNode l2) {
-
-        ListNode sortListNode = null;
-
-        ListNode curentNode = null;
-
-        boolean firstNode = true;
-
-        while (true) {
-            if (l1 != null && l2 != null) {
-                if (l2.val < l1.val) {
-                    if (firstNode) {
-                        curentNode = l2;
-                        sortListNode = curentNode;
-                    }else {
-                        curentNode.next = l2;
-                    }
-                    l2 = l2.next;
-                }else {
-                    if (firstNode) {
-                        curentNode = l1;
-                        sortListNode = curentNode;
-                    }else {
-                        curentNode.next = l1;
-                    }
-                    l1 = l1.next;
-                }
-                curentNode = curentNode.next;
-            } else if (l1 == null) {
-                if (firstNode) {
-                    curentNode = l2;
-                    sortListNode = curentNode;
-                }else {
-                    curentNode.next = l2;
-                }
-                break;
-            } else if (l2 == null) {
-                if (firstNode) {
-                    curentNode = l1;
-                    sortListNode = curentNode;
-                }else {
-                    curentNode.next = l1;
-                }
-                break;
-            }
-
-            firstNode = false;
-            curentNode = curentNode.next;
-        }
-
-        return sortListNode;
-    }
-
-
     class ListNode {
         int val;
         ListNode next;
