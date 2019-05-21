@@ -1,7 +1,5 @@
 package com.example.autocodetemplate.ohter.practice.leetcode;
 
-import java.util.List;
-
 /**
  * 24. 两两交换链表中的节点
  *
@@ -11,8 +9,21 @@ import java.util.List;
  *
  * 思路1 遍历奇数与下一个数继续交换 使用递归的手段来进行
  * 思路2 遍历到一个数组中，然后分组交换数组对象，最后遍历数组重新组装链表
+ * 时间复杂度 3n
+ * 空间复杂度复杂度 n
  */
 public class NodesInAPairOfExchangeLists24 {
+
+
+    public static void main(String[] args) {
+        ListNode head = new ListNode(1);
+        head.next = new ListNode(2);
+        head.next.next = new ListNode(3);
+        head.next.next.next = new ListNode(4);
+
+        ListNode ws = swapPairs(head);
+        System.out.println(ws);
+    }
 
     public static ListNode swapPairs(ListNode head) {
 
@@ -30,27 +41,54 @@ public class NodesInAPairOfExchangeLists24 {
         ListNode[] listNodeArr = new ListNode[i];
         curNode = head;
         int k = 1;
-        listNodeArr[k] = curNode;
+        listNodeArr[0] = curNode;
         while (curNode.next != null) {
             listNodeArr[k] = curNode.next;
             curNode = curNode.next;
             k++;
         }
 
+        Integer stepSize = 2;
+        if (stepSize > listNodeArr.length) {
+            return head;
+        }
 
-
-        return nextNode;
+        return revertArr(0, stepSize - 1, listNodeArr, true, stepSize);
     }
 
-    public static ListNode revertArr(Integer stepSize, ListNode[] listNodeArr) {
-        ListNode firstNode = null;
+    public static ListNode revertArr(Integer startIndex, Integer endIndex, ListNode[] listNodeArr,Boolean revert,Integer stepSize) {
+        ListNode curNode = null;
+        ListNode headNode = null;
 
-        if (stepSize >= listNodeArr.length) {
-
+        if (revert) {
+            headNode = listNodeArr[endIndex];
+            curNode = listNodeArr[endIndex];
+            for (int i = endIndex-1; i >= startIndex; i--) {
+                curNode.next = listNodeArr[i];
+                curNode = curNode.next;
+            }
+        }else {
+            headNode = listNodeArr[startIndex];
+            curNode = listNodeArr[startIndex];
+            for (int i = startIndex+1; i <= endIndex; i++) {
+                curNode.next = listNodeArr[i];
+                curNode = curNode.next;
+            }
         }
-        for (int i = 0; i < listNodeArr.length; i++) {
 
+        if (endIndex < listNodeArr.length - 1) {
+            if (endIndex + stepSize <= listNodeArr.length - 1) {
+                boolean rvert = true;
+                curNode.next = revertArr(endIndex + 1, endIndex + stepSize, listNodeArr, rvert, stepSize);
+            }else {
+                boolean rvert = false;
+                curNode.next = revertArr(endIndex + 1, listNodeArr.length - 1, listNodeArr, rvert, stepSize);
+            }
+        }else {
+            curNode.next = null;
         }
+
+        return headNode;
     }
 
     public static ListNode swapPairs1(ListNode head) {
@@ -67,13 +105,4 @@ public class NodesInAPairOfExchangeLists24 {
         return nextNode;
     }
 
-    public static void main(String[] args) {
-        ListNode head = new ListNode(1);
-        head.next = new ListNode(2);
-        head.next.next = new ListNode(3);
-        head.next.next.next = new ListNode(4);
-
-        ListNode ws = swapPairs(head);
-        System.out.println(ws);
-    }
 }
