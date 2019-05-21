@@ -12,7 +12,7 @@ package com.example.autocodetemplate.ohter.practice.leetcode;
  */
 public class DividingTwoNumbers29 {
     public static void main(String[] args) {
-        System.out.println(divide(-2147483648, -1));
+        System.out.println(divide(-2147483648, 1));
     }
 
     public  static  int divide(int dividend, int divisor) {
@@ -32,14 +32,28 @@ public class DividingTwoNumbers29 {
         dividendLong = Math.abs(dividendLong);
         divisorLong = Math.abs(divisorLong);
 
-        int i = 0;
+        long i = 0;
+        long multip = divisorLong;
+        long multipi = 1;
         while (dividendLong >= divisorLong) {
-            dividendLong = dividendLong - divisorLong;
-            i++;
+            // 可倍增
+            if (dividendLong - multip >= 0) {
+                dividendLong = dividendLong - multip;
+                i += multipi;
+                multip += multip;
+                multipi += multipi;
+            } else {
+                multip = divisorLong;
+                multipi = 1;
+//                dividendLong = dividendLong - divisorLong;
+//                i++;
+            }
         }
 
-        if (Integer.MIN_VALUE < i && i < Integer.MAX_VALUE) {
-            return minusFlag ? -i : i;
+        i = minusFlag ? -i : i;
+
+        if (Long.valueOf(-2147483648) <= i && i <= Long.valueOf(2147483647)) {
+            return Long.valueOf(i).intValue();
         }else {
             return Integer.MAX_VALUE;
         }
