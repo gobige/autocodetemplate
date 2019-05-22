@@ -12,7 +12,7 @@ import java.util.Map;
  *
  * @version 1.0
  */
-public class LongestSubstringWithoutRepeatingCharacters {
+public class LongestSubstringWithoutRepeatingCharacters3 {
     public static void main(String[] args) {
         String str = "dvdf";
 

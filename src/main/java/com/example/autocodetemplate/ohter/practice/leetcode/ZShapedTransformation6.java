@@ -8,7 +8,7 @@ import java.util.List;
  * 思路：先填充进入矩阵，再通过矩阵获取转换后字符串 空间时间复杂度高)
  * 思路2：桶排序的思路)
  */
-public class ZShapedTransformation {
+public class ZShapedTransformation6 {
 
     public static void main(String[] args) {
 

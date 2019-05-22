@@ -9,7 +9,7 @@ package com.example.autocodetemplate.ohter.practice.leetcode;
  *
  * @version 1.0
  */
-public class AddTwoNumbers {
+public class AddTwoNumbers2 {
 
     public static void main(String[] args) {
         ListNode listNode = new ListNode(9);

@@ -3,7 +3,7 @@ package com.example.autocodetemplate.ohter.practice.leetcode;
 /**
  * 是否回文数字判断
  */
-public class NumberOfTracts {
+public class NumberOfTracts9 {
 
     public static void main(String[] args) {
         System.out.println(isPalindrome(10));

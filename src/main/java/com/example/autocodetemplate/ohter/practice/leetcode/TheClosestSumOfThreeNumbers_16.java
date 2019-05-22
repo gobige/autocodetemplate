@@ -1,4 +1,4 @@
-package com.example.autocodetemplate.ohter.practice.base;
+package com.example.autocodetemplate.ohter.practice.leetcode;
 
 import java.util.Arrays;
 import java.util.List;

@@ -5,7 +5,7 @@ package com.example.autocodetemplate.ohter.practice.leetcode;
  * 思路  字符串转换为数组，取值，根据规则判断，得到整数  时间复杂度 o(4n)
  *
  */
-public class Atoi {
+public class Atoi8 {
 
     public static void main(String[] args) {
         System.out.println(myAtoi("+1"));

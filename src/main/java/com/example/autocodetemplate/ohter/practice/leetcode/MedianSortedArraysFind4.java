@@ -19,7 +19,7 @@ import java.math.BigDecimal;
  * 解题思路：先合并有序数组，再获取中位数
  * @version 1.0
  */
-public class MedianSortedArraysFind {
+public class MedianSortedArraysFind4 {
     public static void main(String[] args) {
         int[] nums1 = {1, 5};
         int[] nums2 = {2, 4, 9, 10};

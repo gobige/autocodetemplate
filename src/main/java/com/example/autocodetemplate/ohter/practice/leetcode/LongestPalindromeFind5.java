@@ -10,7 +10,7 @@ package com.example.autocodetemplate.ohter.practice.leetcode;
  * 解题思路 和 获取无重复字符最长子串一样的思路
  * @version 1.0
  */
-public class LongestPalindromeFind {
+public class LongestPalindromeFind5 {
 
     public static void main(String[] args) {
         System.out.println(longestPalindrome("ac"));

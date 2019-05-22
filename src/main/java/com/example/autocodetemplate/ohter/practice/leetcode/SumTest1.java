@@ -9,7 +9,7 @@ package com.example.autocodetemplate.ohter.practice.leetcode;
  *
  * @version 1.0
  */
-public class SumTest {
+public class SumTest1 {
     /**
      * Given an array of integers, return indices of the two numbers such that they add up to a specific target.
      * You may assume that each input would have exactly one solution, and you may not use the same element twice.

@@ -5,7 +5,7 @@ package com.example.autocodetemplate.ohter.practice.leetcode;
  *
  * 转换为数组，根据 规则思路反转  输出反转后整数  时间复杂度 O(2n)。
  */
-public class IntegerReversion {
+public class IntegerReversion7 {
 
     public static void main(String[] args) {
         int num = -123;

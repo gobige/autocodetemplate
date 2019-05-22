@@ -12,7 +12,7 @@ import java.util.List;
  *
  * 思路 将字符串数组 前缀一个一个对比，即时返回
  */
-public class LongestCommonPrefix {
+public class LongestCommonPrefix14 {
 
     public static String longestCommonPrefix(String[] strs) {
         if (strs == null || strs.length == 0) {

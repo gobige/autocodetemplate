@@ -1,11 +1,9 @@
 package com.example.autocodetemplate.ohter.practice.leetcode;
 
-import com.example.autocodetemplate.exception.ServiceRuntimeException;
-
 /**
  * 罗马转换为int类型
  */
-public class RomanToInt {
+public class RomanToInt13 {
     public static int romanToInt(String s) throws Exception{
         int result = 0;
         if (s == null || s.length() < 1) {
@@ -38,7 +36,7 @@ public class RomanToInt {
     }
 
     public static void main(String[] args) throws Exception {
-        System.out.println(RomanToInt.romanToInt("MCMXCIV"));
+        System.out.println(RomanToInt13.romanToInt("MCMXCIV"));
     }
 
 }

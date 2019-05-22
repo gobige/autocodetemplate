@@ -11,7 +11,7 @@ import sun.applet.Main;
  *
  * 思路 动态规划 通过观察 发现从两边向内靠近，越高的即存在可能面积大于当前两边乘积
  */
-public class CaculateTrangle {
+public class CaculateTrangle11 {
 
     public static void main(String[] args) {
         int[] testArr = new int[]{1, 8, 6, 2, 5, 4, 8, 3, 7};
