@@ -6,7 +6,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 /**
- *  ldt format的任何datetimeformat模板时候不会报错  而parse的时候必须模板和传入时间字符串格式必须一致,否则会报错,而且ldt不能解析只有年月日格式的字符串和模板，只能使用ld
+ *  ldt format的任何datetimeformat模板时候不会报错
+ *  而parse的时候必须模板和传入时间字符串格式必须一致,否则会报错,
+ *  而且ldt不能解析只有年月日格式的字符串和模板，只能使用ld
  */
 public class DateFormatTest {
     private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
@@ -46,7 +48,7 @@ public class DateFormatTest {
 }
 
     /**
-     * DateTimeFormatter 线程安全执行
+     * LocalDate 线程安全执行
      */
     public static void threadSecurity() {
         for (int i = 0; i < date.length; i++) {

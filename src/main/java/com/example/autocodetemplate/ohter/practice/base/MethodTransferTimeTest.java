@@ -1,7 +1,10 @@
 package com.example.autocodetemplate.ohter.practice.base;
 
 /**
- * 递归，类方法，普通方法调用执行时间测试demo(无法得出结论，位于前面的方法，因为第一次调用，调用时间要长一些)
+ * 递归，
+ * 类方法，
+ * 普通方法
+ * 调用执行时间测试demo(无法得出结论，位于前面的方法，因为第一次调用，调用时间要长一些)
  */
 public class MethodTransferTimeTest {
     public static void main(String[] args) {

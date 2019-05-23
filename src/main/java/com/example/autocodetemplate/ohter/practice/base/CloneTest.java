@@ -52,6 +52,7 @@ class ClnoeClass implements Cloneable{
 
     @Override
     protected Object clone() throws CloneNotSupportedException {
+        // Object的clone方法只是浅度克隆
         return super.clone();
     }
 

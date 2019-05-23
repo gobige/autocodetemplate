@@ -19,6 +19,12 @@ public class ImplementStrStr28 {
         System.out.println(strStr(haystack, needle));
     }
 
+    /**
+     *
+     * @param haystack
+     * @param needle
+     * @return
+     */
     public static int strStr(String haystack, String needle) {
 
         if (needle == null || needle.length() == 0) {

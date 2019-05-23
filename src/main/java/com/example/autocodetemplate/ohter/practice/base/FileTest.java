@@ -6,14 +6,12 @@ import java.util.regex.Pattern;
 
 public class FileTest {
 
+    public static void main(String[] args) throws Exception{
 
-}
+        System.out.println(BufferedInputFile("README.md"));
+    }
 
-/**
- * 列出文件
- */
-class DirList {
-    public static void main(String[] args) {
+    public static void listFile(String[] args) {
         File path = new File(".");
         String [] list;
 
@@ -36,13 +34,12 @@ class DirList {
             System.out.println(s);
         }
     }
-}
 
-/**
- * 读取字符文件
- */
-class BufferedInputFile {
-    public static String read(String fileName) throws IOException {
+
+    /**
+     * 读取字符文件
+     */
+    public static String BufferedInputFile(String fileName) throws IOException {
         BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName));
 
         StringBuilder stringBuilder = new StringBuilder();
@@ -56,31 +53,23 @@ class BufferedInputFile {
         return stringBuilder.toString();
     }
 
-    public static void main(String[] args) throws Exception{
 
-        System.out.println(read("README.md"));
-    }
-}
-
-/**
- * 从内存读取
- */
-class MemoryInput {
-    public static void main(String[] args) throws Exception{
-        StringReader stringReader = new StringReader(BufferedInputFile.read("README.md"));
+    /**
+     * 从内存读取
+     */
+    public static void MemoryInput(String[] args) throws Exception{
+        StringReader stringReader = new StringReader(BufferedInputFile("README.md"));
 
         int c;
         while ((c = stringReader.read()) != -1) {
             System.out.println((char)c);
         }
     }
-}
 
-/**
- * 格式化内存输入
- */
-class FormatMemoryInput {
-    public static void main(String[] args) throws Exception{
+    /**
+     * 格式化内存输入
+     */
+    public static void FormatMemoryInput() throws Exception{
         DataInputStream dataInputStream  = new DataInputStream(new BufferedInputStream(new FileInputStream("README.md")));
 
         while (dataInputStream.available() != 0) {

@@ -1,6 +1,9 @@
 package com.example.autocodetemplate.ohter.practice.leetcode;
 
+import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 串联所有单词的子串
@@ -13,39 +16,38 @@ import java.util.List;
  */
 public class ConcatenateSubstringsOfAllWords30 {
     public static void main(String[] args) {
-
+        List<Integer> list = findSubstring("a", new String[]{"a"});
+        System.out.println(list);
     }
 
-    public static List<Integer> findSubstring(String s, String[] words) {
+    public static List<Integer> findSubstring(String haystack, String[] words) {
 
-    }
+        List<Integer> list = new LinkedList();
 
-    /**
-     * @param letters       当前数字对于字母集合
-     * @param digits        所有数字字符串集合
-     * @param str 当前组合字符串
-     * @param level         当前层数
-     */
-    public static void recursive(char[] letters, Integer[] digits, String str, Integer level, List<String> list) {
-        for (char a : letters) {
-            if (level == digits.length - 1) {
-                list.add(str + a);
-            } else {
-                recursive(LetterCombinationOfPhoneNumber_17.EnumLetterOfPhoneNumber.findByNum(digits[level + 1]).letters, digits, str + a, level + 1, list);
+        List<String> strings = recursionArrange(words, 0, words.length-1);
+        System.out.println(strings);
+
+        for (String needle : strings) {
+            List<Integer> index = strStr(haystack, needle);
+            if (index != null && index.size() >0) {
+                list.addAll(index);
             }
         }
+
+        return list.stream().distinct().collect(Collectors.toList());
     }
 
-    public static int strStr(String haystack, String needle) {
-
+    public static List<Integer> strStr(String haystack, String needle) {
+        List<Integer> list = new LinkedList<>();
         if (needle == null || needle.length() == 0) {
-            return 0;
+            list.add(0);
+            return list;
         }
 
         int needlelength = needle.length();
         int haystacklength = haystack.length();
         if (needlelength > haystacklength) {
-            return -1;
+            return list;
         }
 
         int match = needle.hashCode();
@@ -53,10 +55,44 @@ public class ConcatenateSubstringsOfAllWords30 {
         for (int i = 0; i <= haystacklength - needlelength; i++) {
             String patch = haystack.substring(i, needlelength + i);
             if (patch.hashCode() == match) {
-                return i;
+                list.add(i);
             }
         }
 
-        return -1;
+        return list;
     }
+
+    /**
+    * 输出字符串数字的各个字符全排列
+    * @param arrayA  给定字符串的字符数组
+    * @param start  开始遍历字符与其后面各个字符将要进行交换的位置
+    * @param end  字符串数组的最后一位
+    * @return
+    */
+    public static List<String> recursionArrange(String[] arrayA, int start, int end){
+        List<String> factorial = new LinkedList<>();
+        if(start == end){
+            StringBuilder str = new StringBuilder("");
+            for (int i = 0; i < arrayA.length; i++) {
+                str.append(arrayA[i]);
+            }
+            factorial.add(str.toString());
+        } else{
+            for(int i = start;i <= end;i++){
+                swap(arrayA,i,start);
+                factorial.addAll(recursionArrange(arrayA,start+1,end));
+                swap(arrayA,i,start);
+            }
+        }
+
+        return factorial;
+    }
+
+    //交换数组m位置和n位置上的值
+    public static void swap(String[] arrayA,int m,int n){
+        String temp = arrayA[m];
+        arrayA[m] = arrayA[n];
+        arrayA[n] = temp;
+    }
+
 }
