@@ -1,5 +1,9 @@
 package com.example.autocodetemplate.domain;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import java.io.Serializable;
 
 /**
@@ -11,6 +15,10 @@ import java.io.Serializable;
  *
  * @version 1.0
  */
+
+@Getter
+@Setter
+@ToString
 public class TableStructure implements Serializable {
 
     private static final long serialVersionUID = 5221329282798030651L;
@@ -18,19 +26,4 @@ public class TableStructure implements Serializable {
     private String field;
     private String type;
 
-    public String getField() {
-        return field;
-    }
-
-    public void setField(String field) {
-        this.field = field;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
 }

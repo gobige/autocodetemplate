@@ -1,5 +1,9 @@
 package com.example.autocodetemplate.domain;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import java.io.Serializable;
 
 /**
@@ -11,6 +15,9 @@ import java.io.Serializable;
  *
  * @version 1.0
  */
+@Getter
+@Setter
+@ToString
 public class Apple implements Serializable {
 
     private static final long serialVersionUID = 7208877163749273274L;
@@ -31,43 +38,4 @@ public class Apple implements Serializable {
     private String color;
     private String name;
 
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getSeqNo() {
-        return seqNo;
-    }
-
-    public void setSeqNo(Integer seqNo) {
-        this.seqNo = seqNo;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public Integer getWight() {
-        return wight;
-    }
-
-    public void setWight(Integer wight) {
-        this.wight = wight;
-    }
 }

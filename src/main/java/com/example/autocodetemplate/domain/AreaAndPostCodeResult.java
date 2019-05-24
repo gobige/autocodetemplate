@@ -1,6 +1,9 @@
 package com.example.autocodetemplate.domain;
 
 import com.alibaba.fastjson.JSONObject;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.io.Serializable;
 
@@ -13,6 +16,9 @@ import java.io.Serializable;
  *
  * @version 1.0
  */
+@Getter
+@Setter
+@ToString
 public class AreaAndPostCodeResult implements Serializable {
     private static final long serialVersionUID = -1778183233488963529L;
 
@@ -38,63 +44,13 @@ public class AreaAndPostCodeResult implements Serializable {
     private String areaCode;
 
     public AreaAndPostCodeResult jsonToOcrRecResult(JSONObject jsonResult) {
-        this.setProvince(jsonResult.getString("province"));
-        this.setCity(jsonResult.getString("city"));
-        this.setArea(jsonResult.getString("area"));
-        this.setPostCode(jsonResult.getString("post_code"));
-        this.setAreaCode(jsonResult.getString("area_code"));
+        this.province = jsonResult.getString("province");
+        this.city = jsonResult.getString("city");
+        this.area = jsonResult.getString("area");
+        this.postCode = jsonResult.getString("post_code");
+        this.areaCode = jsonResult.getString("area_code");
 
         return this;
     }
 
-    public String getProvince() {
-        return province;
-    }
-
-    public void setProvince(String province) {
-        this.province = province;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getArea() {
-        return area;
-    }
-
-    public void setArea(String area) {
-        this.area = area;
-    }
-
-    public String getPostCode() {
-        return postCode;
-    }
-
-    public void setPostCode(String postCode) {
-        this.postCode = postCode;
-    }
-
-    public String getAreaCode() {
-        return areaCode;
-    }
-
-    public void setAreaCode(String areaCode) {
-        this.areaCode = areaCode;
-    }
-
-    @Override
-    public String toString() {
-        return "AreaAndPostCodeResult{" +
-                "province='" + province + '\'' +
-                ", city='" + city + '\'' +
-                ", area='" + area + '\'' +
-                ", postCode='" + postCode + '\'' +
-                ", areaCode='" + areaCode + '\'' +
-                '}';
-    }
 }
