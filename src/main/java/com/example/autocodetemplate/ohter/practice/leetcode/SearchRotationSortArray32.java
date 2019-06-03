@@ -1,5 +1,7 @@
 package com.example.autocodetemplate.ohter.practice.leetcode;
 
+import com.example.autocodetemplate.ohter.practice.arithmetic.SearchArithmetic;
+
 /**
  * 33. 搜索旋转排序数组
  * 假设按照升序排序的数组在预先未知的某个点上进行了旋转。
@@ -38,16 +40,16 @@ public class SearchRotationSortArray32 {
         int index = -1;
         // 数组有序
         if (nums[0] <= nums[length-1]) {
-            index = binarySearch(nums, 0, nums.length-1, target);
+            index = SearchArithmetic.binarySearch(nums, 0, nums.length-1, target);
         }else {
             int rotationPoint = rotationPointSearch(nums, 0, nums.length-1);
 
             // 旋转后左数组二分查找
             if (target > nums[length - 1]) {
-                index = binarySearch(nums, 0, rotationPoint, target);
+                index = SearchArithmetic.binarySearch(nums, 0, rotationPoint, target);
             } else {
                 // 旋转后右数组二分查找
-                index = binarySearch(nums, rotationPoint + 1, length - 1, target);
+                index = SearchArithmetic.binarySearch(nums, rotationPoint + 1, length - 1, target);
             }
         }
 
@@ -89,27 +91,5 @@ public class SearchRotationSortArray32 {
         }
     }
 
-    /**
-     * 二分查找递归实现
-     *
-     * @param soredArrs 排序后数组
-     * @param start     开始查找index
-     * @param end       结束查找index
-     * @param searchNum 查找number
-     * @return 查找num数组下标
-     */
-    public static int binarySearch(int[] soredArrs, int start, int end, int searchNum) {
-        if (start <= end) {
-            int middleNumIndex = (start + end) / 2;
-            if (soredArrs[middleNumIndex] == searchNum) {
-                return middleNumIndex;
-            } else if (soredArrs[middleNumIndex] > searchNum) {
-                return binarySearch(soredArrs, start, middleNumIndex-1, searchNum);
-            } else {
-                return binarySearch(soredArrs, middleNumIndex+1, end, searchNum);
-            }
-        } else {
-            return -1;
-        }
-    }
+
 }

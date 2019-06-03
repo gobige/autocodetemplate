@@ -11,15 +11,25 @@ public class SearchArithmetic {
      * @param searchNum 查找number
      * @return 查找num数组下标
      */
+
+    /**
+     * 二分查找递归实现
+     *
+     * @param soredArrs 排序后数组
+     * @param start     开始查找index
+     * @param end       结束查找index
+     * @param searchNum 查找number
+     * @return 查找num数组下标
+     */
     public static int binarySearch(int[] soredArrs, int start, int end, int searchNum) {
-        if (start < end) {
-            int middleNumIndex = (start + end) / 2 + 1;
+        if (start <= end) {
+            int middleNumIndex = (start + end) / 2;
             if (soredArrs[middleNumIndex] == searchNum) {
                 return middleNumIndex;
             } else if (soredArrs[middleNumIndex] > searchNum) {
-                return binarySearch(soredArrs, start, middleNumIndex, searchNum);
+                return binarySearch(soredArrs, start, middleNumIndex-1, searchNum);
             } else {
-                return binarySearch(soredArrs, middleNumIndex, end, searchNum);
+                return binarySearch(soredArrs, middleNumIndex+1, end, searchNum);
             }
         } else {
             return -1;
