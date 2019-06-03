@@ -17,17 +17,28 @@ package com.example.autocodetemplate.ohter.practice.leetcode;
 public class SearchRotationSortArray32 {
 
     public static void main(String[] args) {
-        int[] arr = new int[]{4, 5, 6, 7, 0, 1, 2};
+        int[] arr = new int[]{3,4,5,6,1,2};
 
-        search(arr, 4);
+        System.out.println(search(arr, 2));
     }
 
     public static int search(int[] nums, int target) {
         int length = nums.length;
+        if (length == 0) {
+            return -1;
+        }
+        if (length == 1) {
+            if (target == nums[0]) {
+                return 0;
+            }else {
+                return -1;
+            }
+        }
+
         int index = -1;
         // 数组有序
-        if (nums[0] < nums[length-1]) {
-            index = binarySearch(nums, 0, nums.length, target);
+        if (nums[0] <= nums[length-1]) {
+            index = binarySearch(nums, 0, nums.length-1, target);
         }else {
             int rotationPoint = rotationPointSearch(nums, 0, nums.length-1);
 
@@ -47,25 +58,29 @@ public class SearchRotationSortArray32 {
      * 查询旋转节点下标
      * @param soredArrs
      * @param start
-     * @param end
+     * @param end-
      * @return
      */
     public static int rotationPointSearch(int[] soredArrs, int start, int end) {
-        if (start < end) {
+        if (start <= end) {
             int middleNumIndex = (start + end) / 2;
-            if (soredArrs[middleNumIndex] > soredArrs[soredArrs.length - 1] && soredArrs[middleNumIndex] > soredArrs[0]) {
-                if (middleNumIndex != soredArrs.length - 1 && soredArrs[middleNumIndex + 1] < soredArrs[middleNumIndex]) {
+
+            // 如果中间数既大于最左数，又大于最右边数
+            if (soredArrs[middleNumIndex] >= soredArrs[soredArrs.length - 1] && soredArrs[middleNumIndex] >= soredArrs[0]) {
+                if (middleNumIndex != soredArrs.length - 1 && soredArrs[middleNumIndex + 1] <= soredArrs[middleNumIndex]) {
                     return middleNumIndex;
                 }else {
                     return rotationPointSearch(soredArrs, start, middleNumIndex );
                 }
-            } else if (soredArrs[middleNumIndex] < soredArrs[soredArrs.length - 1] && soredArrs[middleNumIndex] < soredArrs[0]) {
-                if (middleNumIndex != 0 && soredArrs[middleNumIndex - 1] > soredArrs[middleNumIndex]) {
+
+                // 如果中间数既小于最左数，又小于最右边数
+            } else if (soredArrs[middleNumIndex] <= soredArrs[soredArrs.length - 1] && soredArrs[middleNumIndex] <= soredArrs[0]) {
+                if (middleNumIndex != 0 && soredArrs[middleNumIndex - 1] >=  soredArrs[middleNumIndex]) {
                     return middleNumIndex;
                 }else {
                     return rotationPointSearch(soredArrs, start, middleNumIndex );
                 }
-            }else {
+            } else {
                 return -1;
             }
 
@@ -84,18 +99,17 @@ public class SearchRotationSortArray32 {
      * @return 查找num数组下标
      */
     public static int binarySearch(int[] soredArrs, int start, int end, int searchNum) {
-        if (start < end) {
-            int middleNumIndex = (start + end) / 2 + 1;
+        if (start <= end) {
+            int middleNumIndex = (start + end) / 2;
             if (soredArrs[middleNumIndex] == searchNum) {
                 return middleNumIndex;
             } else if (soredArrs[middleNumIndex] > searchNum) {
-                return binarySearch(soredArrs, start, middleNumIndex, searchNum);
+                return binarySearch(soredArrs, start, middleNumIndex-1, searchNum);
             } else {
-                return binarySearch(soredArrs, middleNumIndex, end, searchNum);
+                return binarySearch(soredArrs, middleNumIndex+1, end, searchNum);
             }
         } else {
             return -1;
         }
     }
-
 }
