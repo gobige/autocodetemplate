@@ -16,7 +16,7 @@ import com.example.autocodetemplate.ohter.practice.arithmetic.SearchArithmetic;
  *
  * 思路 先找到旋转点；因为是排序，可以借助二分查找，
  */
-public class SearchRotationSortArray32 {
+public class SearchRotationSortArray33 {
 
     public static void main(String[] args) {
         int[] arr = new int[]{3,4,5,6,1,2};
