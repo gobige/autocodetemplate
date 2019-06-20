@@ -16,7 +16,6 @@ public class HashMapTest {
         System.out.println(map.isEmpty());
 
         map.put(22, null);
-
         System.out.println(map.get(22));
 
         Set<Integer> set = new HashSet<>();
