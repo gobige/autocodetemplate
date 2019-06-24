@@ -1,6 +1,7 @@
 package com.example.autocodetemplate.domain.mongodb;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection="acxw_goods")
 public class GoodsMongo {
@@ -11,7 +12,11 @@ public class GoodsMongo {
      */
     @Id
     public Integer goodsId;
-
+    /**
+     * 商品id
+     */
+    @DBRef
+    public SupplierMongo supplier;
 
     /**
      * 商品名称
@@ -39,6 +44,13 @@ public class GoodsMongo {
      */
     public String goodsThumb;
 
+    public SupplierMongo getSupplier() {
+        return supplier;
+    }
+
+    public void setSupplier(SupplierMongo supplier) {
+        this.supplier = supplier;
+    }
 
     @Override
     public String toString() {

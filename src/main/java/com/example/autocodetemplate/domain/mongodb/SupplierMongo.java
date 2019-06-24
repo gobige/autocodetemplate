@@ -11,11 +11,11 @@ public class SupplierMongo  {
         this.setSupplierId(supplierId);
         this.setNickName(nickName);
     }
-    @Id
-    public String id;
+
     /**
      * id
      */
+    @Id
     public Integer supplierId;
     /**
      * 头像
@@ -29,14 +29,6 @@ public class SupplierMongo  {
      * 联系方式
      */
     public String mobile;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public Integer getSupplierId() {
         return supplierId;

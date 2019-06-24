@@ -30,6 +30,7 @@ public class GoodsMongoDaoTest {
     public void testsaveGoods()    {
         GoodsMongo goodsMongo = new GoodsMongo();
         goodsMongo.setGoodsId(1);
+        goodsMongo.setSupplier(new SupplierMongo(111,"nike"));
         goodsMongo.setGoodsName("内马尔毒蜂 TF 足球鞋");
         goodsMongo.setCatId(5);
         goodsMongo.setBrandId(3);
@@ -40,6 +41,7 @@ public class GoodsMongoDaoTest {
         goodsMongoDao.save(goodsMongo);
         GoodsMongo goodsMongo2 = new GoodsMongo();
         goodsMongo2.setGoodsId(2);
+        goodsMongo2.setSupplier(new SupplierMongo(222,"adidas"));
         goodsMongo2.setGoodsName("皮尔洛传奇 TF 足球鞋");
         goodsMongo2.setCatId(3);
         goodsMongo2.setBrandId(1);
@@ -67,7 +69,7 @@ public class GoodsMongoDaoTest {
     @Test
     public void testremoveGoods()    {
 
-        goodsMongoDao.deleteByGoodsId(1);
+        goodsMongoDao.deleteByGoodsId(2);
     }
 
 
