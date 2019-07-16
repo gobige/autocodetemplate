@@ -13,9 +13,13 @@ public class L69SquareRootOfX {
 
         if (cal * cal == x) {
             return cal;
-        } else (cal * cal == x){}
+        } else if (cal * cal == x) {
+
+        }
 
         Math.sqrt(x);
+
+        return 1;
     }
 
     public static int binarySearch(int[] soredArrs, int start, int end, int searchNum) {
