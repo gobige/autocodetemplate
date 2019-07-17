@@ -1,6 +1,9 @@
 package com.example.autocodetemplate.ohter.practice;
 
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.Optional;
 
 /**
  * <p>爱车小屋</p>
@@ -15,6 +18,14 @@ public class Apple implements Serializable {
 
     private static final long serialVersionUID = 7208877163749273274L;
 
+    public static void main(String[] args) {
+        Collection<Integer> supplierIds = new LinkedList<>();
+        supplierIds.add(1);
+        Optional nextSupplierId =  supplierIds.stream().filter(id -> id != 1).findFirst();
+        if (nextSupplierId.isPresent()) {
+            System.out.println(nextSupplierId.get());
+        }
+    }
     Apple() {
         super();
     }

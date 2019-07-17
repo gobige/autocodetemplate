@@ -1,26 +1,22 @@
 package com.example.autocodetemplate.ohter.practice.leetcode;
 
 public class L69SquareRootOfX {
-    public int mySqrt(int x) {
-        boolean leftQuery;
-        if (x < 5) {
-            leftQuery = false;
-        }else {
-            leftQuery = true;
-        }
-
-        int cal = x / 2;
-
-        if (cal * cal == x) {
-            return cal;
-        } else if (cal * cal == x) {
-
-        }
-
-        Math.sqrt(x);
-
-        return 1;
-    }
+//    public int mySqrt(int x) {
+//        boolean leftQuery;
+//        if (x < 5) {
+//            leftQuery = false;
+//        }else {
+//            leftQuery = true;
+//        }
+//
+//        int cal = x / 2;
+//
+//        if (cal * cal == x) {
+//            return cal;
+//        } else (cal * cal == x){}
+//
+//        Math.sqrt(x);
+//    }
 
     public static int binarySearch(int[] soredArrs, int start, int end, int searchNum) {
         if (start <= end) {
