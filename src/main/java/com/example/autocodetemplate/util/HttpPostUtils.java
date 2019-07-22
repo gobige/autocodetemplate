@@ -46,7 +46,7 @@ public class HttpPostUtils {
      * @return 返回请求响应的HTML
      */
     public static String doPost(String url, JSONObject paramObj, Map<String, String> headerMap) throws UnsupportedEncodingException {
-        long startTime = System.currentTimeMillis();
+        long startTime = System.nanoTime();
         HttpClientBuilder builder = HttpClientBuilder.create();
         HttpClient client = builder.build();
         HttpPost method = new HttpPost(url);
@@ -67,7 +67,7 @@ public class HttpPostUtils {
             HttpResponse execute = client.execute(method);
             HttpEntity entity = execute.getEntity();
             result = EntityUtils.toString(entity, "UTF-8");
-            logger.info("::::完成对地址：【" + url + "】的Post请求,请求返回码为：【" + statusCode + "】:::所用时间为：【" + (System.currentTimeMillis() - startTime) + "】");
+            logger.info("::::完成对地址：【" + url + "】的Post请求,请求返回码为：【" + statusCode + "】:::所用时间为：【" + (System.nanoTime() - startTime) + "】");
         } catch (IOException e) {
             logger.error(e.getMessage(), e);
             throw new RuntimeException(e);

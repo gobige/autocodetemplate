@@ -15,15 +15,7 @@ import java.time.Duration;
 import java.util.Arrays;
 import java.util.Properties;
 
-/**
- * <p>爱车小屋</p>
- * <p>Project: carhouse-xx</p>
- * <p>ModuleID: xx</p>
- * <p>Comments: xx</p>
- * <p>JDK version used JDK1.8</p>
- *
- * @version 1.0
- */
+
 public class KafkaProducerTest {
     public static void main(String[] args) {
         testProducerSend();
@@ -31,16 +23,23 @@ public class KafkaProducerTest {
      public static void testProducerSend()  {
         Properties props = new Properties();
         props.put("bootstrap.servers", "47.107.136.101:8080");
+        // 提交时保证所有response都得到应答，虽然慢但是可靠
         props.put("acks", "all");
         props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
 
+        // 线程安全，单实例，
         Producer<String, String> producer = new KafkaProducer<>(props);
          for (int i = 0; i < 10; i++) {
              System.out.println("start send record " + i);
+
+             // 异步，立即返回，同类消息批量收集发送
+             // 如果失败会自动重试，但是也会导致重复的问题
+             // 为每个分区维护未发送记录的缓冲区
              producer.send(new ProducerRecord<String, String>("my-topic", Integer.toString(i), Integer.toString(i)));
          }
 
+         // 暂用后台I/O资源提高发送效率，不关闭会造成内存泄露
         producer.close();
     }
 
