@@ -1,8 +1,8 @@
-package com.example.autocodetemplate.service;
+package com.example.autocodetemplate.thirdparty;
 
 import com.example.autocodetemplate.exception.ServiceRuntimeException;
-import com.example.autocodetemplate.param.req.LotteryQueryJuheRequest;
-import com.example.autocodetemplate.param.resp.LotteryQueryJuheResponse;
+import com.example.autocodetemplate.thirdparty.param.req.LotteryQueryJuheRequest;
+import com.example.autocodetemplate.thirdparty.param.resp.LotteryQueryJuheResponse;
 
 /**
  * <p>爱车小屋</p>

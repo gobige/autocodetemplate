@@ -1,4 +1,4 @@
-package com.example.autocodetemplate.param.req;
+package com.example.autocodetemplate.thirdparty.param.req;
 
 import com.alibaba.fastjson.JSONObject;
 import com.example.autocodetemplate.exception.ServiceRuntimeException;

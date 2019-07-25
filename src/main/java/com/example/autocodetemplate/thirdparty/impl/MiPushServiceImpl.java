@@ -1,14 +1,11 @@
-package com.example.autocodetemplate.service.Impl;
+package com.example.autocodetemplate.thirdparty.impl;
 
-import com.example.autocodetemplate.exception.ServiceRuntimeException;
 import com.example.autocodetemplate.po.MiPushPO;
-import com.example.autocodetemplate.service.MiPushService;
+import com.example.autocodetemplate.thirdparty.MiPushService;
 //import com.xiaomi.xmpush.server.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-
-import java.util.Arrays;
 
 @Service
 public class MiPushServiceImpl implements MiPushService {

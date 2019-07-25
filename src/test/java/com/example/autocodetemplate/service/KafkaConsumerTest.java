@@ -1,28 +1,12 @@
 package com.example.autocodetemplate.service;
 
-import com.example.autocodetemplate.Enum.EnumLotteryQueryType;
-import com.example.autocodetemplate.domain.AreaAndPostCodeResult;
-import com.example.autocodetemplate.domain.OcrRecResult;
-import com.example.autocodetemplate.exception.ServiceRuntimeException;
-import com.example.autocodetemplate.param.req.LotteryQueryJuheRequest;
-import com.example.autocodetemplate.param.resp.LotteryQueryJuheResponse;
-import com.example.autocodetemplate.util.FileUtil;
+import com.example.autocodetemplate.thirdparty.param.req.LotteryQueryJuheRequest;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
-import org.apache.kafka.clients.producer.KafkaProducer;
-import org.apache.kafka.clients.producer.Producer;
-import org.apache.kafka.clients.producer.ProducerRecord;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.annotation.Resource;
 import java.time.Duration;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Properties;
 
 /**

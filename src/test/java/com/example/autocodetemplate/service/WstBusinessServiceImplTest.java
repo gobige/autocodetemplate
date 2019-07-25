@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.*;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
@@ -36,23 +37,54 @@ public class WstBusinessServiceImplTest {
     @Resource
     private JavaMailSender mailSender;
 
-    @Test
-    public void testGetById() throws Exception{
+    private Future<String> doTaskTwo() throws Exception {
         Long startTime = System.currentTimeMillis();
-        Future<String> task1 = testService.doTaskOne();
-        Future<String> task2 = testService.doTaskTwo();
-        Future<String> task3 = testService.doTaskThree();
+        System.out.println("开始第二个任务");
+        Thread.sleep(new Random().nextInt(3000));
+        System.out.println("第二个任务完成");
         Long endTime = System.currentTimeMillis();
+        System.out.println(endTime - startTime);
 
-        while (true) {
-            if (task1.isDone() && task2.isDone() && task3.isDone()) {
-                break;
+        return new AsyncResult<>("任务2完成,耗时:" + (endTime - startTime));
+    }
+
+    @Test
+    public void testGetById() throws Exception {
+        Long startTime = System.currentTimeMillis();
+        new Thread(new Runnable() {
+            @Override
+            public void run(){
+                try {
+                     doTaskTwo();
+                } catch (Exception e) {
+                    System.out.println("throw exception!!!!");
+                }
             }
-        }
-        System.out.println("任务1" + task1.get());
-        System.out.println("任务2" + task2.get());
-        System.out.println("任务3" + task3.get());
-        System.out.println("所有任务完成耗时:" + (endTime - startTime));
+        }).start();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run(){
+                try {
+                     doTaskTwo();
+                } catch (Exception e) {
+                    System.out.println("throw exception!!!!");
+                }
+            }
+        }).start();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run(){
+                try {
+                    doTaskTwo();
+                } catch (Exception e) {
+                    System.out.println("throw exception!!!!");
+                }
+            }
+        }).start();
+
+        Thread.sleep(7000);
     }
 
     @Test

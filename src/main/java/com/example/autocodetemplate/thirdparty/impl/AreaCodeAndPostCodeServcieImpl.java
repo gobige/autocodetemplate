@@ -1,18 +1,13 @@
-package com.example.autocodetemplate.service.Impl;
+package com.example.autocodetemplate.thirdparty.impl;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.example.autocodetemplate.domain.AreaAndPostCodeResult;
-import com.example.autocodetemplate.exception.ServiceRuntimeException;
-import com.example.autocodetemplate.param.req.JuheRequest;
-import com.example.autocodetemplate.param.req.LotteryQueryJuheRequest;
-import com.example.autocodetemplate.param.resp.JuheResponse;
-import com.example.autocodetemplate.param.resp.LotteryQueryJuheResponse;
-import com.example.autocodetemplate.service.AreaCodeAndPostCodeServcie;
+import com.example.autocodetemplate.service.Impl.GenerateTemplateServiceImpl;
+import com.example.autocodetemplate.thirdparty.AreaCodeAndPostCodeServcie;
 import com.example.autocodetemplate.util.HttpGetUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

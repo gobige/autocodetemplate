@@ -1,4 +1,4 @@
-package com.example.autocodetemplate.service;
+package com.example.autocodetemplate.thirdparty;
 
 import com.example.autocodetemplate.po.MiPushPO;
 

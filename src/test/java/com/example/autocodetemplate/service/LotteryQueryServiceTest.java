@@ -4,8 +4,14 @@ import com.example.autocodetemplate.Enum.EnumLotteryQueryType;
 import com.example.autocodetemplate.domain.AreaAndPostCodeResult;
 import com.example.autocodetemplate.domain.OcrRecResult;
 import com.example.autocodetemplate.exception.ServiceRuntimeException;
-import com.example.autocodetemplate.param.req.LotteryQueryJuheRequest;
-import com.example.autocodetemplate.param.resp.LotteryQueryJuheResponse;
+import com.example.autocodetemplate.thirdparty.ShgoldQueryService;
+import com.example.autocodetemplate.thirdparty.param.req.LotteryQueryJuheRequest;
+import com.example.autocodetemplate.thirdparty.param.req.ShgoldQueryJuheRequest;
+import com.example.autocodetemplate.thirdparty.param.resp.LotteryQueryJuheResponse;
+import com.example.autocodetemplate.thirdparty.AreaCodeAndPostCodeServcie;
+import com.example.autocodetemplate.thirdparty.LotteryQueryService;
+import com.example.autocodetemplate.thirdparty.OcrImageRecognitionService;
+import com.example.autocodetemplate.thirdparty.param.resp.ShgoldQueryJuheResponse;
 import com.example.autocodetemplate.util.FileUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,7 +40,17 @@ public class LotteryQueryServiceTest {
     private OcrImageRecognitionService ocrImageRecognitionService;
     @Resource
     private AreaCodeAndPostCodeServcie areaCodeAndPostCodeServcie;
+    @Resource
+    private ShgoldQueryService shgoldQueryService;
 
+
+    @Test
+    public void testGetGoldResult()  throws ServiceRuntimeException {
+        ShgoldQueryJuheRequest request = new ShgoldQueryJuheRequest();
+
+        ShgoldQueryJuheResponse response = shgoldQueryService.getGoldResults(request);
+
+    }
 
     @Test
     public void testGetssqResult()  throws ServiceRuntimeException {

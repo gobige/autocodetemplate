@@ -1,11 +1,8 @@
 package com.example.autocodetemplate.service;
 
 
-import com.example.autocodetemplate.Enum.EnumLotteryQueryType;
-import com.example.autocodetemplate.exception.ServiceRuntimeException;
-import com.example.autocodetemplate.param.req.LotteryQueryJuheRequest;
-import com.example.autocodetemplate.param.resp.LotteryQueryJuheResponse;
 import com.example.autocodetemplate.po.MiPushPO;
+import com.example.autocodetemplate.thirdparty.MiPushService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;

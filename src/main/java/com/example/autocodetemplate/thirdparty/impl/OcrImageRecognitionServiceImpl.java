@@ -1,9 +1,9 @@
-package com.example.autocodetemplate.service.Impl;
+package com.example.autocodetemplate.thirdparty.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.example.autocodetemplate.domain.OcrRecResult;
-import com.example.autocodetemplate.service.OcrImageRecognitionService;
+import com.example.autocodetemplate.thirdparty.OcrImageRecognitionService;
 import com.example.autocodetemplate.util.HttpPostUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

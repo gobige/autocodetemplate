@@ -1,4 +1,4 @@
-package com.example.autocodetemplate.param.resp;
+package com.example.autocodetemplate.thirdparty.param.resp;
 
 import java.io.Serializable;
 
