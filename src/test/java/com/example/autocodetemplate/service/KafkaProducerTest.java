@@ -22,6 +22,7 @@ public class KafkaProducerTest {
     }
      public static void testProducerSend()  {
         Properties props = new Properties();
+        // 通常配置一个就够了，会自动从集群元数据获取其他存活代理消息
         props.put("bootstrap.servers", "47.107.136.101:8080");
         // 提交时保证所有response都得到应答，虽然慢但是可靠
         props.put("acks", "all");
