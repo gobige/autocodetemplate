@@ -34,7 +34,7 @@ public class KafkaConsumerTest {
         KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);
         consumer.subscribe(Arrays.asList("my-topic"));
         while (true) {
-            ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(100));
+            ConsumerRecords<String, String> records = consumer.poll(100);
             for (ConsumerRecord<String, String> record : records)
                 System.out.printf("offset = %d, key = %s, value = %s%n", record.offset(), record.key(), record.value());
         }

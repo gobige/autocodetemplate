@@ -19,8 +19,6 @@ import java.util.Map;
 public class KafKaController {
     private final Logger logger = LoggerFactory.getLogger(KafKaController.class);
 
-    @Resource
-    private KafkaTemplate<String, String> template;
 
     @RequestMapping(value = "send.json", method = {RequestMethod.POST})
     @ResponseBody

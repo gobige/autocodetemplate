@@ -2,13 +2,29 @@ package com.example.autocodetemplate.ohter.practice.base;
 
 import java.io.*;
 import java.util.Arrays;
+import java.util.Properties;
 import java.util.regex.Pattern;
 
 public class FileTest {
 
     public static void main(String[] args) throws Exception{
 
-        System.out.println(BufferedInputFile("README.md"));
+        loadPropertyies();
+    }
+
+    public static Properties loadPropertyies() {
+        Properties properties = new Properties();
+
+        File file = new File("src\\main\\resources\\application.properties");
+
+        try {
+            InputStream inputStream = new FileInputStream(file);
+            properties.load(inputStream);
+        } catch (Exception e) {
+
+        }
+
+        return properties;
     }
 
     public static void listFile(String[] args) {
