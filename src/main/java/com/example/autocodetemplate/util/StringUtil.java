@@ -20,17 +20,47 @@ import java.util.regex.Pattern;
  *
  * @version 1.0
  */
-public class StringUtil {
-    private static final Logger logger = LoggerFactory.getLogger(GenerateTemplateController.class);
+public final class StringUtil {
 
     private static Pattern linePattern = Pattern.compile("_(\\w)");
     private static Pattern humpPattern = Pattern.compile("[A-Z]");
 
+    public static void main(String[] args) {
+                formatSqlToSingleLine("");
+
+//        String singleSqlStr = StringUtil.autoFillSql("1(Integer), 110101000(Integer), 110102000(Integer), 110105000(Integer), 110106000(Integer), 110107000(Integer), 110108000(Integer), 110109000(Integer), 110111000(Integer), 110112000(Integer), 110113000(Integer), 110114000(Integer), 110115000(Integer), 110116000(Integer), 110117000(Integer), 110118000(Integer), 110119000(Integer), 2018-10-01 00:00:00.0(Timestamp), 2018-12-31 00:00:00.0(Timestamp)",
+//                ",",
+//                "SELECT SUM(today_income_integral) point,user_type,user_id FROM stat_income_integral_userinfo_day WHERE 1= 1 AND user_type = ? AND area_id IN ( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? ) AND stat_date BETWEEN ? AND ? GROUP BY user_type,user_id ORDER BY SUM(today_income_integral) DESC",
+//                "\\?");
+//        System.out.println(singleSqlStr);
+
+
+        System.out.println(autoGenerateGetSetByVariable("activityVO", "activityPO", "c:/暂存/getset.txt", null));
+
+//        sqlInStr("c:/暂存/getset.txt");
+
+
+        char[] chars = "000000000".toCharArray();
+        List<Character> characters = new ArrayList<>();
+        for (char c : chars) {
+            characters.add(c);
+        }
+        System.out.println(recursiveGetNextChar(characters));
+
+    }
+
+    /**
+     * format string
+     */
+    public static String formatStr(final String str) {
+       String returnStr = String.format("%s%s%s%s", "vvv","123","aaaa","gggg");
+
+
+        return returnStr;
+    }
 
     /**
      * 按位数对字串左边进行补零
-     * @param String str
-     * @param int 位数
      */
     public static String addLeftZeroForNum(String str, int strLength) {
         int strLen = str.length();
@@ -152,7 +182,6 @@ public class StringUtil {
         preStr.append(" ").append(fillStr).append(" ");
         String[] preStrArr = preStr.toString().split(placeholder);
         if (preStrArr.length - 1 != paramArr.length) {
-            logger.info("占位符和参数个数不一致");
             return "";
         }
         for (int i = 0; i < paramArr.length - 1; i++) {
@@ -177,7 +206,6 @@ public class StringUtil {
     public static String[] replaceParamStrToArray(String replaceParam, String split) {
         String[] parmAndTypes = replaceParam.split(split);
         if (parmAndTypes.length == 0) {
-            logger.info("该数据结构无参数可分离");
             return null;
         }
 
@@ -296,28 +324,7 @@ public class StringUtil {
         return returnStr.toString();
     }
 
-    public static void main(String[] args) {
-        //        formatSqlToSingleLine("");
 
-//        String singleSqlStr = StringUtil.autoFillSql("1(Integer), 110101000(Integer), 110102000(Integer), 110105000(Integer), 110106000(Integer), 110107000(Integer), 110108000(Integer), 110109000(Integer), 110111000(Integer), 110112000(Integer), 110113000(Integer), 110114000(Integer), 110115000(Integer), 110116000(Integer), 110117000(Integer), 110118000(Integer), 110119000(Integer), 2018-10-01 00:00:00.0(Timestamp), 2018-12-31 00:00:00.0(Timestamp)",
-//                ",",
-//                "SELECT SUM(today_income_integral) point,user_type,user_id FROM stat_income_integral_userinfo_day WHERE 1= 1 AND user_type = ? AND area_id IN ( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? ) AND stat_date BETWEEN ? AND ? GROUP BY user_type,user_id ORDER BY SUM(today_income_integral) DESC",
-//                "\\?");
-//        System.out.println(singleSqlStr);
-
-
-        System.out.println(autoGenerateGetSetByVariable("activityVO", "activityPO", "c:/暂存/getset.txt", null));
-
-//        sqlInStr("c:/暂存/getset.txt");
-
-
-        char[] chars = "000000000".toCharArray();
-        List<Character> characters = new ArrayList<>();
-        for (char c : chars) {
-            characters.add(c);
-        }
-        System.out.println(recursiveGetNextChar(characters));
-    }
 
     public static String sqlInStr(String sourcePath) {
         String fileContent = "";

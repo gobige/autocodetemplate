@@ -152,8 +152,7 @@ public class SortArithmetic {
 
         return sortResultArrays;
     }
-
-    /**
+     /**
      * 归并排序
      * @param arrays 待排序数组
      * @param left 左起始点
