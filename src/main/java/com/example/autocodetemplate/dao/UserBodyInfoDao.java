@@ -22,3 +22,4 @@ public interface UserBodyInfoDao extends JpaRepository<UserBodyInfo, Long> {
     @Query(value = "update user_body_info set name = ?1 where id = ?2",nativeQuery = true)
     int updateUserNameById(String userName,Long id);
 }
+
