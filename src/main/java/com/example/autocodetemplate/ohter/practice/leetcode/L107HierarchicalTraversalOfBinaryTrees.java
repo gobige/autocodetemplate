@@ -1,14 +1,13 @@
 package com.example.autocodetemplate.ohter.practice.leetcode;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Stack;
+import org.springframework.util.CollectionUtils;
+
+import java.util.*;
 
 /**
  * 给定一个二叉树，返回其节点值自底向上的层次遍历。 （即按从叶子节点所在层到根节点所在的层，逐层从左向右遍历）
  *
- * 思路1：使用栈来遍历树，出栈即得到结果
+ * 思路1：一层一层解析，使用栈来遍历树，出栈即得到结果,
  */
 public class L107HierarchicalTraversalOfBinaryTrees {
 
@@ -34,25 +33,38 @@ public class L107HierarchicalTraversalOfBinaryTrees {
 
     public List<List<Integer>> levelOrderBottom(TreeNode root) {
         Stack<List<Integer>> stack = new Stack<>();
-        if (root != null) {
-            stack.push(Arrays.asList(root.val));
+        if (root == null) {
+            return new ArrayList<>(0);
         }
+
+        stack.push(Arrays.asList(root.val));
+
         List<TreeNode> nodes = new LinkedList<>();
         nodes.add(root);
 
         while (true) {
-            List<Integer> integers = new LinkedList<>();
-            nodes = getSonTreeNode(nodes);
-            if (isAllNull(nodes)) {
-                 break;
+            List<TreeNode> sons = new LinkedList<>();
+            List<Integer> songInte = new LinkedList<>();
+            if (nodes == null || nodes.size() == 0) {
+                return null;
             }
 
-            for (TreeNode node : nodes) {
-                if (node != null) {
-                    integers.add(node.val);
+            for (TreeNode treeNode : nodes) {
+                if (treeNode.left != null) {
+                    sons.add(treeNode.left);
+                    songInte.add(treeNode.left.val);
+                }
+                if (treeNode.right != null) {
+                    sons.add(treeNode.right);
+                    songInte.add(treeNode.right.val);
                 }
             }
-            stack.push(integers);
+            nodes = sons;
+
+            if (songInte.isEmpty()) {
+                 break;
+            }
+            stack.push(songInte);
         }
 
         List<List<Integer>> lists = new LinkedList<>();
@@ -61,30 +73,6 @@ public class L107HierarchicalTraversalOfBinaryTrees {
             lists.add(stack.pop());
         }
         return lists;
-    }
-
-    /**
-     * 根据父节点获取所有子节点
-     * @param parentNode
-     * @return
-     */
-    public List<TreeNode> getSonTreeNode(List<TreeNode> parentNode) {
-        List<TreeNode> sons = new LinkedList<>();
-        if (parentNode == null || parentNode.size() == 0) {
-            return null;
-        }
-
-        for (TreeNode treeNode : parentNode) {
-            if (treeNode == null) {
-                sons.add(null);
-                sons.add(null);
-            }else {
-                sons.add(treeNode.left);
-                sons.add(treeNode.right);
-            }
-        }
-
-        return sons;
     }
 
     /**

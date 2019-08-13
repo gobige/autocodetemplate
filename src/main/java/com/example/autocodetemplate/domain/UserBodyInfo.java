@@ -17,6 +17,7 @@ public class UserBodyInfo implements Serializable {
 
     @Id
     @GeneratedValue
+    @Column(name = "id", nullable = false)
     private Long id;
 
     @Column(nullable = true, unique = false)
@@ -39,5 +40,8 @@ public class UserBodyInfo implements Serializable {
      private Double height;
 
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id")
+    private UserBodyInfoMixDO userBodyInfoMixDO;
 
 }
