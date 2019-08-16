@@ -10,7 +10,9 @@ import java.util.Arrays;
  *
  * 注意你不能在买入股票前卖出股票。
  *
- * 思路1：先从小到大排序  使用双指针遍历  判断原数组左指针数值是否在右指针左边
+ * 思路1：先从小到大排序  使用双指针遍历  判断原数组左指针数值是否在右指针左边， 得到错误{4,1,2}
+ *
+ * 思路2：转换为求最大值和最小值的问题，最大连续数组问题
  */
 public class L121TheBestTimeToBuyAndSellStocks {
 
@@ -22,6 +24,26 @@ public class L121TheBestTimeToBuyAndSellStocks {
     }
 
     public  int maxProfit(int[] prices) {
+        if (prices == null || prices.length == 0) {
+            return 0;
+        }
+
+        int minv = Integer.MAX_VALUE;
+        int maxDiff = 0;
+        for (int price : prices) {
+            if (price < minv) {
+                minv = price;
+            }else {
+                if (price - minv > maxDiff) {
+                    maxDiff = price - minv;
+                }
+            }
+        }
+
+        return maxDiff;
+    }
+
+    public  int maxProfit1(int[] prices) {
         int i = 0;
         DayPrice[] dayPrices = new DayPrice[prices.length];
         for (int price : prices) {
