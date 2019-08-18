@@ -1,5 +1,9 @@
 package com.example.autocodetemplate.ohter.practice.leetcode;
 
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+
 /**
  * 只出现一次的数字
  *
@@ -12,5 +16,21 @@ package com.example.autocodetemplate.ohter.practice.leetcode;
  */
 public class L136NumberThatOnlyAppearsOnce {
 
+    public int singleNumber(int[] nums) {
+
+        Set numSet = new HashSet();
+
+        for (int num : nums) {
+            if (numSet.contains(num)) {
+                numSet.remove(num);
+            }else {
+                numSet.add(num);
+            }
+        }
+
+        Iterator ite = numSet.iterator();
+
+        return (int)ite.next();
+    }
 
 }
