@@ -12,15 +12,27 @@ package com.example.autocodetemplate.ohter.practice.leetcode;
  *
  */
 public class L443CompressedString {
-    public int compress(char[] chars) {
+    public static void main(String[] args) {
+        System.out.println( compress(new char[]{'a'}));
+    }
+    public static int compress(char[] chars) {
         if (chars.length == 0) {
             return 0;
         }
 
+        int num = 1;
+        int encryCount = 1;
         for (int i = 0; i < chars.length - 1; i++) {
             if (chars[i] != chars[i + 1]) {
-
+                encryCount = 1;
+                num++;
+            } else if (chars[i] == chars[i + 1] && encryCount == 1) {
+                encryCount = 2;
+                num++;
             }
         }
+
+
+        return num;
     }
 }
