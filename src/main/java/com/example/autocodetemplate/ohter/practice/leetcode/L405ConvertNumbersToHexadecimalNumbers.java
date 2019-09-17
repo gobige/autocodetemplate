@@ -28,6 +28,7 @@ public class L405ConvertNumbersToHexadecimalNumbers {
 
     String recurse(int num) {
         if (num < 16) {
+
             return to16Format(num);
         }else {
             int divisor = num / 16;
