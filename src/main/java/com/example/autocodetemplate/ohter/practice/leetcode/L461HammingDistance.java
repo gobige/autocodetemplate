@@ -1,6 +1,8 @@
 package com.example.autocodetemplate.ohter.practice.leetcode;
 
+import java.time.Instant;
 import java.util.BitSet;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * 461. 汉明距离
@@ -9,10 +11,11 @@ import java.util.BitSet;
  * 给出两个整数 x 和 y，计算它们之间的汉明距离。
  *
  */
+
 public class L461HammingDistance {
     public static void main(String[] args) {
-
-        System.out.println(hammingDistance(93, 73));
+        Instant instant = Instant.now();
+        CompletableFuture completableFuture = new CompletableFuture();
 
     }
     public static int hammingDistance(int x, int y) {
