@@ -11,12 +11,53 @@ package com.example.autocodetemplate.ohter.practice.leetcode;
  * 所有供暖器都遵循你的半径标准，加热的半径也一样。
  *
  * 思路1：计算所有供暖器之间的最大距离+最左最右供暖器离边界的距离，取最大值
+ * 思路2：计算每一个房屋距离最近的供暖器
+ *
  */
 public class L475heater {
     public static void main(String[] args) {
-        findRadius(new int[]{1, 5}, new int[]{2});
+        findRadius(new int[]{1, 5}, new int[]{10});
     }
+
     public static int findRadius(int[] houses, int[] heaters) {
+        int maxDistance =0;
+        for (int house : houses) {
+            int minDistance = Math.abs(heaters[0] - house) ;
+            for (int heater : heaters) {
+                if (Math.abs(heater - house) < minDistance) {
+                    minDistance = Math.abs(heater - house);
+                }
+            }
+            if (maxDistance < minDistance) {
+                maxDistance = minDistance;
+            }
+        }
+
+        return maxDistance;
+    }
+
+    public static int findRadius2(int[] houses, int[] heaters) {
+
+        int temp;
+        for (int i = 0; i < houses.length; i++) {
+            for (int j = 0; j < houses.length - i - 1; j++) {
+                if (houses[j] > houses[j + 1]) {
+                    temp = houses[j];
+                    houses[j] = houses[j + 1];
+                    houses[j + 1] = temp;
+                }
+            }
+        }
+        for (int i = 0; i < heaters.length; i++) {
+            for (int j = 0; j < heaters.length - i - 1; j++) {
+                if (heaters[j] > heaters[j + 1]) {
+                    temp = heaters[j];
+                    heaters[j] = heaters[j + 1];
+                    heaters[j + 1] = temp;
+                }
+            }
+        }
+
         if (heaters.length == 1) {
             return Math.max(Math.abs(houses[0] - heaters[0]), Math.abs(houses[houses.length - 1] - heaters[0]));
         }
