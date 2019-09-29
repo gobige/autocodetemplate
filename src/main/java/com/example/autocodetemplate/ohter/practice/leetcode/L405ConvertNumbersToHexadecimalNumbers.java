@@ -20,29 +20,29 @@ public class L405ConvertNumbersToHexadecimalNumbers {
     }
     public String toHex(int num) {
         if (num < 0) {
-            num  = Double.valueOf(Math.pow(2, 32)).intValue()+ num;
+            num = Double.valueOf(Math.pow(2, 32)).intValue() + 1 + num;
         }
 
         return recurse(num);
     }
 
-    String recurse(int num) {
+    String recurse(long num) {
         if (num < 16) {
 
             return to16Format(num);
         }else {
-            int divisor = num / 16;
-            int remainder = num % 16;
+            long divisor = num / 16;
+            long remainder = num % 16;
 
             return recurse(divisor) + to16Format(remainder);
         }
     }
-    String to16Format(int num) {
+    String to16Format(long num) {
         if (num < 10) {
             return num + "";
         }
 
-        switch (num) {
+        switch ((int)num) {
             case 10:
                 return "a";
             case 11:
