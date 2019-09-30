@@ -13,6 +13,18 @@ package com.example.autocodetemplate.ohter.practice.leetcode;
  *
  */
 public class L563SlopeOfBinaryTree {
+    public static void main(String[] args) {
+        TreeNode node = new TreeNode(1);
+        TreeNode node2 = new TreeNode(2);
+        node.left = node2;
+        TreeNode node4 = new TreeNode(4);
+        node2.left = node4;
+
+
+        L563SlopeOfBinaryTree tree = new L563SlopeOfBinaryTree();
+
+        System.out.println(tree.findTilt(node));
+    }
     public int findTilt(TreeNode root) {
         if (root == null) {
             return 0;
