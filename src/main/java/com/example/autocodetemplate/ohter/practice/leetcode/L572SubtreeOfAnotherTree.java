@@ -27,6 +27,11 @@ public class L572SubtreeOfAnotherTree {
             return isEqual(s.left, t.left) && isEqual(s.right, t.right);
         }
 
+
+
+
+
+
         return false;
     }
 }
