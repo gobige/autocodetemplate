@@ -1,7 +1,5 @@
 package com.example.autocodetemplate.ohter.practice.leetcode;
 
-import com.example.autocodetemplate.domain.Apple;
-
 /**
  * 415. 字符串相加
  * 给定两个字符串形式的非负整数 num1 和num2 ，计算它们的和。
@@ -18,21 +16,7 @@ public class L415StringAddition {
 
     public String addStrings(String num1, String num2) {
 
-
-        Apple apple = new Apple();
-        apple.getColor("hello");
-        apple.getColor("hello");
-        apple.getColor("hello");
-        apple.getColor("hello");
-        apple.getColor("hello");
-
-
-    }
-
-
-    public static String t1(String sad) {
-        System.out.println("sadf" + sad);
-
         return "sadf";
+
     }
 }

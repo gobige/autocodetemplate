@@ -1,15 +1,12 @@
 package com.example.autocodetemplate.service.Impl;
 
-import com.example.autocodetemplate.dao.TargetTableDao;
 import com.example.autocodetemplate.domain.TableStructure;
 import com.example.autocodetemplate.filter.GenerateTempFilter;
 import com.example.autocodetemplate.service.TargetTableService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
-import javax.annotation.Resource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collection;

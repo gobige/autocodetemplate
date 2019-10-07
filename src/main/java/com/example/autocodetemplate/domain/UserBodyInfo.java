@@ -40,8 +40,5 @@ public class UserBodyInfo implements Serializable {
      private Double height;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
-    private UserBodyInfoMixDO userBodyInfoMixDO;
 
 }

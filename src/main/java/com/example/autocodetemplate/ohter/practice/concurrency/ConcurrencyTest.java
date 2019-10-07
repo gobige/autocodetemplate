@@ -7,32 +7,22 @@ import org.slf4j.LoggerFactory;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Hashtable;
+import java.util.concurrent.locks.LockSupport;
 
 public class ConcurrencyTest {
-    private static final long count = 10000000000l;
+    private static final long count = 30000000000l;
     private static final Logger logger = LoggerFactory.getLogger(ConcurrencyTest.class);
 
     public static void main(String[] args) throws InterruptedException {
-//        concurrency();
-////        serial();
-//        LockSupport.park();
-//        testMultipeThreadUserMethod();
 
-        // key 和 value都不能为空
-        Hashtable hashtable = new Hashtable();
-        hashtable.put(null, null);
-
-        // key 和 value都可为null,但key为null节点只能有一个,key一样重复插入会覆盖value值
-        HashMap hashMap = new HashMap();
-        hashtable.put(null, null);
-
-        // 唯一且为可为null
-        HashSet hashSet = new HashSet();
-
-        testMultipeThreadUserMethod();
-
+        concurrency();
+        serial();
     }
 
+    /**
+     * 方法加锁，多线程竞争
+     * @param threadName
+     */
     private static synchronized void testMethod(String threadName) {
         System.out.println("comn in method,thread " + threadName);
         SleepUtils.second(5);
@@ -77,9 +67,9 @@ public class ConcurrencyTest {
     private static void concurrency() throws InterruptedException {
         long start = System.currentTimeMillis();
         Thread thread = new Thread(new Runnable() {
+            int a = 0;
             @Override
             public void run() {
-                int a = 0;
                 for (long i = 0; i < count; i++) {
                     a += 5;
                 }
@@ -90,8 +80,9 @@ public class ConcurrencyTest {
         for (long i = 0; i < count; i++) {
             b--;
         }
-        long time = System.currentTimeMillis() - start;
+
         thread.join();
+        long time = System.currentTimeMillis() - start;
         logger.info("concurrency handle spend:{}ms,event[{}]", time, b);
     }
 
