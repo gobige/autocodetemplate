@@ -1,5 +1,8 @@
 package com.example.autocodetemplate.ohter.practice.leetcode;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 594. 最长和谐子序列
  *  和谐数组是指一个数组里元素的最大值和最小值之间的差别正好是1。
@@ -10,8 +13,12 @@ package com.example.autocodetemplate.ohter.practice.leetcode;
  */
 public class L594LongestHarmonySubsequence {
     public static void main(String[] args) {
-        System.out.println(findLHS(new int[]{1, 1, 1, 1}));
+        ArrayList<Object> list = new ArrayList<>(12);
 
+        int size = 0;
+        System.out.println(findLHS(new int[]{1, 1, 1, 1}));
+        list.trimToSize();
+        list.add(new Object());
     }
     public static int findLHS(int[] nums) {
         if (nums == null || nums.length < 2) {
