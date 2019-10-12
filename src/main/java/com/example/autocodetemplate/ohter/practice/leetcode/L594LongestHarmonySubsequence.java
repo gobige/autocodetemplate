@@ -1,7 +1,7 @@
 package com.example.autocodetemplate.ohter.practice.leetcode;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 594. 最长和谐子序列
@@ -9,60 +9,49 @@ import java.util.List;
  *
  *  现在，给定一个整数数组，你需要在所有可能的子序列中找到最长的和谐子序列的长度。
  *
- *  思路1 先排序
+ *  思路1 使用hashmap计算，2排序 3 求最长序列
  */
 public class L594LongestHarmonySubsequence {
     public static void main(String[] args) {
         ArrayList<Object> list = new ArrayList<>(12);
 
-        int size = 0;
-        System.out.println(findLHS(new int[]{1, 1, 1, 1}));
-        list.trimToSize();
-        list.add(new Object());
+        findLHS(new int[]{0, 3, 1, 3, 3, 3, 0, 1, 0, 2, 0, 3, 1, 3, -3, 2, 0, 3, 1, 2, 2, -3, 2, 2, 3, 3});
     }
+
     public static int findLHS(int[] nums) {
         if (nums == null || nums.length < 2) {
             return 0;
         }
-        int temp;
-        for (int i = 0; i < nums.length; i++) {
-            for (int j = 0; j < nums.length - i - 1; j++) {
-                if (nums[j] > nums[j + 1]) {
-                    temp = nums[j];
-                    nums[j] = nums[j + 1];
-                    nums[j + 1] = temp;
-                }
+
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int num : nums) {
+            if (map.containsKey(num)) {
+                map.put(num, map.get(num) + 1);
+            } else {
+                map.put(num, 1);
             }
         }
 
-        int preSum = 0;
-        int nextSum = 1;
+        List<Map.Entry<Integer, Integer>> list = new ArrayList<Map.Entry<Integer, Integer>>(map.entrySet());
+        Collections.sort(list, new Comparator<Map.Entry<Integer, Integer>>() {
+            //降序排序
+            @Override
+            public int compare(Map.Entry<Integer, Integer> o1, Map.Entry<Integer, Integer> o2) {
+                return o2.getKey().compareTo(o1.getKey());
+            }
+        });
+        Object[] entries = list.toArray();
+
         int max = 0;
-
-        if (nums[0] == nums[nums.length - 1]) {
-            return 0;
-        }
-        for (int i = 0; i < nums.length - 1; i++) {
-            if (nums[i] != nums[i + 1]) {
-                if (Math.abs(nums[i] - nums[i + 1]) == 1) {
-                    max = preSum + nextSum > max ? preSum + nextSum : max;
-                    preSum = nextSum;
-                    nextSum = 1;
-                }else {
-                    max = preSum + nextSum > max ? preSum + nextSum : max;
-                    preSum = 0;
-                    nextSum = 1;
-                }
-            }else {
-                nextSum++;
+        Map.Entry<Integer, Integer> pre = (Map.Entry)entries[0];
+        for (int i = 1; i < entries.length; i++) {
+            Map.Entry<Integer, Integer> entry = (Map.Entry)entries[i];
+            if (Math.abs(entry.getKey() - pre.getKey()) == 1) {
+                max = entry.getValue() + pre.getValue() > max ? entry.getValue() + pre.getValue() : max;
             }
+            pre = entry;
         }
 
-        max = preSum + nextSum > max ? preSum + nextSum : max;
-
-        if (max == 1) {
-            return 0;
-        }
         return max;
     }
 }
