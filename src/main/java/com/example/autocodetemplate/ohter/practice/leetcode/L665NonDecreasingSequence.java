@@ -8,14 +8,33 @@ import javax.mail.Flags;
  *
  * 我们是这样定义一个非递减数列的： 对于数组中所有的 i (1 <= i < n)，满足 array[i] <= array[i + 1]。
  *
- * 思路1：判断 有且只有一个数比他后面的数大 则 true
+ * 思路1：判断 有且只有一个数比他后面的数大 则 true,因为存在 例如 4,2,3这种情况，所以在遍历过程中要将做改变元素的动作
  */
 public class L665NonDecreasingSequence {
-    public boolean checkPossibility(int[] nums) {
+    public static void main(String[] args) {
+        System.out.println(checkPossibility(new int[]{  3, 4, 2, 3}));
+    }
+    public static boolean checkPossibility(int[] nums) {
+        if (nums.length <3) {
+            return true;
+        }
+
+
         boolean flag = true;
-        for (int i = 0; i < nums.length-1; i++) {
+        if (nums[0] > nums[1]) {
+            nums[0] = nums[1];
+            flag = false;
+        }
+
+        for (int i = 1; i < nums.length-1; i++) {
             if (nums[i] > nums[i + 1]) {
                 if (flag) {
+                    if (nums[i - 1] > nums[i + 1]) {
+                        nums[i] = nums[i - 1];
+                    }else {
+                        nums[i] = nums[i + 1];
+                    }
+                    i--;
                     flag = false;
                 }else {
                     return false;
