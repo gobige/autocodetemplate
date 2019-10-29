@@ -10,6 +10,7 @@ import javax.mail.Flags;
  *
  * 思路1：判断 有且只有一个数比他后面的数大 则 true,因为存在 例如 4,2,3这种情况，所以在遍历过程中要将做改变元素的动作
  */
+
 public class L665NonDecreasingSequence {
     public static void main(String[] args) {
         System.out.println(checkPossibility(new int[]{  3, 4, 2, 3}));
