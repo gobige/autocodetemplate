@@ -242,62 +242,66 @@ class StreamTest {
         apples = apples.stream().sorted(Comparator.comparing(Apple::getSeqNo)).collect(Collectors.toList());
         apples2 =  apples2.stream().sorted(Comparator.comparing(Apple::getSeqNo)).collect(Collectors.toList());
         List<Apple> apples3 = new ArrayList<Apple>();
-//
-//        // 过滤 1 Stream流合可以对空集合进行操作，2但是不能对空对象进行操作，3而且通过collect()方法得到的是一个新的集合
-//        apples3 = apples3.stream().filter(item -> item != null && item.getWight() > 3).collect(Collectors.toList());
-//
-//        // 过滤 查询某个属性值符合某条件的元素
-//        apples = apples.stream().filter(apple -> apple.getWight() > 1).collect(Collectors.toList());
-//
-//        Function<Integer, Integer> f = x -> x + 1;
-//        Function<Integer, Integer> f2 = x -> x * 2;
-//        System.out.println(f.andThen(f2).apply(1)); //(T t) -> after.apply(apply(t));
-//        System.out.println(f.compose(f2).apply(1));  //(V v) -> apply(before.apply(v));
-//
-//        // List获取指定**属性**组成新list
-//        List<String> names = apples.stream().map(Apple::getName).collect(Collectors.toList());
-//
-//        // List获取指定**属性**组成新set
-//        Set<String> nameSets = apples.stream().map(Apple::getCountry).collect(Collectors.toSet());
-//
-//        // List获取指定**属性或对象**组成新map(tomap操作中key值不能重复，value值不能为null，否则会报错)
-//        Map<Integer, String> map = apples.stream().collect(Collectors.toMap(Apple::getSeqNo, Apple::getName));
-////        Map appleMaps = apples.stream().collect(Collectors.toMap(Apple::getName, Function.identity()));
-//
-//        // List中指定**属性**求和
-//        Integer sum = apples.stream().collect(Collectors.summingInt(Apple::getWight));
-//
-//        // 使用户过滤的方式，求两个相同类型集合的**对象**的交集
-//        List<Apple> Intersections = apples.stream().filter(item -> apples2.contains(item)).collect(Collectors.toList());
-//
-//        // List中指定**属性的值**最小元素
-//        Apple minAppple = apples.stream().min(Comparator.comparing(Apple::getWight)).get();
-//
-//        // 根据某个属性值对集合排序 由小到大
-//        apples.sort(Comparator.comparing(Apple::getWight));
-//
-//        // 获取第一个元素(集合元素为0会报错)
-//        apples.stream().findFirst().get();
-//        // 根据某个属性值对集合排序 由大到小
-//        apples.sort(Comparator.comparing(Apple::getWight).reversed());
-//        // 根据某个属性值对集合排序 先按某属性排序，再按另外某属性再次排序
-//        apples.sort(Comparator.comparing(Apple::getWight).reversed().thenComparing(Apple::getCountry));
-//
-//        // 求两个相同类型元素集合的差集
-//        List<Apple> Differs = apples.stream().filter(item -> !apples2.contains(item)).collect(Collectors.toList());
-//
-//        // 求去重并集
-//        apples.addAll(apples2);
-//        apples.stream().distinct().collect(Collectors.toList());
-//
-//        //循环集合内元素并做处理
-//        apples.stream().forEach(System.out::println);
-//
-//        // 以某属性对集合分组
-//        Map<String, List<Apple>> result2 = apples.stream().collect(Collectors.groupingBy(Apple::getCountry));
-//
-//        Map<Integer, Apple> test = new HashMap<>();
-//        test.remove(1);
+
+        // 过滤 1 Stream流合可以对空集合进行操作，2但是不能对空对象进行操作，3而且通过collect()方法得到的是一个新的集合
+        apples3 = apples3.stream().filter(item -> item != null && item.getWight() > 3).collect(Collectors.toList());
+
+        // 过滤 查询某个属性值符合某条件的元素
+        apples = apples.stream().filter(apple -> apple.getWight() > 1).collect(Collectors.toList());
+
+        Function<Integer, Integer> f = x -> x + 1;
+        Function<Integer, Integer> f2 = x -> x * 2;
+        System.out.println(f.andThen(f2).apply(1)); //(T t) -> after.apply(apply(t));
+        System.out.println(f.compose(f2).apply(1));  //(V v) -> apply(before.apply(v));
+
+        // List获取指定**属性**组成新list
+        List<String> names = apples.stream().map(Apple::getName).collect(Collectors.toList());
+
+        // List获取指定**属性**组成新set
+        Set<String> nameSets = apples.stream().map(Apple::getCountry).collect(Collectors.toSet());
+
+        // List获取指定**属性或对象**组成新map(tomap操作中key值不能重复，value值不能为null，否则会报错)
+        Map<Integer, String> map = apples.stream().collect(Collectors.toMap(Apple::getSeqNo, Apple::getName));
+//        Map appleMaps = apples.stream().collect(Collectors.toMap(Apple::getName, Function.identity()));
+
+        // List中指定**属性**求和
+        Integer sum = apples.stream().collect(Collectors.summingInt(Apple::getWight));
+
+        // 使用户过滤的方式，求两个相同类型集合的**对象**的交集
+        List<Apple> Intersections = apples.stream().filter(item -> apples2.contains(item)).collect(Collectors.toList());
+
+        // List中指定**属性的值**最小元素
+        Apple minAppple = apples.stream().min(Comparator.comparing(Apple::getWight)).get();
+
+        // 根据某个属性值对集合排序 由小到大
+        apples.sort(Comparator.comparing(Apple::getWight));
+
+        // 获取第一个元素(集合元素为0会报错)
+        apples.stream().findFirst().get();
+        // 根据某个属性值对集合排序 由大到小
+        apples.sort(Comparator.comparing(Apple::getWight).reversed());
+        // 根据某个属性值对集合排序 先按某属性排序，再按另外某属性再次排序
+        apples.sort(Comparator.comparing(Apple::getWight).reversed().thenComparing(Apple::getCountry));
+
+        // 求两个相同类型元素集合的差集
+        List<Apple> Differs = apples.stream().filter(item -> !apples2.contains(item)).collect(Collectors.toList());
+
+        // 求去重并集
+        apples.addAll(apples2);
+        apples.stream().distinct().collect(Collectors.toList());
+
+        //循环集合内元素并做处理
+        apples.stream().forEach(System.out::println);
+
+        // 以某属性对集合分组
+        Map<String, List<Apple>> result2 = apples.stream().collect(Collectors.groupingBy(Apple::getCountry));
+
+        Map<Integer, Apple> test = new HashMap<>();
+        test.remove(1);
+
+
+        // map去value为null的对象
+        map.values().removeIf(Objects::isNull);
     }
 
 }
