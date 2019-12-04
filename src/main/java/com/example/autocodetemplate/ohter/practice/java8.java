@@ -201,6 +201,7 @@ class StringTest {
  */
 class StreamTest {
     public static void main(String[] args) {
+
         // List中去除某值形成List
         // 准备练习数据
         List<Apple> apples = new ArrayList<Apple>();
@@ -240,7 +241,6 @@ class StreamTest {
         apples2.add(new Apple(3,3,"american","apple2"));
 
         apples = apples.stream().sorted(Comparator.comparing(Apple::getSeqNo)).collect(Collectors.toList());
-        apples2 =  apples2.stream().sorted(Comparator.comparing(Apple::getSeqNo)).collect(Collectors.toList());
         List<Apple> apples3 = new ArrayList<Apple>();
 
         // 过滤 1 Stream流合可以对空集合进行操作，2但是不能对空对象进行操作，3而且通过collect()方法得到的是一个新的集合
@@ -270,7 +270,7 @@ class StreamTest {
         // 使用户过滤的方式，求两个相同类型集合的**对象**的交集
         List<Apple> Intersections = apples.stream().filter(item -> apples2.contains(item)).collect(Collectors.toList());
 
-        // List中指定**属性的值**最小元素
+        // List中指定**属性的值**最小元素,得到的对象时列表中对象，非新建对象
         Apple minAppple = apples.stream().min(Comparator.comparing(Apple::getWight)).get();
 
         // 根据某个属性值对集合排序 由小到大
