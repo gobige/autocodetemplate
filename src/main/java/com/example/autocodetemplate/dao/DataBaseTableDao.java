@@ -1,8 +1,7 @@
 package com.example.autocodetemplate.dao;
 
-import com.example.autocodetemplate.domain.SysAppVersionInfo;
-import com.example.autocodetemplate.provider.SysAppVersionInfoSqlProvider;
-import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface DataBaseTableDao {

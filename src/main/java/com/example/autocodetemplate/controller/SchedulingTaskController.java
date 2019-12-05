@@ -47,7 +47,7 @@ public class SchedulingTaskController {
     }
 
 
-    @Scheduled(cron = "0/30 * * * * ?")
+//    @Scheduled(cron = "0/30 * * * * ?")
     public void createTable() {
         createTable("full_text_test", EnumDateShardTableType.MONTHLY_TABLE, EnumPoolManageType.YATES_TEST_DB_1, null);
     }
