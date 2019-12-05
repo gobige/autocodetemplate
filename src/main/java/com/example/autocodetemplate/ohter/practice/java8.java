@@ -202,21 +202,22 @@ class StringTest {
 class StreamTest {
     public static void main(String[] args) {
 
-        // List中去除某值形成List
-        // 准备练习数据
         List<Apple> apples = new ArrayList<Apple>();
-//        apples.add(null);
+        apples.add(null);
         apples.add(new Apple(7,2,"china","apple1"));
         apples.stream().forEach(bo -> {
+            // 非空判断，不然会报错
             if (Optional.ofNullable(bo).isPresent()) {
                 System.out.println(bo.getCountry());
             }
         });
 
-        // 而且通过collect()方法得到的是一个新的集合
+        // 而且通过.collect 方法得到的是一个新的集合 .map 获取指定数据
         List<String> list = apples.stream().map(Apple::getName).collect(Collectors.toList());
-        Optional<Apple> wightThanThree = apples.stream().filter(a -> a.getWight() > 3).findAny();
 
+        // 根据条件过滤
+        Optional<Apple> anywightThanThree = apples.stream().filter(a -> a.getWight() > 3).findAny();
+        Optional<Apple> firstwightThanThree = apples.stream().filter(a -> a.getWight() > 3).findFirst();
         apples.add(new Apple(3,1,"brazil","apple3"));
         apples.add(new Apple(1,2,"china","apple11"));
         apples.add(new Apple(2,3,"china","apple2"));
