@@ -41,7 +41,7 @@ public class SchedulingTaskController {
      */
     @Scheduled(cron = "0/30 * * * * ?")
     public void reportFindGirl() {
-        System.out.println("七夕节到了，还不找女朋友，你妈又要催了!"+ TimeUtil.dateToLocalDateTime(new Date()));
+        System.out.println("定时任务执行--七夕节到了，还不找女朋友，你妈又要催了!"+ TimeUtil.dateToLocalDateTime(new Date()));
         System.out.println("测试热部署 ctrl+F9!!!"+ TimeUtil.dateToLocalDateTime(new Date()));
         testHashMap.put(addNum, new String[100]);
     }
