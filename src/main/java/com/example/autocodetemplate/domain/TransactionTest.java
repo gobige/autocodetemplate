@@ -18,6 +18,6 @@ import lombok.ToString;
 @ToString
 public class TransactionTest {
     private Integer id;
-    private String name;
+    private String nikeName;
     private Integer num;
 }

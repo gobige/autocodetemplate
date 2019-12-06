@@ -1,1 +1,1 @@
-CREATE TABLE TRANSACTION_TEST (id INT IDENTITY, name VARCHAR(64), num INT);
+CREATE TABLE transaction_test (id INT IDENTITY, nike_name VARCHAR(64), num INT);

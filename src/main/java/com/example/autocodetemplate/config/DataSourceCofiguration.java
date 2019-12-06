@@ -26,58 +26,56 @@ import java.util.Arrays;
 @Configuration
 public class DataSourceCofiguration {
 
-    @Bean
-//    @ConfigurationProperties("foo.datasource")// 这里配置多数据源，要去application处extend DataSourceAutoConfiguration  DataSourceTransactionManagerAutoConfiguration  JdbcTemplateAutoConfiguration
-    public DataSourceProperties testdbDataSourceProperties() {
-        DataSourceProperties dataSourceProperties = new DataSourceProperties();
-        dataSourceProperties.setUrl("jdbc:h2:mem:testdb");
-        dataSourceProperties.setInitialize(true);
-        dataSourceProperties.setPassword("");
-        dataSourceProperties.setUsername("sa");
-        // 初始化脚本文件的编码
-        dataSourceProperties.setSqlScriptEncoding(Charset.defaultCharset());
-
-        return dataSourceProperties;
-    }
-
-    @Bean
-    @Primary
-    public DataSource testdbDataSource() {
-        DataSourceProperties dataSourceProperties = testdbDataSourceProperties();
-        log.info("testdb datasource: {}", dataSourceProperties.getUrl());
-        return dataSourceProperties.initializeDataSourceBuilder().build();
-    }
-
-    @Bean
-    @Resource
-    public PlatformTransactionManager testdbTxManager(DataSource testdbDataSource) {
-        return new DataSourceTransactionManager(testdbDataSource);
-    }
-//
 //    @Bean
-////    @ConfigurationProperties("foo.datasource")
-//    public DataSourceProperties test2dbDataSourceProperties() {
+ // 这里配置多数据源，要去(exclude = { DataSourceAutoConfiguration.class, DataSourceTransactionManagerAutoConfiguration.class,     JdbcTemplateAutoConfiguration.class})
+//    public DataSourceProperties testdbDataSourceProperties() {
 //        DataSourceProperties dataSourceProperties = new DataSourceProperties();
-//        dataSourceProperties.setUrl("jdbc:h2:mem:testdb2");
+//        dataSourceProperties.setUrl("jdbc:h2:mem:testdb");
+//        dataSourceProperties.setInitialize(true);
 //        dataSourceProperties.setPassword("");
 //        dataSourceProperties.setUsername("sa");
-//        dataSourceProperties.setSchema(Arrays.asList("classpath:schema.sql"));
-//        dataSourceProperties.setData(Arrays.asList("classpath:data.sql"));
+//        // 初始化脚本文件的编码
+//        dataSourceProperties.setSqlScriptEncoding(Charset.defaultCharset());
 //
 //        return dataSourceProperties;
 //    }
 //
 //    @Bean
-//    public DataSource test2dbDataSource() {
-//        DataSourceProperties dataSourceProperties = test2dbDataSourceProperties();
+//    @Primary
+//    public DataSource testdbDataSource() {
+//        DataSourceProperties dataSourceProperties = testdbDataSourceProperties();
 //        log.info("testdb datasource: {}", dataSourceProperties.getUrl());
 //        return dataSourceProperties.initializeDataSourceBuilder().build();
 //    }
 //
 //    @Bean
 //    @Resource
-//    public PlatformTransactionManager test2dbTxManager(DataSource test2dbDataSource) {
-//        return new DataSourceTransactionManager(test2dbDataSource);
+//    public PlatformTransactionManager testdbTxManager(DataSource testdbDataSource) {
+//        return new DataSourceTransactionManager(testdbDataSource);
 //    }
+//
+//    @Bean
+//    public DataSourceProperties testMysqldbDataSourceProperties() {
+//        DataSourceProperties dataSourceProperties = new DataSourceProperties();
+//        dataSourceProperties.setUrl("jdbc:mysql://mysql.dev.car-house.cn:3306/car_house");
+//        dataSourceProperties.setPassword("acxw-dbPwd~1@3");
+//        dataSourceProperties.setUsername("carhouse");
+//
+//        return dataSourceProperties;
+//    }
+//
+//    @Bean
+//    public DataSource testMysqldbDataSource() {
+//        DataSourceProperties dataSourceProperties = testMysqldbDataSourceProperties();
+//        log.info("testMysqldb datasource: {}", dataSourceProperties.getUrl());
+//        return dataSourceProperties.initializeDataSourceBuilder().build();
+//    }
+//
+//    @Bean
+//    @Resource
+//    public PlatformTransactionManager testMysqldbTxManager(DataSource testMysqldbDataSource) {
+//        return new DataSourceTransactionManager(testMysqldbDataSource);
+//    }
+
 
 }

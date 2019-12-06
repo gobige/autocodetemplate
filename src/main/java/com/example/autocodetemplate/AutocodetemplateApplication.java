@@ -31,9 +31,7 @@ import java.util.Collection;
  * @EnableAsync 运行异步方法 @Async所修饰的函数不要定义为static类型,不然不会生效
  * @ComponentScan：启用组件扫描@EnableAutoConfiguration：也可以称为@Abracadabra2，开启了Spring Boot自动配置的魔力，
  */
-@SpringBootApplication(exclude = { DataSourceAutoConfiguration.class,
-        DataSourceTransactionManagerAutoConfiguration.class,
-        JdbcTemplateAutoConfiguration.class})
+@SpringBootApplication
 @EnableScheduling
 @EnableCaching
 @EnableAsync
