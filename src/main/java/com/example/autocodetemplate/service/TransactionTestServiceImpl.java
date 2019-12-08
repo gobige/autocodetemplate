@@ -1,8 +1,10 @@
 package com.example.autocodetemplate.service;
 
 import com.example.autocodetemplate.dao.TransactionsTestDao;
-import com.example.autocodetemplate.domain.TransactionTest;
+import com.example.autocodetemplate.domain.UserBodyInfo;
+import com.example.autocodetemplate.domain.UserBodyInfo;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,7 +31,27 @@ public class TransactionTestServiceImpl implements TransactionTestService {
     private TransactionTestService transactionTestService;
 
     @Override
-    public Collection<TransactionTest> queryAll() {
+    public UserBodyInfo queryById(Integer id) {
+        Collection<UserBodyInfo> users = transactionsTestDao.queryAll();
+        UserBodyInfo info1 = transactionsTestDao.queryById(id);
+        UserBodyInfo info2 = transactionsTestDao.queryTransactionTestById(id);
+        UserBodyInfo info3 = transactionsTestDao.queryByIdBySelectProvider(id);
+
+        return info3;
+    }
+
+    @Override
+    public Collection<UserBodyInfo> pageQuery(Integer page, Integer limit) {
+
+        Collection<UserBodyInfo> users = transactionsTestDao.pageQueryrowBounds(new RowBounds(page, limit));
+
+        Collection<UserBodyInfo> users2 =  transactionsTestDao.pageQueryrowBounds2(page, limit);
+
+        return users2;
+    }
+
+    @Override
+    public Collection<UserBodyInfo> queryAll() {
        return transactionsTestDao.queryAll();
     }
 
@@ -41,20 +63,20 @@ public class TransactionTestServiceImpl implements TransactionTestService {
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void modifyTransaction() throws RuntimeException{
         log.debug("before modifyTransaction result");
-        Collection<TransactionTest> transactionTests = transactionsTestDao.queryAll();
+        Collection<UserBodyInfo> transactionTests = transactionsTestDao.queryAll();
         transactionTests.stream().forEach(obj -> log.info(obj.toString()));
 
         int upNum = transactionsTestDao.updateTransactionTest("upnum1", 22, 1);
         log.debug("update num {}", upNum);
         log.debug("after modifyTransaction result");
-        Collection<TransactionTest> transactionTest2 = transactionsTestDao.queryAll();
+        Collection<UserBodyInfo> transactionTest2 = transactionsTestDao.queryAll();
         transactionTest2.stream().forEach(obj -> log.info(obj.toString()));
 
         try {
             transactionTestService.modifyTransaction2();
         } catch (Exception e) {
             log.debug("exception modifyTransaction2 result");
-            Collection<TransactionTest> transactionTest3 = transactionsTestDao.queryAll();
+            Collection<UserBodyInfo> transactionTest3 = transactionsTestDao.queryAll();
             transactionTest3.stream().forEach(obj -> log.info(obj.toString()));
         }
 
@@ -70,7 +92,7 @@ public class TransactionTestServiceImpl implements TransactionTestService {
         int upNum = transactionsTestDao.updateTransactionTest("upnum3", 11, 3);
         log.debug("update num {}", upNum);
         log.debug("after modifyTransaction2 result");
-        Collection<TransactionTest> transactionTest2 = transactionsTestDao.queryAll();
+        Collection<UserBodyInfo> transactionTest2 = transactionsTestDao.queryAll();
         transactionTest2.stream().forEach(obj -> log.info(obj.toString()));
 
         // 只发生该异常发生时，没有使用事务情况下 t1 和t2 更新的结果都没有rollback

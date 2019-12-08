@@ -21,23 +21,13 @@ public class UserBodyInfo implements Serializable {
     private Long id;
 
     @Column(nullable = true, unique = false)
-    private String name;
-
-    @Column(nullable = true, unique = false)
-    private Integer age;
+    private String nikeName;
 
     @Column(nullable = true, unique = false)
     private Date birthday;
+
     @Column(nullable = true, unique = false)
-    private String rec;
-    @Column(nullable = true, unique = false)
-     private String test;
-    @Column(nullable = true, unique = false)
-    private Integer sex;
-    @Column(nullable = true, unique = false)
-     private Double weight;
-    @Column(nullable = true, unique = false)
-     private Double height;
+    private Integer num;
 
 
 

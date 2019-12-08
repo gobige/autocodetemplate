@@ -5,13 +5,6 @@
 
 <configuration>
 
-    <properties>
-        <property name="db.driver" value="org.postgresql.Driver"></property>
-        <property name="db.url" value="jdbc:postgresql://localhost:5433/postgres"></property>
-        <property name="db.username" value="postgres"></property>
-        <property name="db.pwd" value="postgres"></property>
-    </properties>
-
     <settings>
         <!-- 全局映射器启用缓存 -->
         <setting name="cacheEnabled" value="false"/>
@@ -42,26 +35,11 @@
         <typeAlias alias="LinkedList" type="java.util.LinkedList"/>
     </typeAliases>
 
-    <plugins>
-        <plugin interceptor="com.github.miemiedev.mybatis.paginator.OffsetLimitInterceptor">
-            <property name="dialectClass" value="com.github.miemiedev.mybatis.paginator.dialect.OracleDialect"/>
-        </plugin>
-    </plugins>
-
-    <environments default="development">
-        <!--环境变量 -->
-        <environment id="development">
-            <!--事务管理器 -->
-            <transactionManager type="JDBC" />
-            <!--数据源 -->
-            <dataSource type="POOLED">
-                <property name="driver" value="com.mysql.jdbc.Driver" />
-                <property name="url" value="jdbc:mysql://mysql.dev.car-house.cn:3306/car_house?useUnicode=true" />
-                <property name="username" value="carhouse-database" />
-                <property name="password" value="root" />
-            </dataSource>
-        </environment>
-    </environments>
+<!--    <plugins>-->
+<!--        <plugin interceptor="com.github.miemiedev.mybatis.paginator.OffsetLimitInterceptor">-->
+<!--            <property name="dialectClass" value="com.github.miemiedev.mybatis.paginator.dialect.OracleDialect"/>-->
+<!--        </plugin>-->
+<!--    </plugins>-->
 
     <mappers>
         <mapper resource="mapper/SysAppVersionInfoMapper.xml" />

@@ -1,6 +1,6 @@
 package com.example.autocodetemplate.service;
 
-import com.example.autocodetemplate.domain.TransactionTest;
+import com.example.autocodetemplate.domain.UserBodyInfo;
 
 import java.util.Collection;
 
@@ -15,7 +15,11 @@ import java.util.Collection;
  */
 public interface TransactionTestService {
 
-    Collection<TransactionTest> queryAll();
+    Collection<UserBodyInfo> queryAll();
+
+    Collection<UserBodyInfo> pageQuery(Integer page, Integer limit);
+
+    UserBodyInfo queryById(Integer id);
 
     void modifyTransaction();
 

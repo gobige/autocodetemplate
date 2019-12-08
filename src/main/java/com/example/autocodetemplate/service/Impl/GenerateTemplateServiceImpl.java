@@ -6,6 +6,7 @@ import com.example.autocodetemplate.domain.TableStructure;
 import com.example.autocodetemplate.service.GenerateTemplateService;
 import com.example.autocodetemplate.util.FileUtil;
 import com.example.autocodetemplate.util.StringUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
+import javax.annotation.Resource;
 import java.io.File;
 import java.util.Collection;
 import java.util.HashMap;
@@ -27,12 +29,12 @@ import java.util.Map;
  *
  * @version 1.0
  */
+@Slf4j
 @Service(value = "generateTemplateService")
 public class GenerateTemplateServiceImpl implements GenerateTemplateService {
-    private Logger logger = LoggerFactory.getLogger(GenerateTemplateServiceImpl.class);
 
     private final String templatePath = "src\\main\\java\\template\\";
-    @Autowired
+    @Resource
     private TargetTableDao targetTableDao;
 
     @Override
@@ -606,13 +608,13 @@ public class GenerateTemplateServiceImpl implements GenerateTemplateService {
         for (TableStructure tableRecord : tableStructures) {
             EnumTableColumnTypeRalationJavaType typeRelation = EnumTableColumnTypeRalationJavaType.findByJdbcType(tableRecord.getType());
             if (typeRelation == null) {
-                logger.info("无法识别的jdbc类型" + tableRecord.getType());
+                log.info("无法识别的jdbc类型" + tableRecord.getType());
                 continue;
             }
 
             String paramName = StringUtil.lineToHump(tableRecord.getField());
             if (tableColTypes.containsKey(paramName)) {
-                logger.info("domain参数名重复" + tableRecord.getField());
+                log.info("domain参数名重复" + tableRecord.getField());
                 continue;
             }
 

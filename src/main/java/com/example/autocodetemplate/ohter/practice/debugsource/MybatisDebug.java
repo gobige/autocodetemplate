@@ -1,7 +1,7 @@
 package com.example.autocodetemplate.ohter.practice.debugsource;
 
-import com.example.autocodetemplate.dao.SysAppVersionInfoDao;
-import com.example.autocodetemplate.domain.SysAppVersionInfo;
+import com.example.autocodetemplate.dao.TransactionsTestDao;
+import com.example.autocodetemplate.domain.UserBodyInfo;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
@@ -30,9 +30,9 @@ public class MybatisDebug {
         SqlSession sqlSession = null;
         try {
             sqlSession = sqlSessionFactory.openSession();
-            SysAppVersionInfoDao sysAppVersionInfoDao = sqlSession.getMapper(SysAppVersionInfoDao.class);
-            SysAppVersionInfo role = sysAppVersionInfoDao.queryById(16);
-            System.out.println(role.getId()+":"+role.getRemark()+":"+role.getAppVersion());
+            TransactionsTestDao transactionsTestDao = sqlSession.getMapper(TransactionsTestDao.class);
+            UserBodyInfo role = transactionsTestDao.queryById(16);
+            System.out.println(role.getId()+":"+role.getNikeName()+":"+role.getNum());
             sqlSession.commit();
 
         } catch (Exception e) {

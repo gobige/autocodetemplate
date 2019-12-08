@@ -1,7 +1,9 @@
 package com.example.autocodetemplate.dao;
 
-import com.example.autocodetemplate.domain.TransactionTest;
+import com.example.autocodetemplate.domain.UserBodyInfo;
+import com.example.autocodetemplate.provider.UserBodyInfoSqlProvider;
 import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.session.RowBounds;
 
 import java.util.Collection;
 
@@ -22,19 +24,32 @@ public interface TransactionsTestDao {
             @Result(property = "nikeName", column = "nike_name"),
             @Result(property = "num", column = "num")
     })
-    @Select("SELECT * FROM transaction_test")
-    Collection<TransactionTest> queryAll();
+    @Select("SELECT * FROM user_body_info")
+    Collection<UserBodyInfo> queryAll();
+
+    @Select("SELECT * FROM user_body_info")
+    Collection<UserBodyInfo> pageQueryrowBounds(RowBounds rowBounds);
+
+    @Select("SELECT * FROM user_body_info")
+    Collection<UserBodyInfo> pageQueryrowBounds2(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize);
 
     @Results({
             @Result(property = "id", column = "id"),
             @Result(property = "nikeName", column = "nike_name"),
             @Result(property = "num", column = "num")
     })
-    @Select("SELECT * FROM transaction_test WHERE id = #{id}")
-    TransactionTest queryTransactionTestById(@Param("id") Integer id);
+    @Select("SELECT * FROM user_body_info WHERE id = #{id}")
+    UserBodyInfo queryTransactionTestById(@Param("id") Integer id);
 
-    @Update("UPDATE transaction_test SET nike_name = #{nikeName},num = #{num} WHERE id = #{id}")
+    @SelectProvider(type = UserBodyInfoSqlProvider.class, method = "queryById")
+    UserBodyInfo queryByIdBySelectProvider(@Param("id") Integer id);
+    /**
+     *
+     * @param id
+     * @return
+     */
+    UserBodyInfo queryById(@Param("id") Integer id);
+
+    @Update("UPDATE user_body_info SET nike_name = #{nikeName},num = #{num} WHERE id = #{id}")
     int updateTransactionTest(@Param("nikeName") String nikeName, @Param("num") Integer num,@Param("id")  Integer id);
-
-
 }

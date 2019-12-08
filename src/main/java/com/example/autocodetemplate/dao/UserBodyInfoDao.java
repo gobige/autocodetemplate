@@ -12,14 +12,15 @@ import javax.transaction.Transactional;
 
 public interface UserBodyInfoDao extends JpaRepository<UserBodyInfo, Long> {
 
-    Page<UserBodyInfo> findByAgeGreaterThanEqual(Integer userName, Pageable pageable);
+    Page<UserBodyInfo> findByNumGreaterThan(Integer num, Pageable pageable);
 
-    Collection<UserBodyInfo> deleteByNameEquals(String userName);
+    @Transactional
+    Collection<UserBodyInfo> deleteByNikeNameEquals(String userName);
 
     @Transactional
     @Modifying
     // JPA 默认使用JPQL语句在EJB实体中面向对象，属性操作，如需使用原生则nativequery设置为true
-    @Query(value = "update user_body_info set name = ?1 where id = ?2",nativeQuery = true)
-    int updateUserNameById(String userName,Long id);
+    @Query(value = "update user_body_info set nike_name = ?1 where id = ?2",nativeQuery = true)
+    int updateNickNameById(String userName,Long id);
 }
 

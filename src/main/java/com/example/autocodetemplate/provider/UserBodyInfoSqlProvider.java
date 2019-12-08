@@ -9,9 +9,9 @@ package com.example.autocodetemplate.provider;
  *
  * @version 1.0
  */
-public class SysAppVersionInfoSqlProvider {
+public class UserBodyInfoSqlProvider {
     public String queryById() {
-        return "SELECT * FROM sys_app_version_info WHERE id = #{id}";
+        return "SELECT * FROM user_body_info WHERE id = #{id}";
     }
 
 }

@@ -88,11 +88,6 @@ public class WstBusinessServiceImplTest {
     }
 
     @Test
-    public void testGetSql() throws Exception{
-        testService.testGetSql();
-    }
-
-    @Test
     public void testSendEmail() {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("569484515@qq.com");
