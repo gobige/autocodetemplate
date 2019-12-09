@@ -33,6 +33,9 @@ public interface TransactionsTestDao {
     @Select("SELECT * FROM user_body_info")
     Collection<UserBodyInfo> pageQueryrowBounds2(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize);
 
+    @Insert("INSERT INTO transaction_test nike_name,num VALUES(#{nikeName}, #{num})")
+    int insetTransactionTest(String nikeName, Integer num);
+
     @Results({
             @Result(property = "id", column = "id"),
             @Result(property = "nikeName", column = "nike_name"),

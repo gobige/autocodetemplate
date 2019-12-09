@@ -59,14 +59,15 @@ public class TransactionTestServiceImpl implements TransactionTestService {
      *
      * @throws RuntimeException
      */
-    @Override
+    @Override// TODO requires_new 不生效 ？
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void modifyTransaction() throws RuntimeException{
         log.debug("before modifyTransaction result");
         Collection<UserBodyInfo> transactionTests = transactionsTestDao.queryAll();
         transactionTests.stream().forEach(obj -> log.info(obj.toString()));
 
-        int upNum = transactionsTestDao.updateTransactionTest("upnum1", 22, 1);
+//        int upNum = transactionsTestDao.updateTransactionTest("upnum1", 22, 1);
+        int upNum = transactionsTestDao.insetTransactionTest("trump tannado", 211);
         log.debug("update num {}", upNum);
         log.debug("after modifyTransaction result");
         Collection<UserBodyInfo> transactionTest2 = transactionsTestDao.queryAll();
@@ -82,21 +83,20 @@ public class TransactionTestServiceImpl implements TransactionTestService {
 
         log.debug("ggggggggggggggggggggggggggggggggg");
 
-        // 该异常发生时，没有使用事务情况下 t1和t2更新的结果都没有rollback
 //        throw new RuntimeException("test modifyTransaction");
     }
 
     @Transactional
     @Override
     public void modifyTransaction2() {
-        int upNum = transactionsTestDao.updateTransactionTest("upnum3", 11, 3);
+        int upNum = transactionsTestDao.insetTransactionTest("Messi niao", 211);
+
+//        int upNum = transactionsTestDao.updateTransactionTest("upnum3", 11, 3);
         log.debug("update num {}", upNum);
         log.debug("after modifyTransaction2 result");
         Collection<UserBodyInfo> transactionTest2 = transactionsTestDao.queryAll();
         transactionTest2.stream().forEach(obj -> log.info(obj.toString()));
 
-        // 只发生该异常发生时，没有使用事务情况下 t1 和t2 更新的结果都没有rollback
-        // 只发生该异常发生时，使用默认事务情况下 t2 更新的结果都没有rollback
         throw new RuntimeException("test modifyTransaction2");
     }
 
