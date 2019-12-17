@@ -3,9 +3,9 @@
 <mapper namespace="com.example.autocodetemplate.dao.TransactionsTestDao">
     <resultMap id="baseMap" type="com.example.autocodetemplate.domain.UserBodyInfo">
         <id column="id" property="id"/>
-        <result column="nikeName" property="platform"/>
-        <result column="birthday" property="version"/>
-        <result column="num" property="appVersion"/>
+        <result column="nikeName" property="nike_name"/>
+        <result column="birthday" property="birthday"/>
+        <result column="num" property="num"/>
     </resultMap>
 
     <select id="queryById" resultMap="baseMap">

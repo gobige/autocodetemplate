@@ -8,6 +8,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
@@ -25,6 +26,7 @@ import java.util.Collection;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Slf4j
+@Sql("classpath:data.sql")
 public class TransactionTestServiceImplTest {
     @Resource
     private TransactionTestService transactionTestService;
