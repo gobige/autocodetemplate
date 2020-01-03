@@ -2,6 +2,7 @@ package com.example.autocodetemplate.ohter.practice;
 
 import com.example.autocodetemplate.util.TimeUtil;
 import io.netty.util.internal.shaded.org.jctools.queues.MpscArrayQueue;
+import org.springframework.util.Assert;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -203,8 +204,8 @@ class StreamTest {
     public static void main(String[] args) {
 
         List<Apple> apples = new ArrayList<Apple>();
-        apples.add(null);
         apples.add(new Apple(7,2,"china","apple1"));
+//        apples.add(null);
         apples.stream().forEach(bo -> {
             // 非空判断，不然会报错
             if (Optional.ofNullable(bo).isPresent()) {
@@ -262,9 +263,10 @@ class StreamTest {
         Set<String> nameSets = apples.stream().map(Apple::getCountry).collect(Collectors.toSet());
 
         // List获取指定**属性或对象**组成新map(tomap操作中key值不能重复，value值不能为null，否则会报错)
-        Map<Integer, String> map = apples.stream().collect(Collectors.toMap(Apple::getSeqNo, Apple::getName));
-//        Map appleMaps = apples.stream().collect(Collectors.toMap(Apple::getName, Function.identity()));
-
+        Map<Integer, String> map = new ArrayList<Apple>().stream().collect(Collectors.toMap(Apple::getSeqNo, Apple::getName));
+        if (map.isEmpty()) {
+            System.out.println("wwwwwwwwwwwwwwww");
+        }
         // List中指定**属性**求和
         Integer sum = apples.stream().collect(Collectors.summingInt(Apple::getWight));
 
