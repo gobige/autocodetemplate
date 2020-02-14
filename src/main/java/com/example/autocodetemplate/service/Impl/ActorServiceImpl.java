@@ -2,7 +2,6 @@ package com.example.autocodetemplate.service.Impl;
 
 import com.example.autocodetemplate.dao.ActorDao;
 import com.example.autocodetemplate.domain.Actor;
-import com.example.autocodetemplate.filter.ActorFilter;
 import com.example.autocodetemplate.service.ActorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,12 +20,6 @@ public class ActorServiceImpl implements ActorService {
 
     @Resource
     private ActorDao actorDao;
-
-
-    @Override
-    public Actor queryByActorFilter(ActorFilter filter) {
-        return actorDao.queryByActorFilter(filter);
-    }
 
     /**
      * value (也可使用 cacheNames) : 可看做命名空间，表示存到哪个缓存

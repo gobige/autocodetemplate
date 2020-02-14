@@ -4,8 +4,6 @@ import com.example.autocodetemplate.domain.Actor;
 import com.example.autocodetemplate.filter.ActorFilter;
 
 public interface ActorService {
-    Actor queryByActorFilter(ActorFilter filter);
-
 
     Actor queryByCache(Integer id);
 
