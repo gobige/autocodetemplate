@@ -32,9 +32,9 @@ public class UserBodyInfoDaoForJPATest {
 
         // 简单查询
         userBodyInfoDao.deleteByNikeNameEquals("jpatest");
-        System.out.println(userBodyInfoDao.findOne(1L));
+        System.out.println(userBodyInfoDao.findById(1L));
         System.out.println(userBodyInfoDao.count());
-        System.out.println(userBodyInfoDao.exists(2L));
+        System.out.println(userBodyInfoDao.existsById(2L));
 
         // 分页
         Pageable pageable = new PageRequest(1, 4, new Sort(Sort.Direction.DESC, "id"));

@@ -21,10 +21,10 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 public class Redisfig extends CachingConfigurerSupport {
     @Bean
     public CacheManager cacheManager(@SuppressWarnings("rawtypes") RedisTemplate redisTemplate) {
-        RedisCacheManager cacheManager = new RedisCacheManager(redisTemplate);
-        cacheManager.setDefaultExpiration(10000);
+//        RedisCacheManager cacheManager = new RedisCacheManager(redisTemplate);
+//        cacheManager.setDefaultExpiration(10000);
 
-        return cacheManager;
+        return null;
     }
 
     @Bean

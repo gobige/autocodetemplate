@@ -10,17 +10,17 @@
         </encoder>
     </appender>
 
-    <appender name="logstash" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
-        <remoteHost>localhost</remoteHost>
-        <port>9250</port>
-        <!-- encoder is requiared -->
-        <encoder class="net.logstash.logback.encoder.LogstashEncoder"/>
-    </appender>
+<!--    <appender name="logstash" class="net.logstash.logback.appender.LogstashTcpSocketAppender">-->
+<!--        <remoteHost>localhost</remoteHost>-->
+<!--        <port>9250</port>-->
+<!--        &lt;!&ndash; encoder is requiared &ndash;&gt;-->
+<!--        <encoder class="net.logstash.logback.encoder.LogstashEncoder"/>-->
+<!--    </appender>-->
 
 
-    <root level="debug">
-        <appender-ref ref="logstash"/>
-        <appender-ref ref="STDOUT"/>
-    </root>
+<!--    <root level="debug">-->
+<!--        <appender-ref ref="logstash"/>-->
+<!--        <appender-ref ref="STDOUT"/>-->
+<!--    </root>-->
 
 </configuration>

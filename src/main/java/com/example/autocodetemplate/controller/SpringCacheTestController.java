@@ -27,22 +27,18 @@ public class SpringCacheTestController {
     private ActorService actorService;
 
 
-    @RequestMapping(value = "/actor/get.json", method = {RequestMethod.POST})
+    @GetMapping(value = "/actor/{id}")
     @ResponseBody
-    public Map<String, Object> get(@RequestBody() ActorFilter filter) throws Exception {
+    public Actor get(@PathVariable("id") Integer id) throws Exception {
+
         Map<String, Object> result = new HashMap<>();
-        if (filter == null || filter.getId() == 0) {
+        if (id == 0) {
             throw new ServiceRuntimeException("参数不能为空");
         }
 
-        Actor actor =actorService.queryByCache(filter.getId());
+        Actor actor = actorService.queryByCache(id);
 
-        result.put("code", 0);
-        result.put("bcode",0);
-
-        result.put("actor", actor);
-
-        return result;
+        return actor;
     }
 
 

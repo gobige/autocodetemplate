@@ -1,7 +1,6 @@
 package com.example.autocodetemplate.util;
 
 import com.example.autocodetemplate.domain.SysAccount;
-import org.apache.commons.collections.MapUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.apache.shiro.subject.Subject;
@@ -25,7 +24,7 @@ public class AccountUtils {
     public static SysAccount getOssAccount() {
         Map<String, String> userMap = getCurrentUserInfo();
 
-        if (MapUtils.isEmpty(userMap)) {
+        if (userMap.isEmpty()) {
             return null;
         }
 
