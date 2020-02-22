@@ -1,8 +1,8 @@
 package com.example.autocodetemplate.service;
 
 import com.example.autocodetemplate.Enum.EnumLotteryQueryType;
-import com.example.autocodetemplate.domain.AreaAndPostCodeResult;
-import com.example.autocodetemplate.domain.OcrRecResult;
+import com.example.autocodetemplate.domain.response.AreaAndPostCodeResult;
+import com.example.autocodetemplate.domain.response.OcrRecResult;
 import com.example.autocodetemplate.exception.ServiceRuntimeException;
 import com.example.autocodetemplate.thirdparty.ShgoldQueryService;
 import com.example.autocodetemplate.thirdparty.param.req.LotteryQueryJuheRequest;

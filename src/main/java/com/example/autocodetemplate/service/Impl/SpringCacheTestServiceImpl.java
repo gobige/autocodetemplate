@@ -1,25 +1,20 @@
 package com.example.autocodetemplate.service.Impl;
 
-import com.example.autocodetemplate.dao.ActorDao;
 import com.example.autocodetemplate.domain.Actor;
-import com.example.autocodetemplate.service.ActorService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.example.autocodetemplate.service.SpringCacheTestService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.Date;
 
 @Service(value = "actorService")
-public class ActorServiceImpl implements ActorService {
-
-    private Logger logger = LoggerFactory.getLogger(ActorServiceImpl.class);
-
-    @Resource
-    private ActorDao actorDao;
+@Slf4j
+@CacheConfig(cacheNames = "coffee")
+public class SpringCacheTestServiceImpl implements SpringCacheTestService {
 
     /**
      * value (也可使用 cacheNames) : 可看做命名空间，表示存到哪个缓存
@@ -45,7 +40,7 @@ public class ActorServiceImpl implements ActorService {
         actor.setUserType(1);
         actor.setCreateTime(new Date());
 
-        logger.debug("从数据库拿数据,并存入指定key缓存");
+        log.debug("从数据库拿数据,并存入指定key缓存");
 
         return actor;
     }
@@ -53,13 +48,12 @@ public class ActorServiceImpl implements ActorService {
     /**
      * - value  命名空间  表示删除哪个命名空间中的缓存
      * - allEntries: 标记是否删除命名空间下所有缓存，默认为false
-     * @param id
      * @return
      */
     @Override
     @CacheEvict(value = "cacheDB1", allEntries = true)
-    public Actor deleteAllCache(Integer id) {
-        logger.debug("删除所有key缓存");
+    public Actor deleteAllCache() {
+        log.debug("删除所有key缓存");
 
         return null;
     }
@@ -72,7 +66,7 @@ public class ActorServiceImpl implements ActorService {
     @Override
     @CacheEvict(value = "cacheDB1", key = "#id")
     public Actor deleteCacheById(Integer id) {
-        logger.debug("删除指定key缓存");
+        log.debug("删除指定key缓存");
         return null;
     }
 
@@ -86,7 +80,7 @@ public class ActorServiceImpl implements ActorService {
         actor.setUserType(1);
         actor.setCreateTime(new Date());
 
-        logger.debug("从数据库拿数据，刷新指定key缓存");
+        log.debug("从数据库拿数据，刷新指定key缓存");
 
         return actor;
     }

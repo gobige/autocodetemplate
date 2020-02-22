@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.*;
 import javax.transaction.Transactional;
 
 
-public interface UserBodyInfoDao extends JpaRepository<UserBodyInfo, Long> {
+public interface JpaTestDao extends JpaRepository<UserBodyInfo, Long> {
 
     Page<UserBodyInfo> findByNumGreaterThan(Integer num, Pageable pageable);
 

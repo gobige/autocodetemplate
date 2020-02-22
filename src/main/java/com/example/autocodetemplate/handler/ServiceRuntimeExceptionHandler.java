@@ -2,19 +2,23 @@ package com.example.autocodetemplate.handler;
 
 import com.example.autocodetemplate.exception.ErrorInfo;
 import com.example.autocodetemplate.exception.ServiceRuntimeException;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.Map;
 
+/**
+ * 异常处理器，处理异常返回Handler
+ */
 @ControllerAdvice
 public class ServiceRuntimeExceptionHandler {
 
     @ExceptionHandler(value = ServiceRuntimeException.class)
     @ResponseBody
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorInfo<String> defaultExceptionHandler(HttpServletRequest request, ServiceRuntimeException exception) {
         ErrorInfo<String> r = new ErrorInfo<>();
         r.setMessage(exception.getMessage());

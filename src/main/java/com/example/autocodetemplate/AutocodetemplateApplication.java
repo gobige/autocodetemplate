@@ -3,12 +3,16 @@ package com.example.autocodetemplate;
 import com.example.autocodetemplate.controller.support.CustomConnectionKeepAliveStrategy;
 import com.example.autocodetemplate.controller.web.RequestHandlerInterceptor;
 import com.example.autocodetemplate.ohter.practice.base.ReflectTest;
+import io.lettuce.core.ReadFrom;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.data.redis.LettuceClientConfigurationBuilderCustomizer;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
@@ -26,6 +30,8 @@ import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.config.annotation.*;
+import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.JedisPoolConfig;
 
 import java.time.Duration;
 import java.util.List;
@@ -55,7 +61,7 @@ import java.util.concurrent.TimeUnit;
  */
 @SpringBootApplication
 @EnableScheduling
-@EnableCaching
+@EnableCaching(proxyTargetClass = true) // 如果proxy-target-class 属性值被设置为true，那么基于类的代理将起作用（这时需要cglib库）。如果proxy-target-class属值被设置为false或者这个属性被省略
 @EnableAsync
 public class AutocodetemplateApplication implements WebMvcConfigurer {
 
@@ -90,6 +96,22 @@ public class AutocodetemplateApplication implements WebMvcConfigurer {
 //            sqlSession.close();
 //        }
 
+    }
+
+    @Bean
+    @ConfigurationProperties("redis")
+    public JedisPoolConfig jedisPoolConfig() {
+        return new JedisPoolConfig();
+    }
+
+    @Bean(destroyMethod = "close")
+    public JedisPool jedisPool(@Value("${redis.host}") String host) {
+        return new JedisPool(jedisPoolConfig(), host);
+    }
+
+    @Bean
+    public LettuceClientConfigurationBuilderCustomizer customizer() {
+        return builder -> builder.readFrom(ReadFrom.MASTER_PREFERRED);
     }
 
     /**

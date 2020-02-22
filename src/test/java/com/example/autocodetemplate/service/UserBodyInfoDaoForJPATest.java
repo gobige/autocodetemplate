@@ -1,8 +1,6 @@
 package com.example.autocodetemplate.service;
 
-import com.example.autocodetemplate.dao.UserBodyInfoDao;
-import com.example.autocodetemplate.dao.UserBodyInfoSpecificationDao;
-import com.example.autocodetemplate.domain.Specification.UserBodyInfoSpecification;
+import com.example.autocodetemplate.dao.JpaTestDao;
 import com.example.autocodetemplate.domain.UserBodyInfo;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,7 +16,7 @@ import javax.annotation.Resource;
 public class UserBodyInfoDaoForJPATest {
 
     @Resource
-    private UserBodyInfoDao userBodyInfoDao;
+    private JpaTestDao userBodyInfoDao;
 //
 //    @Resource
 //    private UserBodyInfoSpecificationDao userBodyInfoSpecificationDao;

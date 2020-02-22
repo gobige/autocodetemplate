@@ -18,7 +18,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
  */
 //@Configuration
 //@EnableCaching
-public class Redisfig extends CachingConfigurerSupport {
+public class  Redisfig extends CachingConfigurerSupport {
     @Bean
     public CacheManager cacheManager(@SuppressWarnings("rawtypes") RedisTemplate redisTemplate) {
 //        RedisCacheManager cacheManager = new RedisCacheManager(redisTemplate);

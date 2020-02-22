@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.*;
 import org.springframework.test.context.junit4.SpringRunner;
+import redis.clients.jedis.JedisCluster;
+import redis.clients.jedis.JedisSentinelPool;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -14,6 +16,32 @@ import java.util.concurrent.TimeUnit;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class RedisTest {
+
+    /**
+     * 支持客户端：  Jedis Lettuce
+     *
+     * Spring 对 redis的支持，
+     * RedisTemplate（一定要设置过期时间）,RedisRepository
+     *
+     * 定义spring cache 配置Redis缓存方式 :
+     * spring.cache.type=redis
+     * spring.cache.cache-names=spring-cache
+     * spring.cache.redis.time-to-live=3000
+     * spring.cache.redis.cache-null-values=false
+     * spring.redis.host=localhost
+     *
+     * Redis Sentinel 是Redis的一种高可用方案，
+     * 作用：监控，通知，自动故障转移，服务发现
+     *
+     * JedisSentinelPool
+     *
+     * Redis Cluster  Redis 集群模式
+     * 作用：数据自动分片，在部分节点失效时有一定可用性
+     *
+     * JedisCluster
+     *
+     *
+     */
 
 
     @Autowired

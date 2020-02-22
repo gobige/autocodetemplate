@@ -2,7 +2,7 @@ package com.example.autocodetemplate.thirdparty.impl;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.example.autocodetemplate.domain.AreaAndPostCodeResult;
+import com.example.autocodetemplate.domain.response.AreaAndPostCodeResult;
 import com.example.autocodetemplate.service.Impl.GenerateTemplateServiceImpl;
 import com.example.autocodetemplate.thirdparty.AreaCodeAndPostCodeServcie;
 import com.example.autocodetemplate.util.HttpGetUtils;

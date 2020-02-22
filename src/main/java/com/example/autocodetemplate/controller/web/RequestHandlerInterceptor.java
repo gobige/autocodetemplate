@@ -11,6 +11,12 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * 定义拦截器，实现接口请求 耗时 打印
+ *
+ * 异步请求可以实现  AsyncHandlerInterceptor接口
+ * 针对RespouseBody和ResponseEntity 可以实现ResponseBodyAdvice
+ */
 @Slf4j
 public class RequestHandlerInterceptor implements HandlerInterceptor {
 	// StopWatch是  spring自带工具类，展示每项任务耗时与占用总时间的百分比，展示结果直观 性能消耗相对较小，start时直接指定任务名字
@@ -44,7 +50,7 @@ public class RequestHandlerInterceptor implements HandlerInterceptor {
 				response.getStatus(), ex == null ? "-" : ex.getClass().getSimpleName(),
 				sw.getTotalTimeMillis(), sw.getTotalTimeMillis() - sw.getLastTaskTimeMillis(),
 				sw.getLastTaskTimeMillis());
-//		log.info(sw.prettyPrint()); // 各任务百分比
+		log.info(sw.prettyPrint()); // 各任务百分比
 		stopWatch.remove();
 	}
 }

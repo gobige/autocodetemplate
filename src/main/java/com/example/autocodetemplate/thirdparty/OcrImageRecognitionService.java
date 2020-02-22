@@ -1,6 +1,6 @@
 package com.example.autocodetemplate.thirdparty;
 
-import com.example.autocodetemplate.domain.OcrRecResult;
+import com.example.autocodetemplate.domain.response.OcrRecResult;
 
 /**
  * <p>爱车小屋</p>

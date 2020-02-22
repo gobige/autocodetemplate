@@ -1,4 +1,4 @@
-package com.example.autocodetemplate.domain;
+package com.example.autocodetemplate.domain.response;
 
 import com.alibaba.fastjson.JSONObject;
 
