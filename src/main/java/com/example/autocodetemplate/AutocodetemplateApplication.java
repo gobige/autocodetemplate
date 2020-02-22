@@ -2,6 +2,7 @@ package com.example.autocodetemplate;
 
 import com.example.autocodetemplate.controller.support.CustomConnectionKeepAliveStrategy;
 import com.example.autocodetemplate.controller.web.RequestHandlerInterceptor;
+import com.example.autocodetemplate.ohter.practice.base.ReflectTest;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
@@ -31,6 +32,15 @@ import java.util.List;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
+// spring boot特性
+// 方便地创建可独立运行的Spring应用程序
+// 直接内嵌toncat jetty
+// 简化了项目的构建配置
+// 为Spring及第三方库提供自动配置
+// 提供生产级特性
+// 无需生成代码或进行XML配置
+//
+//spring boot核心：自动配置 2. 起步依赖 3. 命令行界面 4. Actuator
 /**
  * TempgeleratorApplication.java不仅是启动引导类，还是配置类
  *
@@ -40,6 +50,8 @@ import java.util.concurrent.TimeUnit;
  * @EnableScheduling 使用定时任务
  * @EnableAsync 运行异步方法 @Async所修饰的函数不要定义为static类型,不然不会生效
  * @ComponentScan：启用组件扫描@EnableAutoConfiguration：也可以称为@Abracadabra2，开启了Spring Boot自动配置的魔力，
+ * 自动配置通过众多conditional条件注解类去判断是否配置bean
+ * 通过启动命令行添加 --debug，查看哪些配置生效，未生效，Exclude
  */
 @SpringBootApplication
 @EnableScheduling
@@ -47,9 +59,11 @@ import java.util.concurrent.TimeUnit;
 @EnableAsync
 public class AutocodetemplateApplication implements WebMvcConfigurer {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
         SpringApplication.run(AutocodetemplateApplication.class, args);
 
+        ReflectTest reflectTest = new ReflectTest();
+        reflectTest.sendSms();
 //        String resource="/mybatis/mybatis-config.xml";
 //        InputStream inputStream=null;
 //        try {
