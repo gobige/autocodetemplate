@@ -10,18 +10,21 @@ import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.data.redis.LettuceClientConfigurationBuilderCustomizer;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Conditional;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.hateoas.hal.Jackson2HalModule;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.validation.MessageCodesResolver;
 import org.springframework.validation.Validator;
 import org.springframework.web.client.RestTemplate;
@@ -40,7 +43,7 @@ import java.util.concurrent.TimeUnit;
 
 // spring boot特性
 // 方便地创建可独立运行的Spring应用程序
-// 直接内嵌toncat jetty
+// 直接内嵌toncat jetty undertow
 // 简化了项目的构建配置
 // 为Spring及第三方库提供自动配置
 // 提供生产级特性
@@ -56,13 +59,23 @@ import java.util.concurrent.TimeUnit;
  * @EnableScheduling 使用定时任务
  * @EnableAsync 运行异步方法 @Async所修饰的函数不要定义为static类型,不然不会生效
  * @ComponentScan：启用组件扫描@EnableAutoConfiguration：也可以称为@Abracadabra2，开启了Spring Boot自动配置的魔力，
+ *
+ * EnableAutoConfiguration原理：通过AutoConfigurationImportSelector 查找spring.boot.enableautoconfiguration
+ * 下META-INF的spring.factories下的所有bean
+ *
  * 自动配置通过众多conditional条件注解类去判断是否配置bean
- * 通过启动命令行添加 --debug，查看哪些配置生效，未生效，Exclude
+ * @ConditionalOnClass  存在特定类时配置
+ * @ConditionalOnBean  存在特定bean配置时配置
+ * @ConditionalOnMissingBean  不存在特定bean配置时配置
+ * @ConditionalOnProperty  当配置特定属性后怎么样
+ *
+ *  * 通过启动命令行添加 --debug，查看哪些配置生效，未生效，Exclusion 排除特定依赖
  */
 @SpringBootApplication
 @EnableScheduling
 @EnableCaching(proxyTargetClass = true) // 如果proxy-target-class 属性值被设置为true，那么基于类的代理将起作用（这时需要cglib库）。如果proxy-target-class属值被设置为false或者这个属性被省略
 @EnableAsync
+@EnableRedisHttpSession
 public class AutocodetemplateApplication implements WebMvcConfigurer {
 
     public static void main(String[] args) throws Exception{

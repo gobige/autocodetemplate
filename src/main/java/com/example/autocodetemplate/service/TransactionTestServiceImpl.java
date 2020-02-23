@@ -2,7 +2,6 @@ package com.example.autocodetemplate.service;
 
 import com.example.autocodetemplate.dao.TransactionsTestDao;
 import com.example.autocodetemplate.domain.UserBodyInfo;
-import com.example.autocodetemplate.domain.UserBodyInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Service;

@@ -2,6 +2,10 @@ package com.example.autocodetemplate.service.Impl;
 
 import com.example.autocodetemplate.domain.SysAccount;
 import com.example.autocodetemplate.service.UserService;
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.binder.MeterBinder;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.SystemUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -14,17 +18,21 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 /**
- * <p>爱车小屋</p>
- * <p>Project: carhouse-xx</p>
- * <p>ModuleID: xx</p>
- * <p>Comments: xx</p>
- * <p>JDK version used JDK1.8</p>
- *
- * @version 1.0
+ * 实现自定义度量指标
  */
+// micrometer
+//特性 1多维度度量 支持Tag 2 预设大量探针 缓存，类加载器，GC，CPU利用率，线程池
 @Service("userService")
-public class UserServiceImpl implements UserService {
+@Slf4j
+public class UserServiceImpl implements UserService, MeterBinder {
     private final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+
+    private Counter loginCounter = null;
+
+    @Override
+    public void bindTo(MeterRegistry meterRegistry) {
+        this.loginCounter = meterRegistry.counter("login.count");
+    }
 
     @Override
     public boolean login(SysAccount sysAccount) {
@@ -51,6 +59,7 @@ public class UserServiceImpl implements UserService {
                     "Please contact your administrator to unlock it.");
         }
 
+        loginCounter.increment();
         return true;
     }
 }
