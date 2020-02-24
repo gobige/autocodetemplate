@@ -18,6 +18,7 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.hateoas.hal.Jackson2HalModule;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
@@ -76,6 +77,7 @@ import java.util.concurrent.TimeUnit;
 @EnableCaching(proxyTargetClass = true) // 如果proxy-target-class 属性值被设置为true，那么基于类的代理将起作用（这时需要cglib库）。如果proxy-target-class属值被设置为false或者这个属性被省略
 @EnableAsync
 @EnableRedisHttpSession
+@EnableJpaRepositories
 public class AutocodetemplateApplication implements WebMvcConfigurer {
 
     public static void main(String[] args) throws Exception{
