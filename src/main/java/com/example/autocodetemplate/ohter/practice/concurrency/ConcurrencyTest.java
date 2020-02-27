@@ -75,12 +75,12 @@ public class ConcurrencyTest {
                 }
             }
         });
+        thread.setName("多线程");
         thread.start();
         int b = 0;
         for (long i = 0; i < count; i++) {
             b--;
         }
-
         thread.join();
         long time = System.currentTimeMillis() - start;
         logger.info("concurrency handle spend:{}ms,event[{}]", time, b);

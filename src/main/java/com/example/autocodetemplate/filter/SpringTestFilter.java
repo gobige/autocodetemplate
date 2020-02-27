@@ -1,10 +1,8 @@
 package com.example.autocodetemplate.filter;
 
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
-import org.omg.CORBA.PUBLIC_MEMBER;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;

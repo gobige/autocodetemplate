@@ -41,7 +41,7 @@ public class GenerateTemplateControllerTest {
     @Test
     public void getTempletTest() throws Exception {
         JSONObject param = new JSONObject();
-        param.put("tableName", "sms_package");
+        param.put("tableName", "user_sms_stock");
 
         // 准备http报文 header body
         RequestBuilder request = MockMvcRequestBuilders
