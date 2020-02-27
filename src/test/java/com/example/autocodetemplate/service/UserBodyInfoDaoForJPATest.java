@@ -16,7 +16,7 @@ import javax.annotation.Resource;
 public class UserBodyInfoDaoForJPATest {
 
     @Resource
-    private JpaTestDao userBodyInfoDao;
+    private JpaTestDao jpaTestDao;
 //
 //    @Resource
 //    private UserBodyInfoSpecificationDao userBodyInfoSpecificationDao;
@@ -25,20 +25,20 @@ public class UserBodyInfoDaoForJPATest {
     public void testJpa()    {
         UserBodyInfo userBodyInfo = new UserBodyInfo();
         userBodyInfo.setNikeName("jpatest");
-        System.out.println(userBodyInfoDao.save(userBodyInfo));
-        System.out.println(userBodyInfoDao.findAll());
+        System.out.println(jpaTestDao.save(userBodyInfo));
+        System.out.println(jpaTestDao.findAll());
 
         // 简单查询
-        userBodyInfoDao.deleteByNikeNameEquals("jpatest");
-        System.out.println(userBodyInfoDao.findById(1L));
-        System.out.println(userBodyInfoDao.count());
-        System.out.println(userBodyInfoDao.existsById(2L));
+        jpaTestDao.deleteByNikeNameEquals("jpatest");
+        System.out.println(jpaTestDao.findById(1L));
+        System.out.println(jpaTestDao.count());
+        System.out.println(jpaTestDao.existsById(2L));
 
         // 分页
         Pageable pageable = new PageRequest(1, 4, new Sort(Sort.Direction.DESC, "id"));
-        System.out.println(userBodyInfoDao.findByNumGreaterThan(24, pageable));
+        System.out.println(jpaTestDao.findByNumGreaterThan(24, pageable));
         // 自定义sql查询
-        System.out.println(userBodyInfoDao.updateNickNameById("JPA UPDATE", 10L));
+        System.out.println(jpaTestDao.updateNickNameById("JPA UPDATE", 10L));
 
         // 简单example查询
         ExampleMatcher matcher = ExampleMatcher.matching().withIgnoreNullValues()
@@ -47,7 +47,7 @@ public class UserBodyInfoDaoForJPATest {
         UserBodyInfo dto = new UserBodyInfo();
         dto.setNum(1);
         Example<UserBodyInfo> example = Example.of(dto, matcher);
-        userBodyInfoDao.findAll(example, pageable);
+        jpaTestDao.findAll(example, pageable);
 
 //
 //        // 使用specilfication
