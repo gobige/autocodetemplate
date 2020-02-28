@@ -11,7 +11,7 @@ package com.example.autocodetemplate.ohter.practice.base;
  */
 
 /**
- * 反编译查看字符串的拼接有话java8以前， java8，java9
+ * 反编译查看字符串的拼接,java8以后版本自动拼装
  */
 public class CompileAndDecompileTest {
     public static void main(String[] args) {

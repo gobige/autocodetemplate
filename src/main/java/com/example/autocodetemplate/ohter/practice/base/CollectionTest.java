@@ -1,5 +1,7 @@
 package com.example.autocodetemplate.ohter.practice.base;
 
+import org.springframework.util.StopWatch;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -23,26 +25,33 @@ public class CollectionTest {
             d.add(i);
         }
 
+        // 预热遍历
+        d.forEach(integer -> {});
 
-        Long startTime3 = System.currentTimeMillis();
-        testForEnhanceEach(d);
-        System.out.println("EnhanceEach time:" + (System.currentTimeMillis() - startTime3));
-
-        Long startTime2 = System.currentTimeMillis();
+        StopWatch stopWatch = new StopWatch();
+        // 一般
+        stopWatch.start("迭代器循环");
         testIterator(d);
-        // 迭代器的遍历速度要比增强for循环快很多，是增强for循环的2倍左右。
-        System.out.println("iterator time:" + (System.currentTimeMillis() - startTime2));
+        stopWatch.stop();
+
+        // 慢
+        stopWatch.start("增强foreach循环");
+        testForEnhanceEach(d);
+        stopWatch.stop();
 
 
-        Long startTime = System.currentTimeMillis();
+        // 快
+        stopWatch.start("普通fori循环");
         testOrdinaryFor(d);
-        System.out.println("OrdinaryFor time:" + (System.currentTimeMillis() - startTime));
+        stopWatch.stop();
+
+        System.out.println(stopWatch.prettyPrint());
 
     }
 
     public static void testForEnhanceEach(List<Integer> list) {
-        for (int i = 0; i <cicleNum ; i++) {
-            list.get(i);
+        for (Integer i : list) {
+
         }
     }
 

@@ -3,20 +3,25 @@ package com.example.autocodetemplate.ohter.practice.concurrency;
 import com.example.autocodetemplate.util.SleepUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.StopWatch;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Hashtable;
-import java.util.concurrent.locks.LockSupport;
-
+/**
+ * 多线程因为需要上下文切换，所以这种情况下并不比单线程快
+ */
 public class ConcurrencyTest {
-    private static final long count = 30000000000l;
+    private static final long count = 30000000l;
     private static final Logger logger = LoggerFactory.getLogger(ConcurrencyTest.class);
 
     public static void main(String[] args) throws InterruptedException {
-
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start("多线程");
         concurrency();
+        stopWatch.stop();
+        stopWatch.start("单线程");
         serial();
+        stopWatch.stop();
+
+        System.out.println(stopWatch.prettyPrint());
     }
 
     /**
@@ -65,7 +70,6 @@ public class ConcurrencyTest {
      * @throws InterruptedException
      */
     private static void concurrency() throws InterruptedException {
-        long start = System.currentTimeMillis();
         Thread thread = new Thread(new Runnable() {
             int a = 0;
             @Override
@@ -82,8 +86,6 @@ public class ConcurrencyTest {
             b--;
         }
         thread.join();
-        long time = System.currentTimeMillis() - start;
-        logger.info("concurrency handle spend:{}ms,event[{}]", time, b);
     }
 
     /**
@@ -92,7 +94,6 @@ public class ConcurrencyTest {
      * @throws InterruptedException
      */
     private static void serial() {
-        long start = System.currentTimeMillis();
         int a = 0;
         for (long i = 0; i < count; i++) {
             a += 5;
@@ -101,7 +102,5 @@ public class ConcurrencyTest {
         for (long i = 0; i < count; i++) {
             b--;
         }
-        long time = System.currentTimeMillis() - start;
-        logger.info("serial handle spend:{}ms,eventb[{}],eventa[{}]", time, b, a);
     }
 }

@@ -5,6 +5,18 @@ public class EqualsAndHashcode {
         getNotEqualAndHashcodeEqual();
     }
 
+
+    private static void  testIntegerEqual() {
+        Integer two = new Integer(2);
+        Integer kong = null;
+        if (two.equals(kong)) {
+            System.out.println("ture");
+        }
+    }
+
+    /**
+     * Hash冲突
+     */
     private static void getNotEqualAndHashcodeEqual() {
         String Aa = "Aa";
         String BB = "BB";

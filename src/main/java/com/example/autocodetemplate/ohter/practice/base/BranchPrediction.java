@@ -1,28 +1,34 @@
 package com.example.autocodetemplate.ohter.practice.base;
 
+import org.springframework.util.StopWatch;
+
 /**
  * 分支预测
  */
 public class BranchPrediction {
         public static void main(String args[]) {
-            long start = System.currentTimeMillis();
-            for (int i = 0; i < 100; i++) {
-                for (int j = 0; j <1000; j ++) {
-                    for (int k = 0; k < 10000; k++) {
-                    }
-                }
-            }
-            long end = System.currentTimeMillis();
-            System.out.println("Time spent is " + (end - start));
+            StopWatch stopWatch = new StopWatch();
 
-            start = System.currentTimeMillis();
-            for (int i = 0; i < 10000; i++) {
-                for (int j = 0; j <1000; j ++) {
-                    for (int k = 0; k < 100; k++) {
+            stopWatch.start("循环由小到大");
+            for (int i = 0; i < 1000; i++) {
+                for (int j = 0; j <10000; j ++) {
+                    for (int k = 0; k < 100000; k++) {
                     }
                 }
             }
-            end = System.currentTimeMillis();
-            System.out.println("Time spent is " + (end - start) + "ms");
+
+            stopWatch.stop();
+
+            stopWatch.start("循环由大到小");
+            for (int i = 0; i < 100000; i++) {
+                for (int j = 0; j <10000; j ++) {
+                    for (int k = 0; k < 1000; k++) {
+                    }
+                }
+            }
+            stopWatch.stop();
+
+
+            System.out.println(stopWatch.prettyPrint());
         }
 }

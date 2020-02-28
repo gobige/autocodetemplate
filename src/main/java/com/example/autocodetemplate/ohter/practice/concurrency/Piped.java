@@ -1,12 +1,15 @@
 package com.example.autocodetemplate.ohter.practice.concurrency;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.IOException;
 import java.io.PipedReader;
 import java.io.PipedWriter;
 
 /**
- * 作用是可以通过管道进行线程间的通讯
+ * 作用是可以通过管道进行线程间的通讯,输入流连接输出流
  */
+@Slf4j
 public class Piped {
     public static void main(String[] args) throws Exception {
         PipedWriter out = new PipedWriter();
@@ -18,7 +21,6 @@ public class Piped {
         int receive = 0;
         try {
             while ((receive = System.in.read()) != -1) {
-
                 out.write(receive);
             }
         } finally {

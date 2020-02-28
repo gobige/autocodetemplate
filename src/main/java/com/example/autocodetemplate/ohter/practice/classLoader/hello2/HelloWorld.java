@@ -1,4 +1,4 @@
-package com.example.autocodetemplate.ohter.practice.classLoader;
+package com.example.autocodetemplate.ohter.practice.classLoader.hello2;
 
 public class HelloWorld {
     public void say(){

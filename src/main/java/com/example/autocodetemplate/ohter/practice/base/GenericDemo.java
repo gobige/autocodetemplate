@@ -2,7 +2,6 @@ package com.example.autocodetemplate.ohter.practice.base;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 泛型 demo
@@ -139,17 +138,17 @@ class GenericCompenate<T> {
         this.kind = kind;
     }
 
-    public boolean f(Object obj) {
+    public boolean instance(Object obj) {
         return kind.isInstance(obj);
     }
 
     public static void main(String[] args) {
         GenericCompenate<building> b = new GenericCompenate<building>(building.class);
-        System.out.println(b.f(new building()));
-        System.out.println(b.f(new house()));
+        System.out.println(b.instance(new building()));
+        System.out.println(b.instance(new house()));
         GenericCompenate<house> h = new GenericCompenate<house>(house.class);
-        System.out.println(h.f(new building()));
-        System.out.println(h.f(new house()));
+        System.out.println(h.instance(new building()));
+        System.out.println(h.instance(new house()));
 
         List<? super test2> list = new ArrayList<>();
         list.add(new test3());

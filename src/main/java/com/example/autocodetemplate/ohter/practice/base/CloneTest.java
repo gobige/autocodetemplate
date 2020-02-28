@@ -1,13 +1,7 @@
 package com.example.autocodetemplate.ohter.practice.base;
 
 /**
- * <p>爱车小屋</p>
- * <p>Project: carhouse-xx</p>
- * <p>ModuleID: xx</p>
- * <p>Comments: xx</p>
- * <p>JDK version used JDK1.8</p>
- *
- * @version 1.0
+ * clone方法只是浅度clone，如需深度clone实现cloneable，重写clone方法
  */
 public class CloneTest {
     public static void main(String[] args) throws Exception {
@@ -17,7 +11,7 @@ public class CloneTest {
         clnoeClass.setAge(22);
         clnoeClass.setName("yates");
         ClnoeClass clnoeClass2 = (ClnoeClass)clnoeClass.clone();
-        clnoeClass2.toString();
+        System.out.println(clnoeClass2.toString() );
     }
 }
 

@@ -12,6 +12,10 @@ public class FileTest {
         loadPropertyies();
     }
 
+    /**
+     * 文件流转propertys对象
+     * @return
+     */
     public static Properties loadPropertyies() {
         Properties properties = new Properties();
 
@@ -32,9 +36,11 @@ public class FileTest {
         String [] list;
 
         if (args.length == 0) {
+            // 列出该目录下所有文件
             list = path.list();
         } else {
             list = path.list(new FilenameFilter() {
+                // 过滤，匹配指定文件名文件
                 private Pattern pattern = Pattern.compile(args[0]);
 
                 @Override
