@@ -1,4 +1,4 @@
-package com.example.autocodetemplate.ohter.practice.concurrency;
+package com.example.autocodetemplate.ohter.practice.concurrency.juc;
 
 import java.util.concurrent.Exchanger;
 import java.util.concurrent.ExecutorService;

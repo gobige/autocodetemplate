@@ -1,21 +1,17 @@
-package com.example.autocodetemplate.ohter.practice.concurrency;
+package com.example.autocodetemplate.ohter.practice.concurrency.juc;
 
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.locks.ReentrantLock;
 
 @Slf4j
-public class ReetrantLockTest {
-    private ReentrantLock miaoSha = new ReentrantLock(true);
+public class SemaphoreTest {
     private  AtomicInteger goodsNum;
     // 同时可请求数量
     private Semaphore semaphore;
 
-    ReetrantLockTest(Integer goodsNum) {
+    SemaphoreTest(Integer goodsNum) {
         this.goodsNum = new AtomicInteger(goodsNum);
         this.semaphore = new Semaphore(goodsNum + 10, true);
     }
@@ -39,6 +35,7 @@ public class ReetrantLockTest {
             }else {
                 log.info("商品库存为0！！！");
             }
+            semaphore.release();
         }else {
             log.info("当前可允许进入抢购人数已达上限！！");
         }
@@ -50,7 +47,7 @@ public class ReetrantLockTest {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        ReetrantLockTest test = new ReetrantLockTest(10);
+        SemaphoreTest test = new SemaphoreTest(10);
         for (int i = 0; i < 100; i++) {
             MyThread myThread = new MyThread(test);
             log.info("当前请求线程：{}", myThread.getName());
@@ -62,8 +59,8 @@ public class ReetrantLockTest {
 }
 
 class MyThread extends Thread {
-    ReetrantLockTest test;
-    MyThread(ReetrantLockTest reetrantLockTest) {
+    SemaphoreTest test;
+    MyThread(SemaphoreTest reetrantLockTest) {
         test = reetrantLockTest;
     }
 
