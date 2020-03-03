@@ -11,7 +11,7 @@ import java.util.concurrent.CyclicBarrier;
  */
 @Slf4j
 public class CyclicBarrierTest {
-    private static final int CYCLE_COUNT = 20;
+    private static final int CYCLE_COUNT = 200;
 
     private static CyclicBarrier cyclicBarrier = new CyclicBarrier(10, new Runnable() {
         @Override

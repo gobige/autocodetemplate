@@ -11,7 +11,7 @@ public class ReentrantLockTest {
     private static ReentrantLock reentrantLock = new ReentrantLock(false);
     private static Condition condition = reentrantLock.newCondition();
 
-    private static final int CYCLE_COUNT = 1000;
+    private static final int CYCLE_COUNT = 10;
     private static final long SLEEP_TIME = 2000L;
 
 
