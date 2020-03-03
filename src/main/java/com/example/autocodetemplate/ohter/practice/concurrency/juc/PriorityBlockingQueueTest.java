@@ -10,6 +10,10 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.PriorityBlockingQueue;
 
+/**
+ * ArrayBlockingQueue
+ * LinkedBlockingQueue
+ */
 @Slf4j
 public class PriorityBlockingQueueTest {
     private static int threadNum = 10;
