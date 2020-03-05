@@ -1,13 +1,50 @@
-package com.example.autocodetemplate.ohter.practice.dataStructrue;
+package com.example.autocodetemplate.ohter.practice.base;
+
+import org.springframework.util.StopWatch;
 
 import java.util.*;
 
 public class HashMapTest {
     public static void main(String[] args) {
 
-        HashMapTest hashMapTest = new HashMapTest();
-        hashMapTest.hashConflict();
+        foriAndForeachAndIterator();
 
+    }
+
+    //    entryset ~=keyset
+    private static void foriAndForeachAndIterator() {
+        HashMap<Integer, Object> map = new HashMap<>();
+        for (int i = 0; i < 10000000; i++) {
+            map.put(i, new Object());
+        }
+
+        // 预热
+        Set<Integer> 预热 = map.keySet();
+        Iterator 预热ite = 预热.iterator();
+        while (预热ite.hasNext()) {
+            预热ite.next();
+        }
+
+        StopWatch stopWatch = new StopWatch();
+
+        stopWatch.start("map keyset");
+        Set<Integer> keysets = map.keySet();
+        Iterator ite = keysets.iterator();
+        while (ite.hasNext()) {
+            ite.next();
+        }
+        stopWatch.stop();
+
+        stopWatch.start("map entryset");
+        Set<Map.Entry<Integer, Object>> entries = map.entrySet();
+        Iterator entrieSets = entries.iterator();
+        while (entrieSets.hasNext()) {
+            entrieSets.next();
+        }
+        stopWatch.stop();
+
+
+        System.out.println(stopWatch.prettyPrint());
     }
 
     /**
