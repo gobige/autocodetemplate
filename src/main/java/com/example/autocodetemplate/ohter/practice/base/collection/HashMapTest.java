@@ -1,4 +1,4 @@
-package com.example.autocodetemplate.ohter.practice.base;
+package com.example.autocodetemplate.ohter.practice.base.collection;
 
 import org.springframework.util.StopWatch;
 

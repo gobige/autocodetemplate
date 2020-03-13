@@ -1,4 +1,4 @@
-package com.example.autocodetemplate.ohter.practice.base;
+package com.example.autocodetemplate.ohter.practice.base.jvmoptim;
 
 /**
  * <p>爱车小屋</p>

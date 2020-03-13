@@ -1,4 +1,4 @@
-package com.example.autocodetemplate.ohter.practice.base;
+package com.example.autocodetemplate.ohter.practice.base.file;
 
 import java.io.*;
 import java.util.Arrays;

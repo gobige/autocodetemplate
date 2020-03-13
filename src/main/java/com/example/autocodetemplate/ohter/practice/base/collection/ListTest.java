@@ -1,4 +1,4 @@
-package com.example.autocodetemplate.ohter.practice.base;
+package com.example.autocodetemplate.ohter.practice.base.collection;
 
 import org.springframework.util.StopWatch;
 
@@ -14,7 +14,7 @@ public class ListTest {
     private static int count = 1000000;
 
     public static void main(String[] args) {
-        InsertOfListTest();
+        queryOfListTest();
     }
 
     // ArrayList < LinkedList

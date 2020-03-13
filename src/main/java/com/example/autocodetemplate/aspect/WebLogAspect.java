@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * @Aspect // 切面
- * @Join Point // 连接点
+ * @JoinPoint // 连接点
  * Advice 通知 连接点执行动作
  * Pointcut 切入点 如何匹配连接点
  * introduction 引入 为现有类型声明额外方法和属性
