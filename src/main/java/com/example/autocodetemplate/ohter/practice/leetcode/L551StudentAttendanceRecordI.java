@@ -1,7 +1,5 @@
 package com.example.autocodetemplate.ohter.practice.leetcode;
 
-import com.sun.org.apache.regexp.internal.RE;
-
 /**
  * 551. 学生出勤记录 I
  * 给定一个字符串来代表一个学生的出勤记录，这个记录仅包含以下三个字符：

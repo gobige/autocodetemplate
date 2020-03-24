@@ -6,7 +6,7 @@ package com.example.autocodetemplate.ohter.practice.leetcode;
  *
  * 返回被除数 dividend 除以除数 divisor 得到的商。
  *
- * 思路1  那就只有用减法喽  当时碰到被除数很大 除数很小的情况时间复杂度就会变成n，优化：使用倍增除数
+ * 思路1  那就只有用减法喽  当时碰到被除数很大 除数很小的情况时间复杂度就会变成n，优化：使用倍增除数 例：2,4,8
  * 时间复杂度 dividend/divisor
  *
  */

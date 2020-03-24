@@ -1,7 +1,5 @@
 package com.example.autocodetemplate.ohter.practice.leetcode;
 
-import com.example.autocodetemplate.ohter.practice.arithmetic.SortArithmetic;
-
 import java.util.Arrays;
 import java.util.Comparator;
 
@@ -9,7 +7,7 @@ import java.util.Comparator;
  * 给定一组非负整数，重新排列它们的顺序使之组成一个最大的整数。
  *
  * 思路1：通过观察，想重新排列成为一个最大的整数，只需要获得高位数数字（高位数相等则进行下一位数排序） 并进行排序，即可得到合成最大数字
- * 有点基数排序的思想，但是我们是向右补零 （121,12），shib
+ * 有点基数排序的思想，但是我们是向右补零 （121,12），
  *
  * 思路2：使用字符串对比，排序，  撸半天 才发现这么简单 无奈
  */

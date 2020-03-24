@@ -1,6 +1,5 @@
 package com.example.autocodetemplate.ohter.practice.leetcode;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 

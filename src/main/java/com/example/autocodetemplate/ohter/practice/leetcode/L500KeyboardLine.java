@@ -1,7 +1,5 @@
 package com.example.autocodetemplate.ohter.practice.leetcode;
 
-import com.sun.org.apache.bcel.internal.generic.GOTO;
-
 import java.util.LinkedList;
 import java.util.List;
 

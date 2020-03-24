@@ -1,7 +1,5 @@
 package com.example.autocodetemplate.ohter.practice.leetcode;
 
-import com.example.autocodetemplate.util.StringUtil;
-
 /**
  * 给定一个整数，编写一个算法将这个数转换为十六进制数。对于负整数，我们通常使用 补码运算 方法。
  * 注意:

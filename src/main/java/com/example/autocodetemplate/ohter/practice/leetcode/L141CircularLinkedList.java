@@ -12,6 +12,8 @@ import java.util.Set;
  *
  * 思路一：遍历，计算每个对象的hash值，如果遍历过程有重复，则判断有环
  * 时间复杂度 n 空间复杂度 2n
+ *
+ * 思路2：快慢指针
  */
 public class L141CircularLinkedList {
     public static void main(String[] args) {

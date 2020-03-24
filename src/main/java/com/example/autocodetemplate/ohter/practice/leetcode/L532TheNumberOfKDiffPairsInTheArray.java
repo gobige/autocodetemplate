@@ -1,10 +1,9 @@
 package com.example.autocodetemplate.ohter.practice.leetcode;
 
-import com.example.autocodetemplate.ohter.practice.arithmetic.SortArithmetic;
-import com.google.common.primitives.Ints;
-
-import java.lang.reflect.Array;
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**

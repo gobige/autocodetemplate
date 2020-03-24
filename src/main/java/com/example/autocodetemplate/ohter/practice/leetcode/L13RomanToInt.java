@@ -2,6 +2,8 @@ package com.example.autocodetemplate.ohter.practice.leetcode;
 
 /**
  * 罗马转换为int类型
+ *  罗马数字 2 写做 II ，即为两个并列的 1。12 写做 XII ，即为 X + II 。 27 写做  XXVII, 即为 XX + V + II
+ *  类似于解释器模式，解释，累加
  */
 public class L13RomanToInt {
     public static int romanToInt(String s) throws Exception{

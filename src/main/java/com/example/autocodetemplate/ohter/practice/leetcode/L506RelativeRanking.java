@@ -1,8 +1,5 @@
 package com.example.autocodetemplate.ohter.practice.leetcode;
 
-import org.springframework.util.CollectionUtils;
-
-import java.lang.reflect.Array;
 import java.util.*;
 import java.util.stream.Collectors;
 

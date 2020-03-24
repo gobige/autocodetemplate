@@ -1,7 +1,5 @@
 package com.example.autocodetemplate.ohter.practice.leetcode;
 
-import javax.validation.constraints.Max;
-
 /**
  * 给定一个二叉树，找出其最大深度。
  *

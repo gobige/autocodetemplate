@@ -1,7 +1,7 @@
 package com.example.autocodetemplate.ohter.practice.leetcode;
 
 /**
- * 是否回文数字判断
+ *   判断一个整数是否是回文数。回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数。
  */
 public class L9NumberOfTracts {
 

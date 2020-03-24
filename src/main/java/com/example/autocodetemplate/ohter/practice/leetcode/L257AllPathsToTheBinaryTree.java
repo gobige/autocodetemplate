@@ -1,6 +1,5 @@
 package com.example.autocodetemplate.ohter.practice.leetcode;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -12,6 +11,7 @@ import java.util.List;
  * 思路1：因为每个节点都只有一个父节点，那么N个叶子节点就会有N条从根节点到叶子节点的路径
  * 每一次 分叉都创建一个新的字符串，加入list
  *
+ * 广度优先遍历
  * 时间复杂度 N 空间复杂度 N
  *
  *

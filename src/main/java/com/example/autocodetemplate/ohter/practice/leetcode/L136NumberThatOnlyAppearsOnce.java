@@ -12,7 +12,11 @@ import java.util.Set;
  * 说明： 你的算法应该具有线性时间复杂度。 你可以不使用额外空间来实现吗？
  *
  *
- * 思路1  准备
+ * 思路1  遍历
+ * 思路2 排序 遍历
+ * 思路3 哈希表
+ * 思路4 数学
+ * 思路5异或
  */
 public class L136NumberThatOnlyAppearsOnce {
 

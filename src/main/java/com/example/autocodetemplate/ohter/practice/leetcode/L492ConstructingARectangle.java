@@ -1,7 +1,5 @@
 package com.example.autocodetemplate.ohter.practice.leetcode;
 
-import com.sun.org.apache.regexp.internal.RE;
-
 /**
  * 492. 构造矩形
  *

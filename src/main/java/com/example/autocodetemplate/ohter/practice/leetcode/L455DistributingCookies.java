@@ -1,6 +1,5 @@
 package com.example.autocodetemplate.ohter.practice.leetcode;
 
-import javax.persistence.Index;
 import java.util.Arrays;
 
 /**
@@ -14,6 +13,7 @@ import java.util.Arrays;
  * 你可以假设胃口值为正。
  * 一个小朋友最多只能拥有一块饼干。
  *
+ * 贪心算法
  * 思路1 先使用当前sj最小的符符合sj>gi的最小胃口小的朋友，
  */
 public class L455DistributingCookies {

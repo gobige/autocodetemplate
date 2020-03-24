@@ -129,6 +129,7 @@ public class RedisTest {
         redisTemplate.opsForList().trim("strs", 1, -1);
         System.out.println("/////////////////////////////////////////");
 
+        // HASH
         redisTemplate.opsForHash().put("hashs", "hash1", "hash1val");
         // 若不存在存储
         redisTemplate.opsForHash().putIfAbsent("hashs", "hash2", "hash2val");
@@ -157,7 +158,7 @@ public class RedisTest {
         // 迭代器
         Cursor<Map.Entry<Object, Object>> curosr = redisTemplate.opsForHash().scan("hashs", ScanOptions.NONE);
 
-
+        // SET
         System.out.println("/////////////////////////////////////////");
         redisTemplate.opsForSet().add("sets", "set1", "set2", "set3");
         redisTemplate.opsForSet().add("sets2", "set11", "set22", "set3");
@@ -193,7 +194,7 @@ public class RedisTest {
 
         System.out.println("/////////////////////////////////////////");
 
-
+        // zset
         redisTemplate.opsForZSet().add("zset", "zset-1", 1.0);
         Set<ZSetOperations.TypedTuple<Object>> tuples = new HashSet<ZSetOperations.TypedTuple<Object>>();
         ZSetOperations.TypedTuple<Object> objectTypedTuple1 = new DefaultTypedTuple<Object>("zset-2", 9.6);

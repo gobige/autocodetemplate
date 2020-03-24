@@ -3,7 +3,7 @@ package com.example.autocodetemplate.ohter.practice.leetcode;
 /**
  * 226. 翻转二叉树
  * 翻转一棵二叉树。
- *
+ * 【经典】
  * 思路1：通过遍历或递归元素并对调子元素
  * 时间复杂度 n
  * 空间复杂度1

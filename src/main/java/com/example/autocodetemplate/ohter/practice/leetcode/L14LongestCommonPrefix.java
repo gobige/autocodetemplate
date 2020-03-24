@@ -10,7 +10,8 @@ import java.util.List;
  *
  * 如果不存在公共前缀，返回空字符串 ""。
  *
- * 思路 将字符串数组 前缀一个一个对比，即时返回
+ * 思路 多指针对比 将字符串数组 前缀一个一个对比，即时返回
+ *
  */
 public class L14LongestCommonPrefix {
 
