@@ -26,7 +26,6 @@ import java.security.InvalidParameterException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
 
 /**
  * <p>爱车小屋</p>
@@ -46,8 +45,6 @@ public class SpringPracticeController {
     private RestTemplate restTemplate;
     @Autowired
     private WebClient webClient;
-    @Autowired
-    private DistributedLocker distributedLocker;
 
 
     @RequestMapping(value = "request", method = {RequestMethod.POST},// produces 指定返回值类型  consumes 指定处理请求的提交内容类型
@@ -58,13 +55,9 @@ public class SpringPracticeController {
     @ResponseStatus(HttpStatus.CREATED)
     public Map<String, Object> testRequestMapping(@RequestBody() SpringTestFilter tempFilter) throws Exception {
         //连接redis
-        distributedLocker.lock("index_page_lock", TimeUnit.SECONDS, 2);
-        log.info(Thread.currentThread().getName() + "获取到锁了，避免缓存击穿");
         Thread.sleep(1000L);
         Map<String, Object> result = new HashMap<>();
         result.put("name", "yates");
-        distributedLocker.unlock("index_page_lock");
-        log.info(Thread.currentThread().getName() + "释放锁");
 
         return result;
     }
@@ -72,12 +65,13 @@ public class SpringPracticeController {
 
     @PostMapping(value = "valid")
     @ResponseBody
-    public Map<String, Object> testRequestValid(@RequestBody() @Valid SpringTestFilter tempFilter, BindingResult validResult) {
+    public Map<String, Object> testRequestValid(@RequestBody() @Valid SpringTestFilter tempFilter, BindingResult validResult) throws Exception {
         if (validResult.hasErrors()) {
             log.warn("Binding Errors: {}", validResult);
             throw new InvalidParameterException(validResult.toString());
         }
 
+        Thread.sleep(1000L);
         Map<String, Object> result = new HashMap<>();
         result.put("name", "yates");
 
