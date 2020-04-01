@@ -1,0 +1,88 @@
+### 自定义配置
+system:
+  user:
+    name: yangchao
+    sex: man
+    age: 22
+
+### mybatis配置
+mybatis:
+  config-locations: classpath:mybatis/mybatis-config.xml
+  mapper-locations: classpath:mapper/*.xml
+
+### 数据源，redis缓存配置，mongodb配置，邮件服务配置
+spring:
+#  datasource:
+#    driverClassName: org.h2.Driver
+#    url: jdbc:h2:mem:testdb
+#    username: sa
+#    password:
+
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://dev-mysql.car-house.cn:3306/car_house?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&autoReconnect=true&failOverReadOnly=false&maxReconnects=10
+    username: carhouse
+    initialize: true
+  redis:
+    database: 11
+    host: localhost
+    password: redis
+    port: 6379
+    pool:
+      jedis:
+        max-idle: 8
+        min-idle: 0
+        max-active: 8
+        max-wait: -1
+  output:
+    ansi:
+    enabled: DETECT
+  mail:
+    host: smtp.qq.com
+    username: 569484515@qq.com
+    password: pnorqjyullfmbcgg
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+  application:
+    name: spring-boot-mongodb
+  data:
+    mongodb:
+      host: 127.0.0.1
+#      password:
+#      username:
+      port: 27017
+      database: test
+
+
+### 服务器地址
+server:
+    address: 0.0.0.0
+    port: 8090
+    tomcat:
+      # 最大线程数
+      max-threads: 25
+      # 最小空闲线程数
+      min-spare-threads: 8
+      # 最大空闲线程数
+      max-spare-threads: 12
+      # 最大空闲线程数
+      max-idle-time: 60000
+      # 队列长度
+      accept-count: 10000
+      # 最大链接数
+      max-connections: 100000
+
+### 日志
+debug: true
+logging:
+  file: my.log
+  path: /var/log
+  level:
+    com:
+      example:
+        autocodetemplate: debug
