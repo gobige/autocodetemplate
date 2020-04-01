@@ -1,20 +1,21 @@
 package com.example.autocodetemplate.service;
 
 import com.example.autocodetemplate.domain.Apple;
+import com.example.autocodetemplate.util.DistributedLocker;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.*;
 import org.springframework.test.context.junit4.SpringRunner;
-import redis.clients.jedis.JedisCluster;
-import redis.clients.jedis.JedisSentinelPool;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@Slf4j
 public class RedisTest {
 
     /**
@@ -230,5 +231,18 @@ public class RedisTest {
         // 计算给定的一个有序集的交集，并存储在新的 destKey中，key相同的话会把score值相加
         System.out.println(redisTemplate.opsForZSet().intersectAndStore("zset", "zset", "intersectzset"));
 
+    }
+
+
+    @Autowired
+    private DistributedLocker distributedLocker;
+
+    @Test
+    public void testRedLock() throws Exception {
+        //连接redis
+        distributedLocker.lock("index_page_lock", TimeUnit.MINUTES, 10);
+
+        Thread.sleep(5000L);
+        distributedLocker.unlock("index_page_lock");
     }
 }

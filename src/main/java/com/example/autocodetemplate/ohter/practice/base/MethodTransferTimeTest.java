@@ -13,6 +13,10 @@ public class MethodTransferTimeTest {
         MethodTransferTimeTest transferTimeTest = new MethodTransferTimeTest();
 
         int count = 10000;
+        // 预热
+        for (int i = 0;i < count;i++) {
+        }
+
         StopWatch stopWatch = new StopWatch();
         stopWatch.start("recursive test");
         transferTimeTest.testRecursive(count);

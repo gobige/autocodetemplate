@@ -2,6 +2,7 @@ package com.example.autocodetemplate.controller;
 
 import com.example.autocodetemplate.domain.Actor;
 import com.example.autocodetemplate.filter.SpringTestFilter;
+import com.example.autocodetemplate.util.DistributedLocker;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ import java.security.InvalidParameterException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 /**
  * <p>爱车小屋</p>
@@ -44,17 +46,25 @@ public class SpringPracticeController {
     private RestTemplate restTemplate;
     @Autowired
     private WebClient webClient;
+    @Autowired
+    private DistributedLocker distributedLocker;
 
 
     @RequestMapping(value = "request", method = {RequestMethod.POST},// produces 指定返回值类型  consumes 指定处理请求的提交内容类型
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
             headers = "ddd=sss", params = "name=yates")
-// params： 指定request中必须包含某些参数值是，才让该方法处理。  headers： 指定request中必须包含某些指定的header值，才能让该方法处理请求。
+    // params： 指定request中必须包含某些参数值是，才让该方法处理。  headers： 指定request中必须包含某些指定的header值，才能让该方法处理请求。
     @ResponseBody // 在HandlerAdapter.handle()中完成Response的输出
     @ResponseStatus(HttpStatus.CREATED)
-    public Map<String, Object> testRequestMapping(@RequestBody() SpringTestFilter tempFilter) {
+    public Map<String, Object> testRequestMapping(@RequestBody() SpringTestFilter tempFilter) throws Exception {
+        //连接redis
+        distributedLocker.lock("index_page_lock", TimeUnit.SECONDS, 2);
+        log.info(Thread.currentThread().getName() + "获取到锁了，避免缓存击穿");
+        Thread.sleep(1000L);
         Map<String, Object> result = new HashMap<>();
         result.put("name", "yates");
+        distributedLocker.unlock("index_page_lock");
+        log.info(Thread.currentThread().getName() + "释放锁");
 
         return result;
     }

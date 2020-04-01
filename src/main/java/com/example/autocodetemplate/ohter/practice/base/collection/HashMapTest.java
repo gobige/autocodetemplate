@@ -5,16 +5,38 @@ import org.springframework.util.StopWatch;
 import java.util.*;
 
 public class HashMapTest {
+    public static final int init = 1000000;
+
     public static void main(String[] args) {
 
-        foriAndForeachAndIterator();
+        testInitail();
+    }
 
+    private static void testInitail() {
+        HashMap<Integer, Object> map = new HashMap<>(init);
+        StopWatch stopWatch = new StopWatch();
+
+        stopWatch.start("map not Initail");
+        HashMap<Integer, Object> map2 = new HashMap<>();
+        for (int i = 0; i < init; i++) {
+            map2.put(i, new Object());
+        }
+        stopWatch.stop();
+
+        stopWatch.start("map Initail");
+        for (int i = 0; i < init; i++) {
+            map.put(i, new Object());
+        }
+        stopWatch.stop();
+
+
+        System.out.println(stopWatch.prettyPrint());
     }
 
     //    entryset ~=keyset
     private static void foriAndForeachAndIterator() {
         HashMap<Integer, Object> map = new HashMap<>();
-        for (int i = 0; i < 10000000; i++) {
+        for (int i = 0; i < init; i++) {
             map.put(i, new Object());
         }
 
