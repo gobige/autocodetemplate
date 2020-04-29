@@ -8,8 +8,6 @@ public class HashMapTest {
     public static final int init = 1000000;
 
     public static void main(String[] args) {
-
-        testInitail();
     }
 
     private static void testInitail() {
@@ -69,21 +67,7 @@ public class HashMapTest {
         System.out.println(stopWatch.prettyPrint());
     }
 
-    /**
-     * hashMap method test
-     */
-    private void hashMapMethodTest() {
-        Map<Integer,Object> map = new HashMap<>();
-        map.put(null, null);
-        System.out.println(map.isEmpty()); // false
 
-        map.put(22, null);
-        System.out.println(map.get(22)); // null
-
-        Set<Integer> set = new HashSet<>();
-        set.add(22);
-        System.out.println(set.contains(22)); // true
-    }
 
     /**
      * hashMap hashSet hashTable 存储值是否可为 null
@@ -94,12 +78,20 @@ public class HashMapTest {
         hashtable.put(null, null);
 
         // key 和 value都可为null,但key为null节点只能有一个,key一样重复插入会覆盖value值
-        HashMap hashMap = new HashMap();
-        hashMap.put(null, null);
+        Map<Integer,Object> map = new HashMap<>();
+        map.put(null, null);
+        System.out.println(map.isEmpty()); // false
+
+        map.put(22, null);
+        System.out.println(map.get(22)); // null
 
         // 唯一且为可为null
         HashSet<Object> hashSet = new HashSet();
         hashSet.add(null);
+
+        Set<Integer> set = new HashSet<>();
+        set.add(22);
+        System.out.println(set.contains(22)); // true
     }
 
 

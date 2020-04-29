@@ -271,7 +271,7 @@ class StreamTest {
         Integer sum = apples.stream().collect(Collectors.summingInt(Apple::getWight));
 
         // 使用户过滤的方式，求两个相同类型集合的**对象**的交集
-        List<Apple> Intersections = apples.stream().filter(item -> apples2.contains(item)).collect(Collectors.toList());
+        List<Apple> Intersections = apples.stream().filter(item -> !apples2.contains(item)).collect(Collectors.toList());
 
         // List中指定**属性的值**最小元素,得到的对象时列表中对象，非新建对象
         Apple minAppple = apples.stream().min(Comparator.comparing(Apple::getWight)).get();

@@ -20,14 +20,14 @@ spring:
 
   datasource:
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/car_house?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&autoReconnect=true&failOverReadOnly=false&maxReconnects=10
+    url: jdbc:mysql://dev-mysql.car-house.cn:3306/car_house?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&autoReconnect=true&failOverReadOnly=false&maxReconnects=10
     username: carhouse
-    password:
+    password: acxw-dbPwd~1@3
     initialize: true
   redis:
-    database: 11
-    host: localhost
-    password: redis
+    database: 2
+    host: dev-redis.car-house.cn
+    password: carhouse_cache
     port: 6379
     pool:
       jedis:
@@ -66,17 +66,18 @@ server:
     port: 8090
     tomcat:
       # 最大线程数
-      max-threads: 25
+      max-threads: 10
       # 最小空闲线程数
-      min-spare-threads: 8
+      min-spare-threads: 6
       # 最大空闲线程数
       max-spare-threads: 12
       # 最大空闲线程数
-      max-idle-time: 60000
+      max-idle-time: 2
       # 队列长度
-      accept-count: 10000
+      accept-count: 1000
       # 最大链接数
-      max-connections: 100000
+      max-connections: 8
+
 
 ### 日志
 debug: true

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.context.request.async.WebAsyncTask;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.UriComponentsBuilder;
 import reactor.core.publisher.Mono;
@@ -25,6 +26,7 @@ import java.net.URI;
 import java.security.InvalidParameterException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.Callable;
 import java.util.concurrent.CountDownLatch;
 
 /**
@@ -169,5 +171,60 @@ public class SpringPracticeController {
         map.put("name", hostName);
         return map;
     }
+
+     /**
+     * 异步任务实现
+     *
+     * @return
+     */
+    @GetMapping("sync-task")
+    @ResponseBody
+    public WebAsyncTask webAsyncTask(@RequestParam("type") Integer type) {
+        WebAsyncTask task = new WebAsyncTask(3000, new Callable() {
+            @Override
+            public Object call() throws Exception {
+                switch (type) {
+                    case 1:
+                        Thread.sleep(1000L);
+                        break;
+                    case 2:
+                        Thread.sleep(4000L);
+                        break;
+                    case 3:
+                        int s = 7 / 0;
+                        break;
+                    default:
+                        break;
+                }
+
+                return "complete";
+            }
+        });
+
+        task.onCompletion(new Runnable() {
+            @Override
+            public void run() {
+                log.info("异步任务 完成！！");
+            }
+        });
+        task.onTimeout(new Callable() {
+            @Override
+            public Object call() throws Exception {
+                log.info("异步任务 超时");
+                return "time out";
+            }
+        });
+
+        task.onError(new Callable() {
+            @Override
+            public Object call() throws Exception {
+                log.info("异步任务 报错");
+                return "eroor";
+            }
+        });
+
+        return task;
+    }
+
 
 }

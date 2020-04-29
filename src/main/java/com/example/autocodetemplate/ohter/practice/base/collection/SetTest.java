@@ -2,15 +2,16 @@ package com.example.autocodetemplate.ohter.practice.base.collection;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Slf4j
 public class SetTest {
 
     public static void main(String[] args) {
+
+        List<Integer> list1 = new ArrayList<>();
+        Set attrGoodsIdSet = new HashSet(list1);
+
         Set<Integer> intSet = new HashSet<>();
 
         for (int i = 0; i < 10; i++) {

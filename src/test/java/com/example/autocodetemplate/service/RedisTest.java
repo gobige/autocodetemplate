@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.core.*;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -53,7 +54,11 @@ public class RedisTest {
         testRedisTemplate();
     }
 
+    @Autowired
+    private DistributedLocker distributedLocker;
+
     private void testRedisTemplate() {
+        // 获取 匹配的 key
         Set<String> keys = redisTemplate.keys("set" + "*");
 
         redisTemplate.delete(keys);
@@ -233,9 +238,50 @@ public class RedisTest {
 
     }
 
+    @Test
+    public void testBatchTmplate() {
+//        final String key = "Mall:Index:Page:Items104";
+//        System.out.println(redisTemplate.opsForList().leftPop(key));
 
-    @Autowired
-    private DistributedLocker distributedLocker;
+
+//        System.out.println(redisTemplate.opsForList().range(key, 0, listOperations.size(key)));
+
+        // redis muti 开启事务 执行redis指令，请求到达不执行，最后exec一起执行，保持原子性
+        redisTemplate.execute(new SessionCallback() {
+            @Override
+            public Object execute(RedisOperations redisOperations) throws DataAccessException {
+
+//                redisOperations.watch("name");
+                redisTemplate.multi();
+                redisTemplate.opsForValue().set("name","yates");
+//                redisTemplate.opsForValue().set("name2",1/0);
+                redisTemplate.opsForValue().set("name3","yates3");
+                redisTemplate.opsForValue().set("name4","yates4");
+
+                redisTemplate.exec();
+                return null;
+            }
+        });
+
+        System.out.println(redisTemplate.opsForValue().get("name"));
+
+        // pipelined 一起发送请求，节省网络带宽
+        List<Object> pipelines = redisTemplate.executePipelined(new SessionCallback<Object>() {
+            @Override
+            public <K, V> Object execute(RedisOperations<K, V> redisOperations) throws DataAccessException {
+                redisOperations.opsForValue().get("name");
+                redisOperations.opsForValue().get("name2");
+                redisOperations.opsForValue().get("name3");
+                redisOperations.opsForValue().get("name4");
+
+                return null;
+            }
+        });
+
+        for (Object pipeline : pipelines) {
+            System.out.println(String.valueOf(pipeline));
+        }
+    }
 
     @Test
     public void testRedLock() throws Exception {
