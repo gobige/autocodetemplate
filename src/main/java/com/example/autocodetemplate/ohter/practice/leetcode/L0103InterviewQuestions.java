@@ -6,9 +6,10 @@ package com.example.autocodetemplate.ohter.practice.leetcode;
  */
 public class L0103InterviewQuestions {
     public static void main(String[] args) {
+        System.out.println(replaceSpaces("Mr John Smith    ", 13));
     }
 
-    public String replaceSpaces(String S, int length) {
-        return S.trim().replaceAll(" ", "%20");
+    public static String replaceSpaces(String S, int length) {
+        return S.substring(0, length).replaceAll(" ", "%20");
     }
 }
