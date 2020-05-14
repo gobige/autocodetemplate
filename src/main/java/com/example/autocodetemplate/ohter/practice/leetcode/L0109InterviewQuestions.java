@@ -1,5 +1,9 @@
 package com.example.autocodetemplate.ohter.practice.leetcode;
 
+import com.example.autocodetemplate.domain.Apple;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.ObjectUtils;
+
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -10,8 +14,10 @@ import java.util.Set;
  * 双指针，遍历匹配
  *
  */
+@Slf4j
 public class L0109InterviewQuestions {
     public static void main(String[] args) {
+        System.out.println(ObjectUtils.identityToString(new Apple(1,2,"china")));
      }
 
 
