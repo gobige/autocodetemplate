@@ -12,21 +12,21 @@ mybatis:
 
 ### 数据源，redis缓存配置，mongodb配置，邮件服务配置
 spring:
-#  datasource:
-#    driverClassName: org.h2.Driver
-#    url: jdbc:h2:mem:testdb
-#    username: sa
-#    password:
-
   datasource:
-    driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/testdb?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&autoReconnect=true&failOverReadOnly=false&maxReconnects=10
-    username: root
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:mem:testdb
+    username: sa
     password:
-    initialize: true
+
+#  datasource:
+#    driverClassName: com.mysql.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/testdb?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&autoReconnect=true&failOverReadOnly=false&maxReconnects=10
+#    username: root
+#    password:
+#    initialize: true
   redis:
     database: 11
-    host: localhost
+    host: 127.0.0.1
     password: redis
     port: 6379
     pool:
@@ -35,6 +35,11 @@ spring:
         min-idle: 0
         max-active: 8
         max-wait: -1
+  rabbitmq:
+    host: localhost
+    port: 5672
+    password: admin
+    username: admin
   output:
     ansi:
     enabled: DETECT
