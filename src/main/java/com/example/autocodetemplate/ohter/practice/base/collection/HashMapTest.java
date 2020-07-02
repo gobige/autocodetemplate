@@ -8,8 +8,23 @@ public class HashMapTest {
     public static final int init = 1000000;
 
     public static void main(String[] args) {
+        int[] sadf = new int[12];
+        System.out.println(sadf.length);
+        testResize();
     }
 
+    private static void testResize() {
+
+        HashMap<Integer, Integer> map = new HashMap<>();
+
+        for (int i = 0; i < 33; i++) {
+            map.put(i, i);
+            if (i == 16) {
+                System.out.println(16);
+            }
+        }
+        System.out.println(map.size());
+    }
     private static void testInitail() {
         HashMap<Integer, Object> map = new HashMap<>(init);
         StopWatch stopWatch = new StopWatch();
@@ -67,7 +82,21 @@ public class HashMapTest {
         System.out.println(stopWatch.prettyPrint());
     }
 
+    /**
+     * hashMap method test
+     */
+    private void hashMapMethodTest() {
+        Map<Integer,Object> map = new HashMap<>();
+        map.put(null, null);
+        System.out.println(map.isEmpty()); // false
 
+        map.put(22, null);
+        System.out.println(map.get(22)); // null
+
+        Set<Integer> set = new HashSet<>();
+        set.add(22);
+        System.out.println(set.contains(22)); // true
+    }
 
     /**
      * hashMap hashSet hashTable 存储值是否可为 null

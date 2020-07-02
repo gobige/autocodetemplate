@@ -20,14 +20,14 @@ spring:
 
   datasource:
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://dev-mysql.car-house.cn:3306/car_house?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&autoReconnect=true&failOverReadOnly=false&maxReconnects=10
-    username:
+    url: jdbc:mysql://localhost:3306/testdb?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&autoReconnect=true&failOverReadOnly=false&maxReconnects=10
+    username: root
     password:
     initialize: true
   redis:
-    database: 2
-    host: dev-redis.car-house.cn
-    password: carhouse_cache
+    database: 11
+    host: localhost
+    password: redis
     port: 6379
     pool:
       jedis:

@@ -13,4 +13,30 @@
         WHERE id = #{id}
     </select>
 
+    <select id="queryByItems" resultMap="baseMap">
+        SELECT * FROM user_body_info
+        WHERE id IN
+        <foreach collection="items" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+
+    <select id="queryByItems2" resultMap="baseMap">
+        SELECT * FROM user_body_info
+        <where>
+            <choose>
+                <when test="nikeName != null">
+                    nike_name = #{nikeName}
+                </when>
+            </choose>
+        </where>
+        WHERE id IN
+        <foreach collection="items" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+
+
 </mapper>
