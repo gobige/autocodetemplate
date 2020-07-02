@@ -2,6 +2,7 @@ package com.example.autocodetemplate.config;
 
 import org.springframework.amqp.core.AmqpAdmin;
 import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
@@ -42,5 +43,10 @@ public class RabbitConfiguration {
     @Bean
     public Queue myQueue() {
         return new Queue("myqueue");
+    }
+
+    @RabbitListener(queues = "myqueue")
+    public void listen(String in) {
+        System.out.println(in);
     }
 }
