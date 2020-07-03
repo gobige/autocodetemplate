@@ -18,6 +18,7 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 定时任务类
@@ -26,7 +27,7 @@ import java.util.Map;
 public class SchedulingTaskController {
     private static Logger logger = LoggerFactory.getLogger(sqlUtil.class);
 //    classLoaderHash  jad --source-only com.example.autocodetemplate.controller.SchedulingTaskController > /tmp/SchedulingTaskController.java
-    public static Map<Integer, String[]> testHashMap = new HashMap<>();
+    public static Map<Integer, String[]> testHashMap = new ConcurrentHashMap<>();
     public static Integer addNum = 1;
 
     @Resource

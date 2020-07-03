@@ -55,7 +55,13 @@ public class TransactionTestServiceImpl implements TransactionTestService {
     }
 
     /**
-     *
+     * REQUIRED 默认事务传播类型  如果当前存在事务，沿用当前事务，不存在事务，开启一个事务
+     *     SUPPORTS(1) 以当前事务运行，若没事务，不开启新事务
+     *     MANDATORY(2) 强制要有事务，以当前事务运行，若没事务，抛出异常
+     *     REQUIRES_NEW(3) 总开启新事务，若存在事务，挂起当前事务
+     *     NOT_SUPPORTED(4) 以非事务运行，若有事务，挂起当前事务
+     *     NEVER(5)  以非事务运行，若有事务，抛出异常
+     *     NESTED(6) 嵌套事务，如果当前存在事务，则在嵌套事务中执行，如果没事务，则以required方式运行
      * @throws RuntimeException
      */
     @Override// TODO requires_new 不生效 ？

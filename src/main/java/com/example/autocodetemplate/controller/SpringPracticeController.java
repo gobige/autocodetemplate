@@ -2,23 +2,27 @@ package com.example.autocodetemplate.controller;
 
 import com.example.autocodetemplate.domain.Actor;
 import com.example.autocodetemplate.filter.SpringTestFilter;
-import com.example.autocodetemplate.util.DistributedLocker;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.context.request.async.WebAsyncTask;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.UriComponentsBuilder;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import javax.validation.ValidationException;
@@ -28,6 +32,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 /**
  * <p>爱车小屋</p>
@@ -45,6 +50,8 @@ public class SpringPracticeController {
 
     @Autowired
     private RestTemplate restTemplate;
+    @Autowired
+    private RedisTemplate redisTemplate;
     @Autowired
     private WebClient webClient;
 
@@ -162,13 +169,22 @@ public class SpringPracticeController {
     @GetMapping("spring-session")
     @ResponseBody
     public Map<String, Object> springSessionTest(HttpSession httpSession, @RequestParam("name") String name) {
-        String hostName = (String) httpSession.getAttribute("name");
-        if (StringUtils.isBlank(hostName)) {
-            httpSession.setAttribute("name", name);
-        }
 
         Map map = new HashMap();
-        map.put("name", hostName);
+
+        String key = "System:Request:Limit:".concat("1212");
+        Long time = redisTemplate.opsForValue().increment(key, 1);
+        if (time == 1) {
+            redisTemplate.expire(key, 3, TimeUnit.SECONDS);
+            log.info("1");
+        } else if (time > 800) {
+            redisTemplate.expire(key, 3, TimeUnit.SECONDS);
+            map.put("客官您真是风驰电掣啊，来杯咖啡，慢慢操作吧！",1);
+            log.info("客官您真是风驰电掣啊，来杯咖啡，慢慢操作吧！");
+            return map;
+        }
+
+
         return map;
     }
 
@@ -196,8 +212,7 @@ public class SpringPracticeController {
                     default:
                         break;
                 }
-
-                return "complete";
+                return new synResult("hello", 200, true);
             }
         });
 
@@ -226,5 +241,45 @@ public class SpringPracticeController {
         return task;
     }
 
+    class synResult {
+        private String msg;
+        private boolean activity;
+        private Integer code;
+
+        public synResult() {
+
+        }
+
+        public synResult(String msg,Integer code,boolean activity) {
+            this.msg = msg;
+            this.code = code;
+            this.activity = activity;
+        }
+
+
+        public String getMsg() {
+            return msg;
+        }
+
+        public void setMsg(String msg) {
+            this.msg = msg;
+        }
+
+        public boolean isActivity() {
+            return activity;
+        }
+
+        public void setActivity(boolean activity) {
+            this.activity = activity;
+        }
+
+        public Integer getCode() {
+            return code;
+        }
+
+        public void setCode(Integer code) {
+            this.code = code;
+        }
+    }
 
 }
