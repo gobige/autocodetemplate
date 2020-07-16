@@ -1,7 +1,9 @@
 package com.example.autocodetemplate.config;
 
+import com.example.autocodetemplate.domain.UserCreateMessage;
 import com.rabbitmq.client.Channel;
-import org.springframework.amqp.core.*;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
@@ -21,6 +23,7 @@ import org.springframework.retry.backoff.ExponentialBackOffPolicy;
 import org.springframework.retry.support.RetryTemplate;
 
 @Configuration
+@Slf4j
 @Import({com.example.autocodetemplate.rabbit.queueBean.class})
 public class RabbitConfiguration {
     @Value("${spring.rabbitmq.username}")
@@ -124,18 +127,21 @@ public class RabbitConfiguration {
 //    }
 
     @RabbitListener(queues = "myqueue")
-    public void listen(@Payload String message, @Header(AmqpHeaders.DELIVERY_TAG) long deliveryTag, Channel channel) throws Exception {
-        if(message.equals("49")){
+    public void listen(@Payload UserCreateMessage message, @Header(AmqpHeaders.DELIVERY_TAG) long deliveryTag, Channel channel) throws Exception {
+        if (message == null || message.getUserId() == null || message.getUserType() == null) {
+            log.error("param can not null!");
+            return;
+        }
+        log.info("这里是接收者1答应消息： ");
+        if(message.getUserId().equals(9527)) {
             channel.basicNack(deliveryTag, false, true);
             System.out.print("消费者Nack ");
-        }else if(message.equals("50")){
+        }else if(message.equals(110)){
             channel.basicReject(deliveryTag,false);
             System.out.print("消费者Ack ");
         }else {
             channel.basicAck(deliveryTag,false);
             System.out.print("消费者Ack ");
         }
-        System.out.print("这里是接收者1答应消息： ");
-        System.out.println("SYS_TOPIC_ORDER_CALCULATE_ZZ_FEE process1  : " + message);
     }
 }

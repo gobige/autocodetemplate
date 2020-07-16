@@ -18,7 +18,9 @@ public class queueBean {
 
     @Bean
     public Queue myQueue() {
-        return new Queue("myqueue");
+        Queue q = new Queue("myqueue", true, false, true);
+
+        return q;
     }
 
     @Bean
