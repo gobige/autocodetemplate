@@ -25,7 +25,8 @@ public class L15SumOfThreeNumbers {
      */
     public static List<List<Integer>> threeSum2(int[] nums) {
 
-        if (nums == null || nums.length < 3) {
+        int length = nums.length;
+        if (nums == null || length < 3) {
             return new ArrayList<>();
         }
 
@@ -33,9 +34,9 @@ public class L15SumOfThreeNumbers {
 
         List<List<Integer>> lists = new LinkedList<>();
 
-        for (int baseNum = 0; baseNum < nums.length; baseNum++) {
+        for (int baseNum = 0; baseNum < length; baseNum++) {
             int left = baseNum + 1;
-            int right = nums.length - 1;
+            int right = length - 1;
 
             while (left < right) {
                 int sum = nums[left] + nums[right] + nums[baseNum];

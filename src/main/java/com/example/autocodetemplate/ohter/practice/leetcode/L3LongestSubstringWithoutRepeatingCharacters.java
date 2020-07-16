@@ -23,7 +23,7 @@ public class L3LongestSubstringWithoutRepeatingCharacters {
 
     /**
      *  获取无重复字符的最长子串
-     *      * 时间复杂度 最坏O(1/2 * n平方) 最好O(N)
+     *      * 时间复杂度 最坏O(1/2 * n平方) 最好O(N),暴力匹配
      *      优化：针对重复字符点进行多位滑动
      * @param s
      * @return
