@@ -38,8 +38,6 @@ public class L31NextArrangement {
 
         // 当前排列是最大数，重新排列为最小排列
         if (index == -1) {
-            int Cycle = 0;
-
             exchangeSymmetryNum(nums, 0, nums.length - 1);
         }else {
             // 交换左边比定位点大的位置

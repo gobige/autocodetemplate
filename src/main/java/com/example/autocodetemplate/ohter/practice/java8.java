@@ -11,6 +11,7 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoField;
 import java.util.*;
+import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
@@ -226,6 +227,20 @@ class StreamTest {
         apples.add(new Apple(5,7,"brazil","apple5"));
         apples.add(new Apple(6,2,"american","apple6"));
 
+        // 根据country分组 求最大weight的apple
+        Apple identity = new Apple(1, 1, "xx", "xxx");
+        Map<String, Apple> collect =  apples.stream().collect(Collectors.groupingBy(Apple::getCountry, Collectors.reducing(identity, BinaryOperator.maxBy(Comparator.comparing(Apple::getWight)))));
+
+        // 根据weight范围  分组list
+        Map<String, List<Apple>> collect2 = apples.stream().collect(Collectors.groupingBy(o -> {
+            if (o.getWight() <= 3) {
+                return "0~3";
+            } else if (o.getWight() <= 6) {
+                return "3~6";
+            } else {
+                return "7~";
+            }
+        }));
 
         Map<String, Object> trestmap = apples.stream().collect(Collectors.toMap(Apple::getName, Function.identity()));
         trestmap.containsKey("asdf");

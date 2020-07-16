@@ -39,12 +39,12 @@ public class L17LetterCombinationOfPhoneNumber {
         double n = new Double(letters.length);
         List<String> list = new ArrayList<>(new Double(Math.pow(m, n)).intValue());
         // 确定第一层
-        for (char a : EnumLetterOfPhoneNumber.findByNum(digitNums[0]).letters) {
+        for (char a : LetterOfPhoneNumberEnum.findByNum(digitNums[0]).letters) {
             int level = 0;
             if (level == digitNums.length -1) {
                 list.add(a + "");
             }else {
-                recursive(EnumLetterOfPhoneNumber.findByNum(digitNums[level + 1]).letters, digitNums, a + "", level + 1, list);
+                recursive(LetterOfPhoneNumberEnum.findByNum(digitNums[level + 1]).letters, digitNums, a + "", level + 1, list);
             }
         }
 
@@ -62,13 +62,13 @@ public class L17LetterCombinationOfPhoneNumber {
             if (level == digits.length - 1) {
                 list.add(str + a);
             } else {
-                recursive(EnumLetterOfPhoneNumber.findByNum(digits[level + 1]).letters, digits, str + a, level + 1, list);
+                recursive(LetterOfPhoneNumberEnum.findByNum(digits[level + 1]).letters, digits, str + a, level + 1, list);
             }
         }
     }
 
 
-    enum EnumLetterOfPhoneNumber {
+    enum LetterOfPhoneNumberEnum {
         TWO(2, new char[]{'a', 'b', 'c'}),
         THREE(3, new char[]{'d', 'e', 'f'}),
         FOUR(4, new char[]{'g', 'h', 'i'}),
@@ -81,8 +81,8 @@ public class L17LetterCombinationOfPhoneNumber {
         private Integer num;
         private char[] letters;
 
-       static EnumLetterOfPhoneNumber findByNum(Integer num) {
-            for (EnumLetterOfPhoneNumber letterOfPhoneNumber : EnumLetterOfPhoneNumber.values()) {
+       static LetterOfPhoneNumberEnum findByNum(Integer num) {
+            for (LetterOfPhoneNumberEnum letterOfPhoneNumber : LetterOfPhoneNumberEnum.values()) {
                 if (letterOfPhoneNumber.getNum().equals(num)) {
                     return letterOfPhoneNumber;
                 }
@@ -107,7 +107,7 @@ public class L17LetterCombinationOfPhoneNumber {
             this.letters = letters;
         }
 
-        EnumLetterOfPhoneNumber(Integer num, char[] letters) {
+        LetterOfPhoneNumberEnum(Integer num, char[] letters) {
             this.num = num;
             this.letters = letters;
         }
