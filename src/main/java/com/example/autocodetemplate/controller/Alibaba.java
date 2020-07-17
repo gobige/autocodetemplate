@@ -3,87 +3,157 @@ package com.example.autocodetemplate.controller;
 import java.math.BigDecimal;
 
 public class Alibaba {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
+        goodsPriceCalculateDTO priceCalculateDTO = new goodsPriceCalculateDTO();
+        BigDecimal generalPrice = new BigDecimal("88.88");
+        priceCalculateDTO.setGeneralPrice(generalPrice);
+
+        User user = new User();
+        user.setCompanyType(1);
+        user.setUserLevel(2);
+        priceCalculateDTO.setUser(user);
+
         PriceService priceService = new PriceServiceImpl();
-        priceService.getPriceByGoodsId(new Integer(1), new User());
+        priceService.calculPrice(priceCalculateDTO);
     }
-}
-
-interface PriceService {
-
-    /**
-     * 通过商品id获取不同商品价格
-     *
-     * @param goodsId     商品id
-     * @return user 用户
-     */
-    BigDecimal getPriceByGoodsId(Integer goodsId, User user);
-
 }
 
 class PriceServiceImpl implements PriceService {
     @Override
-    public BigDecimal getPriceByGoodsId(Integer goodsId, User user) {
+    public BigDecimal calculPrice(goodsPriceCalculateDTO goodsPriceCalculateDTO) throws Exception {
+        if (goodsPriceCalculateDTO == null || goodsPriceCalculateDTO.getUser() == null) {
+            throw new Exception("会员商品折扣价计算，传入参数错误！");
+        }
+        User user = goodsPriceCalculateDTO.getUser();
 
-        CompanyEnum companyEnum = user.getCompanyEnum();
-        Integer userLevel = user.getUserLevel();
+        Integer level = user.getUserLevel();
+        Integer companyType = user.getCompanyType();
+        BigDecimal generalPrice = goodsPriceCalculateDTO.getGeneralPrice();
 
-        // query general price through db
-        BigDecimal generalPrice = new BigDecimal("88.88");
+        CompanyEnum companyEnum = CompanyEnum.findByKey(companyType);
+        if (companyEnum == null) {
+            return null;
+        }
+        Company company = new Company(companyEnum);
 
-        BigDecimal bigDecimal = generalPrice;
-        if (companyEnum == companyEnum.A_COMPANY) {
-            bigDecimal = AUserDiscountEnum.calculPriceByLevel(generalPrice, userLevel);
-
-        } else if (companyEnum == companyEnum.B_COMPANY) {
-            bigDecimal = BUserDiscountEnum.calculPriceByLevel(generalPrice, userLevel);
-
-        } else if (companyEnum == companyEnum.C_COMPANY) {
-            bigDecimal = CUserEnum.calculPriceByLevel(generalPrice, userLevel);
+        Calculate calculate = company.getCalCulateInstance();
+        if (calculate == null) {
+            return null;
         }
 
-        return bigDecimal;
+        BigDecimal resultPrice =  calculate.calculate(generalPrice, level);
+        return resultPrice;
     }
 }
 
-class User {
-    private CompanyEnum companyEnum;
+interface Calculate {
 
-    private Integer userLevel;
+    BigDecimal calculate(BigDecimal generalPrice, Integer level);
+}
 
-    public CompanyEnum getCompanyEnum() {
-        return companyEnum;
+class ACompanyCalculate implements Calculate {
+    public ACompanyCalculate(){}
+
+    @Override
+    public BigDecimal calculate(BigDecimal generalPrice, Integer level) {
+
+        AUserDiscountEnum aUserDiscountEnum = AUserDiscountEnum.findByKey(level);
+        if (aUserDiscountEnum == null || generalPrice == null) {
+            return null;
+        }
+
+        BigDecimal resultPrice = new BigDecimal(aUserDiscountEnum.getDiscount()).multiply(generalPrice);
+
+        return resultPrice.setScale(2, BigDecimal.ROUND_HALF_DOWN);
     }
+}
+class BCompanyCalculate implements Calculate {
+    public BCompanyCalculate(){}
 
-    public void setCompanyEnum(CompanyEnum companyEnum) {
+    @Override
+    public BigDecimal calculate(BigDecimal generalPrice, Integer level) {
+
+        BUserDiscountEnum bUserDiscountEnum = BUserDiscountEnum.findByKey(level);
+        if (bUserDiscountEnum == null || generalPrice == null) {
+            return null;
+        }
+
+        BigDecimal resultPrice = new BigDecimal(bUserDiscountEnum.getDiscount()).multiply(generalPrice);
+
+        return resultPrice.setScale(2, BigDecimal.ROUND_HALF_DOWN);
+    }
+}
+
+class CCompanyCalculate implements Calculate {
+    public CCompanyCalculate(){}
+
+    @Override
+    public BigDecimal calculate(BigDecimal generalPrice, Integer level) {
+
+        CUserDiscountEnum cUserDiscountEnum = CUserDiscountEnum.findByKey(level);
+        if (cUserDiscountEnum == null || generalPrice == null) {
+            return null;
+        }
+
+        BigDecimal resultPrice = new BigDecimal(cUserDiscountEnum.getDiscount()).multiply(generalPrice);
+
+        return resultPrice.setScale(2, BigDecimal.ROUND_HALF_DOWN);
+    }
+}
+
+class Company {
+    public Company(){}
+
+    public Company(CompanyEnum companyEnum) {
         this.companyEnum = companyEnum;
     }
 
-    public Integer getUserLevel() {
-        return userLevel;
+    private CompanyEnum companyEnum;
+
+    public Calculate getCalCulateInstance() throws IllegalAccessException, InstantiationException {
+
+        Calculate calculate = companyEnum.getCalculate();
+
+        return calculate;
     }
 
-    public void setUserLevel(Integer userLevel) {
-        this.userLevel = userLevel;
-    }
 }
 
 enum CompanyEnum {
 
-    A_COMPANY(1, "a公司", "a公司站点"),
-    B_COMPANY(2, "b公司", "b公司站点"),
-    C_COMPANY(3, "c公司", "c公司站点");
+    A_COMPANY(1, "a公司", "a公司站点", new ACompanyCalculate()),
+    B_COMPANY(2, "b公司", "b公司站点", new BCompanyCalculate()),
+    C_COMPANY(3, "c公司", "c公司站点", new CCompanyCalculate());
 
-    CompanyEnum(Integer key, String value, String description) {
+    CompanyEnum(Integer key, String value, String description, Calculate castClass) {
         setKey(key);
         setValue(value);
         setDescription(description);
+        setCalculate(castClass);
     }
-
 
     private Integer key;
     private String value;
     private String description;
+    private Calculate calculate;
+
+    public static CompanyEnum findByKey(Integer key) {
+        for (CompanyEnum companyEnum : CompanyEnum.values()) {
+            if (companyEnum.getKey().equals(key)) {
+                return companyEnum;
+            }
+        }
+
+        return null;
+    }
+
+    public Calculate getCalculate() {
+        return calculate;
+    }
+
+    public void setCalculate(Calculate calculate) {
+        this.calculate = calculate;
+    }
 
     public Integer getKey() {
         return key;
@@ -123,19 +193,8 @@ enum AUserDiscountEnum {
         setDescription(description);
     }
 
-    public static BigDecimal calculPriceByLevel(BigDecimal decimal, Integer userLevel) {
 
-        AUserDiscountEnum userEnum = findByKey(userLevel);
-        if (userEnum == null) {
-            return decimal;
-        }
-
-        BigDecimal resultPrice = new BigDecimal(userEnum.discount).multiply(decimal);
-
-        return resultPrice.setScale(2, BigDecimal.ROUND_HALF_DOWN);
-    }
-
-    private static AUserDiscountEnum findByKey(Integer key) {
+    public static AUserDiscountEnum findByKey(Integer key) {
         for (AUserDiscountEnum aUserEnum : AUserDiscountEnum.values()) {
             if (aUserEnum.getKey().equals(key)) {
                 return aUserEnum;
@@ -201,7 +260,7 @@ enum BUserDiscountEnum {
     private String value;
     private String description;
 
-    private static BUserDiscountEnum findByKey(Integer key) {
+    public static BUserDiscountEnum findByKey(Integer key) {
         for (BUserDiscountEnum bUserDiscountEnum : BUserDiscountEnum.values()) {
             if (bUserDiscountEnum.getKey().equals(key)) {
                 return bUserDiscountEnum;
@@ -209,17 +268,6 @@ enum BUserDiscountEnum {
         }
 
         return null;
-    }
-
-    public static BigDecimal calculPriceByLevel(BigDecimal decimal, Integer userLevel) {
-        BUserDiscountEnum bUserDiscountEnum = findByKey(userLevel);
-        if (bUserDiscountEnum == null) {
-            return decimal;
-        }
-
-        BigDecimal resultPrice = new BigDecimal(bUserDiscountEnum.discount).multiply(decimal);
-
-        return resultPrice.setScale(2, BigDecimal.ROUND_HALF_DOWN);
     }
 
     public Double getDiscount() {
@@ -256,11 +304,11 @@ enum BUserDiscountEnum {
 
 }
 
-enum CUserEnum {
+enum CUserDiscountEnum {
     GOLP(1, "皇冠会员", "8折优惠", new Double("0.8").doubleValue()),
     SILVER_MEDAL(2, "普通用户", "7.5折优惠", new Double("0.75").doubleValue());
 
-    CUserEnum(Integer key, String value, String description, Double discount) {
+    CUserDiscountEnum(Integer key, String value, String description, Double discount) {
         setKey(key);
         setDiscount(discount);
         setValue(value);
@@ -273,32 +321,14 @@ enum CUserEnum {
     private String description;
 
 
-    private static CUserEnum findByKey(Integer key) {
-        for (CUserEnum cUserEnum : CUserEnum.values()) {
-            if (cUserEnum.getKey().equals(key)) {
-                return cUserEnum;
+    public static CUserDiscountEnum findByKey(Integer key) {
+        for (CUserDiscountEnum cUserDiscountEnum : CUserDiscountEnum.values()) {
+            if (cUserDiscountEnum.getKey().equals(key)) {
+                return cUserDiscountEnum;
             }
         }
 
         return null;
-    }
-
-    public static BigDecimal calculPriceByLevel(BigDecimal decimal,Integer userLevel) {
-        CUserEnum cUserEnum = findByKey(userLevel);
-        if (cUserEnum == null) {
-            return decimal;
-        }
-
-        BigDecimal resultPrice;
-        if (cUserEnum == GOLP) {
-            resultPrice = new BigDecimal("0.8").multiply(decimal);
-        } else if (cUserEnum == SILVER_MEDAL) {
-            resultPrice = new BigDecimal("0.75").multiply(decimal);
-        } else {
-            resultPrice = decimal;
-        }
-
-        return resultPrice.setScale(2,BigDecimal.ROUND_HALF_DOWN);
     }
 
     public Double getDiscount() {
@@ -333,4 +363,58 @@ enum CUserEnum {
         this.description = description;
     }
 
+}
+
+interface PriceService {
+
+    /**
+     * 获取商品最终折扣价格
+     * @param goodsPriceCalculateDTO dto
+     * @return
+     */
+    BigDecimal calculPrice(goodsPriceCalculateDTO goodsPriceCalculateDTO) throws Exception;
+
+}
+
+class goodsPriceCalculateDTO {
+    private BigDecimal generalPrice;
+    private User user;
+
+    public BigDecimal getGeneralPrice() {
+        return generalPrice;
+    }
+
+    public void setGeneralPrice(BigDecimal generalPrice) {
+        this.generalPrice = generalPrice;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+}
+
+class User {
+    private Integer companyType;
+
+    private Integer userLevel;
+
+    public Integer getCompanyType() {
+        return companyType;
+    }
+
+    public void setCompanyType(Integer companyType) {
+        this.companyType = companyType;
+    }
+
+    public Integer getUserLevel() {
+        return userLevel;
+    }
+
+    public void setUserLevel(Integer userLevel) {
+        this.userLevel = userLevel;
+    }
 }
