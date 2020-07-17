@@ -9,12 +9,13 @@ public class Alibaba {
         priceCalculateDTO.setGeneralPrice(generalPrice);
 
         User user = new User();
-        user.setCompanyType(1);
-        user.setUserLevel(2);
+        user.setCompanyType(3);
+        user.setUserLevel(1);
         priceCalculateDTO.setUser(user);
 
         PriceService priceService = new PriceServiceImpl();
-        priceService.calculPrice(priceCalculateDTO);
+        BigDecimal resultPrice = priceService.calculPrice(priceCalculateDTO);
+        System.out.println(resultPrice);
     }
 }
 
@@ -83,7 +84,6 @@ class BCompanyCalculate implements Calculate {
         return resultPrice.setScale(2, BigDecimal.ROUND_HALF_DOWN);
     }
 }
-
 class CCompanyCalculate implements Calculate {
     public CCompanyCalculate(){}
 
