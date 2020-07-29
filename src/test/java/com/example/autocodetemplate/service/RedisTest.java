@@ -1,5 +1,6 @@
 package com.example.autocodetemplate.service;
 
+import com.alibaba.fastjson.JSON;
 import com.example.autocodetemplate.domain.Apple;
 import com.example.autocodetemplate.util.DistributedLocker;
 import lombok.extern.slf4j.Slf4j;
@@ -8,6 +9,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.geo.*;
+import org.springframework.data.redis.connection.RedisGeoCommands;
 import org.springframework.data.redis.core.*;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -281,6 +284,48 @@ public class RedisTest {
         for (Object pipeline : pipelines) {
             System.out.println(String.valueOf(pipeline));
         }
+    }
+
+    @Test
+    public void testGeo() {
+        GeoOperations geoOperations = redisTemplate.opsForGeo();
+
+        // 添加地理位置，纬度只能到达85度左右
+        String CHINACITY = "chinaCity";
+        String SHANGHAI = "shanghai";
+        String CHONGQING = "chongqing";
+        String WUHANG = "wuhang";
+        String BEIJING = "beijing";
+        geoOperations.add(CHINACITY, new RedisGeoCommands.GeoLocation(SHANGHAI, new Point(1, 44)));
+        geoOperations.add(CHINACITY, new RedisGeoCommands.GeoLocation(BEIJING, new Point(2, 41)));
+        geoOperations.add(CHINACITY, new RedisGeoCommands.GeoLocation(CHONGQING, new Point(3, 45)));
+        geoOperations.add(CHINACITY, new RedisGeoCommands.GeoLocation(WUHANG, new Point(4, 48)));
+
+
+        // 获取指定位置经纬度,可获取多个地址
+        List<Point> points = geoOperations.position(CHINACITY, CHONGQING);
+        for (Point point : points) {
+            System.out.println("CHONGQING 经纬度为：" + point.getX() + point.getY());
+        }
+
+        // 获取两点之间距离，基于完全球形计算，有0.5%的误差，默认 米 作为距离单位,位置不存在返回NULL
+        Distance distance = geoOperations.distance(CHINACITY, BEIJING, SHANGHAI);
+        System.out.println("beijing 到 shanghai 距离为：" + distance.getNormalizedValue() + distance.getMetric() + distance.getValue() + distance.getUnit());
+
+        // 返回以某位置为中心的周围距离内的位置，默认距离单位 米，默认由远到近，
+        Point chongqingPoint = points.get(0);
+        Distance radius = new Distance(200, Metrics.KILOMETERS);
+        Circle within = new Circle(chongqingPoint, radius);
+        GeoResults<RedisGeoCommands.GeoLocation> d = geoOperations.radius(CHINACITY, within);
+        System.out.println(JSON.toJSONString(d));
+
+        // order by 距离 由近到远 limit 限制返回2个, 同时返回距离中心点的距离，位置坐标等信息
+        RedisGeoCommands.GeoRadiusCommandArgs args =
+                RedisGeoCommands.GeoRadiusCommandArgs.newGeoRadiusArgs().includeCoordinates().includeDistance().limit(2).sortAscending();
+        System.out.println(JSON.toJSONString(geoOperations.radius(CHINACITY, within, args)));
+
+        // 返回位置hash
+        System.out.println(geoOperations.hash(CHINACITY, BEIJING, CHONGQING));
     }
 
     @Test

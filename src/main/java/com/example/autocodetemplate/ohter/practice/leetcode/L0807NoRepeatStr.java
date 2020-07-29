@@ -16,5 +16,7 @@ public class L0807NoRepeatStr {
         for (int i = 0; i < length; i++) {
 
         }
+
+        return null;
     }
 }
