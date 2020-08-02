@@ -2,9 +2,9 @@ package com.example.autocodetemplate.controller;
 
 import java.math.BigDecimal;
 
-public class Alibaba {
+public class Alibaba2 {
     public static void main(String[] args) throws Exception {
-        goodsPriceCalculateDTO priceCalculateDTO = new goodsPriceCalculateDTO();
+        GoodsPriceCalculateDTO priceCalculateDTO = new GoodsPriceCalculateDTO();
         BigDecimal generalPrice = new BigDecimal("88.88");
         priceCalculateDTO.setGeneralPrice(generalPrice);
 
@@ -21,7 +21,7 @@ public class Alibaba {
 
 class PriceServiceImpl implements PriceService {
     @Override
-    public BigDecimal calculPrice(goodsPriceCalculateDTO goodsPriceCalculateDTO) throws Exception {
+    public BigDecimal calculPrice(GoodsPriceCalculateDTO goodsPriceCalculateDTO) throws Exception {
         if (goodsPriceCalculateDTO == null || goodsPriceCalculateDTO.getUser() == null) {
             throw new Exception("会员商品折扣价计算，传入参数错误！");
         }
@@ -372,11 +372,11 @@ interface PriceService {
      * @param goodsPriceCalculateDTO dto
      * @return
      */
-    BigDecimal calculPrice(goodsPriceCalculateDTO goodsPriceCalculateDTO) throws Exception;
+    BigDecimal calculPrice(GoodsPriceCalculateDTO goodsPriceCalculateDTO) throws Exception;
 
 }
 
-class goodsPriceCalculateDTO {
+class GoodsPriceCalculateDTO {
     private BigDecimal generalPrice;
     private User user;
 

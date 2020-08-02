@@ -329,6 +329,24 @@ public class RedisTest {
     }
 
     @Test
+    public void testRedisHyperlog() {
+        HyperLogLogOperations hyperLogLogOperations = redisTemplate.opsForHyperLogLog();
+
+        // 向key 放入value进行统计  一个key占用18K数据，基于基数统计，有误差率
+        String date1 = "user access app static-2020801";
+        hyperLogLogOperations.add(date1, "yates", "yates", "yates2", "yates3", "yates4");
+        String date2 = "user access app static-2020802";
+        hyperLogLogOperations.add(date2, "", "yates21", "yates99");
+
+        System.out.println("8月1日活" +hyperLogLogOperations.size(date1));
+        System.out.println("8月1和8月2日总共日活" + hyperLogLogOperations.union(date1, date2));
+
+        hyperLogLogOperations.delete(date2);
+        System.out.println("8月2日日活" + hyperLogLogOperations.size(date2));
+
+    }
+
+    @Test
     public void testRedLock() throws Exception {
         //连接redis
         distributedLocker.lock("index_page_lock", TimeUnit.MINUTES, 10);

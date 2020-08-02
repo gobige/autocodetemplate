@@ -4,7 +4,7 @@ package com.example.autocodetemplate.ohter.practice.spi;
  * Java SPI ：Service Provider Interface,一种服务扩展机制，在相应配置文件中定义某个接口的实现类，再根据接口去配置文件中加载类，实例化
  *
  * Java SPI 的使用 @see SPITest
- *
+ *2
  * Java SPI机制：
  *
  * 1. ServiceLoader 类的load方法 ：获取【线程上下文类加载器】作为参数，将service接口 一起传入  实例化 ServiceLoader对象
