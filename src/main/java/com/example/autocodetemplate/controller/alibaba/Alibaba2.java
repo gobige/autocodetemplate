@@ -1,4 +1,4 @@
-package com.example.autocodetemplate.controller;
+package com.example.autocodetemplate.controller.alibaba;
 
 import java.math.BigDecimal;
 

@@ -1,4 +1,4 @@
-package com.example.autocodetemplate.controller;
+package com.example.autocodetemplate.controller.alibaba;
 
 /**
  * 标号1-n的n个人首尾相接，1到3报数，报到3的退出，求最后一个人的标号；
