@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.autocodetemplate.dao.OrderDao">
+    <resultMap id="baseMap" type="com.example.autocodetemplate.domain.shardjdbc.TOrder">
+        <id column="order_id" property="orderId"/>
+        <result column="user_id" property="userId"/>
+        <result column="createTime" property="createTime"/>
+    </resultMap>
+
+    <insert id="insert">
+        insert into t_order (user_id,createTime)
+        VALUES (#{user_id},
+                #{createTime});
+    </insert>
+
+    <select id="findByUserId" resultMap="baseMap">
+        select * from t_order where user_id = #{userId} order by createTime
+    </select>
+
+    <select id="findByUserIdIn" resultMap="baseMap">
+        select * from t_order where user_id IN
+         <foreach item='item' index='index' collection='list' open='(' separator=',' close=')'>
+            #{item}
+         </foreach>
+        order by createTime
+    </select>
+
+    <select id="findCreateTimeBetween" resultMap="baseMap">
+        select * from t_order where createTime BETWEEN #{start} AND #{end}
+    </select>
+
+
+
+
+</mapper>

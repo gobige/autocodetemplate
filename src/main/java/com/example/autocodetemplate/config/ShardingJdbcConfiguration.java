@@ -3,11 +3,6 @@ package com.example.autocodetemplate.config;
 import com.alibaba.fastjson.JSON;
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.shardingsphere.api.config.encrypt.EncryptColumnRuleConfiguration;
-import org.apache.shardingsphere.api.config.encrypt.EncryptRuleConfiguration;
-import org.apache.shardingsphere.api.config.encrypt.EncryptTableRuleConfiguration;
-import org.apache.shardingsphere.api.config.encrypt.EncryptorRuleConfiguration;
-import org.apache.shardingsphere.api.config.masterslave.MasterSlaveRuleConfiguration;
 import org.apache.shardingsphere.api.config.sharding.KeyGeneratorConfiguration;
 import org.apache.shardingsphere.api.config.sharding.ShardingRuleConfiguration;
 import org.apache.shardingsphere.api.config.sharding.TableRuleConfiguration;
@@ -15,16 +10,16 @@ import org.apache.shardingsphere.api.config.sharding.strategy.InlineShardingStra
 import org.apache.shardingsphere.api.config.sharding.strategy.StandardShardingStrategyConfiguration;
 import org.apache.shardingsphere.api.sharding.standard.PreciseShardingAlgorithm;
 import org.apache.shardingsphere.api.sharding.standard.PreciseShardingValue;
-import org.apache.shardingsphere.shardingjdbc.api.EncryptDataSourceFactory;
-import org.apache.shardingsphere.shardingjdbc.api.MasterSlaveDataSourceFactory;
 import org.apache.shardingsphere.shardingjdbc.api.ShardingDataSourceFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.sql.DataSource;
-import java.sql.Driver;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
 
 @Slf4j
 @Configuration
@@ -38,7 +33,7 @@ public class ShardingJdbcConfiguration {
         shardingRuleConfig.getTableRuleConfigs().add(getOrderItemTableRuleConfiguration());
         shardingRuleConfig.getBindingTableGroups().add("t_order, t_order_item");
         shardingRuleConfig.getBroadcastTables().add("t_config");
-        shardingRuleConfig.setDefaultDatabaseShardingStrategyConfig(new InlineShardingStrategyConfiguration("user_id", "ds${user_id % 2}"));
+        shardingRuleConfig.setDefaultDatabaseShardingStrategyConfig(new InlineShardingStrategyConfiguration("user_id", "orderdb${user_id % 2}"));
         shardingRuleConfig.setDefaultTableShardingStrategyConfig(new StandardShardingStrategyConfiguration("order_id", new ModuloShardingTableAlgorithm()));
 
         return ShardingDataSourceFactory.createDataSource(createDataSourceMap(), shardingRuleConfig, new Properties());
@@ -54,20 +49,20 @@ public class ShardingJdbcConfiguration {
     }
 
     TableRuleConfiguration getOrderTableRuleConfiguration() {
-        TableRuleConfiguration result = new TableRuleConfiguration("t_order", "ds${0..1}.t_order${0..2}");
+        TableRuleConfiguration result = new TableRuleConfiguration("t_order", "orderdb${0..1}.t_order${0..1}");
         result.setKeyGeneratorConfig(getKeyGeneratorConfiguration());
         return result;
     }
 
     TableRuleConfiguration getOrderItemTableRuleConfiguration() {
-        TableRuleConfiguration result = new TableRuleConfiguration("t_order_item", "ds${0..1}.t_order_item${0..2}");
+        TableRuleConfiguration result = new TableRuleConfiguration("t_order_item", "orderdb${0..1}.t_order_item${0..1}");
         return result;
     }
 
     Map<String, DataSource> createDataSourceMap() {
         Map<String, DataSource> result = new HashMap<>();
-        result.put("ds0", DataSourceUtil.createDataSource("ds0"));
-        result.put("ds1", DataSourceUtil.createDataSource("ds1"));
+        result.put("orderdb0", DataSourceUtil.createDataSource("orderdb0"));
+        result.put("orderdb1", DataSourceUtil.createDataSource("orderdb1"));
         return result;
     }
 
