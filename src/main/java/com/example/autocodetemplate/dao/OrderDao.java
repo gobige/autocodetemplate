@@ -11,7 +11,7 @@ import java.util.Date;
 
 
 @Mapper
-public interface OrderDao {
+public interface OrderDao  {
 
     @Transactional
     @ShardingTransactionType(TransactionType.XA)  // 支持TransactionType.LOCAL, TransactionType.XA, TransactionType.BASE
