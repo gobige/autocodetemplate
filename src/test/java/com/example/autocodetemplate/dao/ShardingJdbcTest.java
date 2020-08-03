@@ -25,7 +25,7 @@ public class ShardingJdbcTest {
             Thread.sleep(500L);
             orderDao.insert(i, new Date());
         }
-     }
+       }
 
     @Test
     public void testQuerys() throws Exception {
