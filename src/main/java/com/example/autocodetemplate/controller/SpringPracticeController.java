@@ -3,26 +3,22 @@ package com.example.autocodetemplate.controller;
 import com.example.autocodetemplate.domain.Actor;
 import com.example.autocodetemplate.filter.SpringTestFilter;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.context.request.RequestAttributes;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.context.request.async.WebAsyncTask;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.UriComponentsBuilder;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import javax.validation.ValidationException;
@@ -169,7 +165,23 @@ public class SpringPracticeController {
     @GetMapping("spring-session")
     @ResponseBody
     public Map<String, Object> springSessionTest(HttpSession httpSession, @RequestParam("name") String name) {
+        String hostName = (String) httpSession.getAttribute("name");
+        if (StringUtils.isBlank(hostName)) {
+            httpSession.setAttribute("name", name);
+        }
 
+        Map map = new HashMap();
+        map.put("name", hostName);
+        return map;
+    }
+
+    /**
+     * redis限流
+     * @return
+     */
+    @GetMapping("limit-flows")
+    @ResponseBody
+    public Map<String, Object> limitFlow() {
         Map map = new HashMap();
 
         String key = "System:Request:Limit:".concat("1212");
@@ -184,9 +196,9 @@ public class SpringPracticeController {
             return map;
         }
 
-
         return map;
     }
+
 
      /**
      * 异步任务实现

@@ -40,7 +40,7 @@ public class RabbitConfiguration {
     @Bean
     public ConnectionFactory connectionFactory() {
         // CachingConnectionFactory，默认情况下，它建立一个可由应用程序共享的单个连接代理
-        CachingConnectionFactory connectionFactory = new CachingConnectionFactory("localhost");
+        CachingConnectionFactory connectionFactory = new CachingConnectionFactory("dev-rabbit.car-house.cn");
         connectionFactory.setUsername("admin");
         connectionFactory.setPassword("admin");
         // 支持对这些通道进行缓存，并根据通道是否是事务性的维护它们的独立缓存。
