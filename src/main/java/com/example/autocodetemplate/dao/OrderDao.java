@@ -6,6 +6,7 @@ import org.apache.shardingsphere.transaction.annotation.ShardingTransactionType;
 import org.apache.shardingsphere.transaction.core.TransactionType;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -20,8 +21,10 @@ public interface OrderDao  {
 
     Collection<TOrder> findByUserId(Integer userId);
 
-    Collection<TOrder> findByUserIdIn(List<Integer> userIds);
+    Collection<TOrder> findByUserIdIn(@Param("userIds") Collection<Integer> userIds);
 
     Collection<TOrder> findCreateTimeBetween(@Param("start") Date start, @Param("end") Date end);
+
+    Collection<TOrder> findByFilter(@Param("orderStatus") Integer orderStatus, @Param("orderFee") BigDecimal orderFee);
 
 }

@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.util.StopWatch;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
@@ -50,13 +51,34 @@ public class ShardingJdbcTest {
     public void testQueryIn() throws Exception {
         Collection<TOrder> orders = orderDao.findByUserIdIn(Arrays.asList(2, 1, 3));
 
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start("分库分表，分库键查询");
         orders.stream().forEach(tOrder -> System.out.println(tOrder.getUserId() + "----" + tOrder.getOrderId() + "----" + tOrder.getCreateTime()));
+        stopWatch.stop();
+
+        System.out.println(stopWatch.prettyPrint());
     }
     @Test
     public void testQueryBetween() throws Exception {
-        LocalDateTime start = LocalDateTime.of(LocalDate.of(2020, 8, 1), LocalTime.of(15, 29, 00));
-        LocalDateTime end = LocalDateTime.of(LocalDate.of(2020, 8, 3), LocalTime.of(16, 00, 00));
+        LocalDateTime start = LocalDateTime.of(LocalDate.of(2020, 6, 1), LocalTime.of(15, 29, 00));
+        LocalDateTime end = LocalDateTime.of(LocalDate.of(2020, 7, 1), LocalTime.of(16, 00, 00));
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start("分库分表，时间范围 归并查询");
         Collection<TOrder> orders = orderDao.findCreateTimeBetween(TimeUtil.localDateTimeToDate(start), TimeUtil.localDateTimeToDate(end));
+        stopWatch.stop();
+
+        System.out.println(stopWatch.prettyPrint());
+
+        orders.stream().forEach(tOrder -> System.out.println(tOrder.getUserId() + "----" + tOrder.getOrderId() + "----" + tOrder.getCreateTime()));
+    }
+    @Test
+    public void testQueryFilter() throws Exception {
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start("分库分表，非分键条件查询 归并查询");
+        Collection<TOrder> orders = orderDao.findByFilter(0,new BigDecimal(10));
+        stopWatch.stop();
+
+        System.out.println(stopWatch.prettyPrint());
 
         orders.stream().forEach(tOrder -> System.out.println(tOrder.getUserId() + "----" + tOrder.getOrderId() + "----" + tOrder.getCreateTime()));
     }
