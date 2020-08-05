@@ -2,34 +2,70 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.example.autocodetemplate.dao.OrderDao">
     <resultMap id="baseMap" type="com.example.autocodetemplate.domain.shardjdbc.TOrder">
-        <id column="order_id" property="orderId"/>
+        <id column="order_id" property="order_id"/>
         <result column="user_id" property="userId"/>
-        <result column="createTime" property="createTime"/>
+        <result column="order_status" property="orderStatus"/>
+        <result column="order_fee" property="orderFee"/>
+        <result column="create_time" property="createTime"/>
+        <result column="is_delete" property="isDelete"/>
     </resultMap>
 
-    <insert id="insert">
-        insert into t_order (user_id,createTime)
-        VALUES (#{user_id},
-                #{createTime});
-    </insert>
+    <select id="queryById" resultMap="baseMap">
+        SELECT * FROM t_order
+        WHERE id = #{id}
+    </select>
 
     <select id="findByUserId" resultMap="baseMap">
-        select * from t_order where user_id = #{userId} order by createTime
+        SELECT * FROM t_order
+        WHERE user_id = #{userId}
     </select>
 
     <select id="findByUserIdIn" resultMap="baseMap">
-        select * from t_order where user_id IN
-         <foreach item='item' index='index' collection='list' open='(' separator=',' close=')'>
+        SELECT * FROM t_order where user_id IN
+        <foreach collection="userIds" item="item" index="index" open="(" separator="," close=")">
             #{item}
-         </foreach>
-        order by createTime
+        </foreach>
     </select>
 
     <select id="findCreateTimeBetween" resultMap="baseMap">
-        select * from t_order where createTime BETWEEN #{start} AND #{end}
+        SELECT * FROM t_order where create_time between #{start} AND #{end}
     </select>
 
+    <insert id="insertTOrder" parameterType="com.example.autocodetemplate.domain.shardjdbc.TOrder" flushCache="true" keyColumn="order_id" keyProperty="orderId" useGeneratedKeys="true">
+        insert into t_order (
+            user_id,
+            order_status,
+            order_fee,
+            create_time,
+            is_delete)
+        values (
+           #{userId},
+           #{orderStatus},
+           #{orderFee},
+           NOW(),
+           0)
+    </insert>
 
+    <update id="updateTOrder">
+        UPDATE t_order
+        <set>
+            <if test="item.userId != null and item.userId != ''">
+                user_id = #{item.userId},
+            </if>
+            <if test="item.orderStatus != null and item.orderStatus != ''">
+                order_status = #{item.orderStatus},
+            </if>
+            <if test="item.orderFee != null and item.orderFee != ''">
+                order_fee = #{item.orderFee},
+            </if>
+        </set>
+        WHERE id = #{item.id}
+    </update>
 
+    <update id="deleteById">
+        update t_order
+        SET is_delete = 1
+        WHERE id = #{id}
+    </update>
 
 </mapper>

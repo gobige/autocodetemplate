@@ -2,13 +2,13 @@ package com.example.autocodetemplate.dao;
 
 import com.example.autocodetemplate.domain.shardjdbc.TOrder;
 import com.example.autocodetemplate.util.TimeUtil;
-import org.assertj.core.util.DateUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -27,9 +27,15 @@ public class ShardingJdbcTest {
     @Test
     public void testInsert() throws Exception {
 
-        for (int i = 1; i < 100; i++) {
+        for (int i = 1; i < 101; i++) {
             Thread.sleep(500L);
-            orderDao.insert(i, new Date());
+            TOrder tOrder = new TOrder();
+            tOrder.setCreateTime(new Date());
+            tOrder.setIsDelete(0);
+            tOrder.setOrderFee(new BigDecimal(21 + i));
+            tOrder.setOrderStatus(1);
+            tOrder.setUserId(i);
+            orderDao.insertTOrder(tOrder);
         }
      }
 

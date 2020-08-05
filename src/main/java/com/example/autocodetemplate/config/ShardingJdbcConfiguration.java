@@ -125,7 +125,7 @@ class DataSourceUtil {
 
     private static final String USER_NAME = "root";
 
-    private static final String PASSWORD = "123456";
+    private static final String PASSWORD = "";
 
     public static DataSource createDataSource(final String dataSourceName) {
         HikariDataSource result = new HikariDataSource();

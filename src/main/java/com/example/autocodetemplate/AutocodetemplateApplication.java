@@ -85,6 +85,7 @@ public class AutocodetemplateApplication implements WebMvcConfigurer {
 
     }
 
+
     @Bean
     @ConfigurationProperties("redis")
     public JedisPoolConfig jedisPoolConfig() {
@@ -92,7 +93,7 @@ public class AutocodetemplateApplication implements WebMvcConfigurer {
     }
 
     @Bean(destroyMethod = "close")
-    public JedisPool jedisPool(@Value("${redis.host}") String host) {
+    public JedisPool jedisPool(@Value("${spring.redis.host}") String host) {
         return new JedisPool(jedisPoolConfig(), host);
     }
 

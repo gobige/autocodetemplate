@@ -14,9 +14,9 @@ import java.util.List;
 @Mapper
 public interface OrderDao  {
 
-    @Transactional
-    @ShardingTransactionType(TransactionType.XA)  // 支持TransactionType.LOCAL, TransactionType.XA, TransactionType.BASE
-    int insert(Integer user_id, Date createTime);
+//    @Transactional
+//    @ShardingTransactionType(TransactionType.XA)  // 支持TransactionType.LOCAL, TransactionType.XA, TransactionType.BASE
+    int insertTOrder(TOrder tOrder);
 
     Collection<TOrder> findByUserId(Integer userId);
 

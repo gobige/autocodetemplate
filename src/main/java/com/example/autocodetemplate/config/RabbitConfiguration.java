@@ -13,7 +13,6 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.AmqpHeaders;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -26,16 +25,8 @@ import org.springframework.retry.support.RetryTemplate;
 @Slf4j
 @Import({com.example.autocodetemplate.rabbit.queueBean.class})
 public class RabbitConfiguration {
-    @Value("${spring.rabbitmq.username}")
-    private String username;
-    @Value("${spring.rabbitmq.password}")
-    private String password;
 
-    @Value("${spring.rabbitmq.port}")
-    private int port;
-
-
-    //    若要缓存连接，请将 cacheMode 设置为 cacheMode.connection
+    // 若要缓存连接，请将 cacheMode 设置为 cacheMode.connection
     // SingleConnectionFactory  只能在框架的单元测试代码中使用 它不缓存通道
     @Bean
     public ConnectionFactory connectionFactory() {
