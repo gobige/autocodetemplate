@@ -2,10 +2,12 @@ package com.example.autocodetemplate.controller;
 
 import com.example.autocodetemplate.domain.Actor;
 import com.example.autocodetemplate.filter.SpringTestFilter;
+import com.example.autocodetemplate.filter.ValidAnoTestFilter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -51,7 +53,6 @@ public class SpringPracticeController {
     @Autowired
     private WebClient webClient;
 
-
     @RequestMapping(value = "request", method = {RequestMethod.POST},// produces 指定返回值类型  consumes 指定处理请求的提交内容类型
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
             headers = "ddd=sss", params = "name=yates")
@@ -70,14 +71,15 @@ public class SpringPracticeController {
 
     @PostMapping(value = "valid")
     @ResponseBody
-    public Map<String, Object> testRequestValid(@RequestBody() @Valid SpringTestFilter tempFilter, BindingResult validResult) throws Exception {
+    public Map<String, Object> testRequestValid(@RequestBody() @Valid ValidAnoTestFilter validAnoTestFilter, BindingResult validResult) throws Exception {
+        Map<String, Object> result = new HashMap<>();
         if (validResult.hasErrors()) {
-            log.warn("Binding Errors: {}", validResult);
-            throw new InvalidParameterException(validResult.toString());
+            result.put("valid-error",validResult.getFieldErrors().get(0).getDefaultMessage());
+
+            return result;
         }
 
         Thread.sleep(1000L);
-        Map<String, Object> result = new HashMap<>();
         result.put("name", "yates");
 
         return result;
@@ -176,7 +178,7 @@ public class SpringPracticeController {
     }
 
     /**
-     * redis限流
+     * redis限流  会有限制性，不是很合理，
      * @return
      */
     @GetMapping("limit-flows")
@@ -189,7 +191,7 @@ public class SpringPracticeController {
         if (time == 1) {
             redisTemplate.expire(key, 3, TimeUnit.SECONDS);
             log.info("1");
-        } else if (time > 800) {
+        } else if (time > 3) {
             redisTemplate.expire(key, 3, TimeUnit.SECONDS);
             map.put("客官您真是风驰电掣啊，来杯咖啡，慢慢操作吧！",1);
             log.info("客官您真是风驰电掣啊，来杯咖啡，慢慢操作吧！");

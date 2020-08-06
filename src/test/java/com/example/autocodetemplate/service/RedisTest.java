@@ -238,8 +238,8 @@ public class RedisTest {
         System.out.println(redisTemplate.opsForZSet().unionAndStore("zset", "zset", "unionzset"));
         // 计算给定的一个有序集的交集，并存储在新的 destKey中，key相同的话会把score值相加
         System.out.println(redisTemplate.opsForZSet().intersectAndStore("zset", "zset", "intersectzset"));
-
     }
+
 
     @Test
     public void testBatchTmplate() {
