@@ -13,7 +13,7 @@ public class TestServiceImpl implements TestService {
 
     @Override
     @Async
-    public Future<String> doTaskOne() throws Exception {
+    public Future<String> doAsyncTaskOne() throws Exception {
         Long startTime = System.currentTimeMillis();
         System.out.println("开始第一个任务");
         Thread.sleep(new Random().nextInt(3000));

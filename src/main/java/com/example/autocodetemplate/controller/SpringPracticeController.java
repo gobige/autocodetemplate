@@ -79,21 +79,6 @@ public class SpringPracticeController {
             return result;
         }
 
-        Thread.sleep(1000L);
-        result.put("name", "yates");
-
-        return result;
-    }
-
-    @PostMapping(value = "exception")
-    @ResponseBody
-    public Map<String, Object> testRequestException(@RequestBody() @Valid SpringTestFilter tempFilter, BindingResult validResult) {
-        if (validResult.hasErrors()) {
-            log.warn("Binding Errors: {}", validResult);
-            throw new ValidationException(validResult.toString());
-        }
-
-        Map<String, Object> result = new HashMap<>();
         result.put("name", "yates");
 
         return result;
@@ -158,8 +143,11 @@ public class SpringPracticeController {
 
 
     /**
-     * 常见会话解决方案 粘性会话 Sticky Session:一个用户会话统一由集群中一个节点负责,会话复制 Session Replicaqtion：集群中每个节点都有所有用户会话
-     * ,集中会话 Centralized Session，使用redis，jdbc实现会话的管理
+     * 常见会话解决方案
+     *
+     * 粘性会话 Sticky Session:一个用户会话统一由集群中一个节点负责,
+     * 会话复制 Session Replicaqtion：集群中每个节点都有所有用户会话
+     * 集中会话 Centralized Session，使用redis，jdbc实现会话的管理
      *
      * @param name
      * @return
@@ -178,7 +166,7 @@ public class SpringPracticeController {
     }
 
     /**
-     * redis限流  会有限制性，不是很合理，
+     * 单用户 频率 redis限流  会有限制性，不是很合理，
      * @return
      */
     @GetMapping("limit-flows")
@@ -186,7 +174,8 @@ public class SpringPracticeController {
     public Map<String, Object> limitFlow() {
         Map map = new HashMap();
 
-        String key = "System:Request:Limit:".concat("1212");
+        String userId = "1212";
+        String key = "System:Request:Limit:".concat(userId);
         Long time = redisTemplate.opsForValue().increment(key, 1);
         if (time == 1) {
             redisTemplate.expire(key, 3, TimeUnit.SECONDS);
