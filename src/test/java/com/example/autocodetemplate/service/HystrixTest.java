@@ -137,8 +137,6 @@ class  CommandHelloWorld extends HystrixCommand<String> {
                         .withMetricsRollingPercentileBucketSize(10) // 滑窗划分bukect大小
                         .withMetricsRollingPercentileEnabled(true) // 百分比，均值指标收集
                 );
-
-
     }
 
 
@@ -250,7 +248,7 @@ class FallbackViaNetwork extends HystrixCommand<String> {
 /**
  * 通过filter链 进行  HystrixRequestContext 生命周期管理
  */
-  class HystrixRequestContextServletFilter implements Filter {
+class HystrixRequestContextServletFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
