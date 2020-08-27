@@ -1,5 +1,6 @@
 package com.example.autocodetemplate.ohter.practice.base.collection;
 
+import com.example.autocodetemplate.ohter.practice.Apple;
 import org.springframework.util.StopWatch;
 
 import java.util.*;
@@ -11,6 +12,15 @@ public class HashMapTest {
         int[] sadf = new int[12];
         System.out.println(sadf.length);
         testResize();
+    }
+
+    private static void testRemove() {
+        Map<Integer, Apple> test = new HashMap<>();
+        test.remove(1);
+
+
+        // map去除value为null的对象
+        test.values().removeIf(Objects::isNull);
     }
 
     private static void testResize() {
@@ -25,6 +35,7 @@ public class HashMapTest {
         }
         System.out.println(map.size());
     }
+
     private static void testInitail() {
         HashMap<Integer, Object> map = new HashMap<>(init);
         StopWatch stopWatch = new StopWatch();
