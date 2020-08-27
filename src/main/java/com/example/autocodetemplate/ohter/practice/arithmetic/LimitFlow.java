@@ -38,7 +38,6 @@ public class LimitFlow {
                 }
             });
 
-            Thread.sleep(10L);
             thread.start();
             thread.setName("Thread " + i);
         }

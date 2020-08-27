@@ -6,6 +6,10 @@ import com.example.autocodetemplate.util.DistributedLocker;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.redisson.api.RRateLimiter;
+import org.redisson.api.RateType;
+import org.redisson.api.RedissonClient;
+import org.redisson.client.RedisClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataAccessException;
@@ -51,6 +55,9 @@ public class RedisTest {
 
     @Autowired
     private RedisTemplate redisTemplate;
+
+    @Autowired
+    private RedissonClient redissonClient;
 
     @Test
     public void testRedis() {
@@ -354,4 +361,11 @@ public class RedisTest {
         Thread.sleep(5000L);
         distributedLocker.unlock("index_page_lock");
     }
+
+//    @Test
+//    public void testLimitFlow() {
+//        RRateLimiter rRateLimiter = redissonClient.getRateLimiter("rate_limiter");
+//
+//        rRateLimiter.trySetRate(RateType.PER_CLIENT);
+//    }
 }
