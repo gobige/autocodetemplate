@@ -6,6 +6,8 @@ import java.util.List;
 
 /**
  * 建造者模式
+ *
+ * 作用：如果一个类有很多属性，为了避免构造函数过长，可以通过set配合的方式解决，如果分为必填和可选属性，那么还存在一些校验逻辑，以及属性之间依赖关系，一旦建立则不能改变的场景
  */
 public class BuilderPattern {
     public static void main(String[] args) {

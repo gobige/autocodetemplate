@@ -2,6 +2,8 @@ package com.example.autocodetemplate.ohter.practice.designpattern;
 
 /**
  * 模板模式
+ *
+ * 在一个方法中定义一个算法（业务逻辑）骨架，将某些步骤推迟到子类中实现。起到复用和扩展的目的
  */
 public class TemplatePattern {
     public static void main(String[] args) {
