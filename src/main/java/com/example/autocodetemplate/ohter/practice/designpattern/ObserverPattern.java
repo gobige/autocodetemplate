@@ -5,6 +5,8 @@ import java.util.List;
 
 /**
  * 观察者模式
+ *
+ * 在对象之间定义一个一对多的依赖，当一个对象状态改变时，所有依赖都会自动收到通知。小到代码层面结构，大到架构层面解耦
  */
 public class ObserverPattern {
 

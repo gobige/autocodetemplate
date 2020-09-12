@@ -2,6 +2,10 @@ package com.example.autocodetemplate.ohter.practice.designpattern;
 
 /**
  * 迭代器模式
+ *
+ * 封装集合内部复杂数据结构，不需要了解如何遍历，直接使用迭代器即可，2将集合遍历操作拆分，职责更单一 3使用新遍历算法跟方便，符合开闭原则
+ *
+ * 获取迭代快照，通过浅clone，2通过元素标记，逻辑删除
  */
 public class IteratorPattern {
     public static void main(String[] args) {

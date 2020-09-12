@@ -4,6 +4,10 @@ import java.util.Hashtable;
 
 /**
  * 原型模式
+ *
+ * 作用：如果创建对象成本（计算，RPC，IO，）比较大，同一类不同对象差别不大，通过对已有对象clone方式进行复制方式创建新对象
+ *
+ * 方式：浅拷贝，深拷贝
  */
 public class PrototypePattern {
     public static void main(String[] args) {

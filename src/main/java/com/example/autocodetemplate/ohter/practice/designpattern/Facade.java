@@ -1,9 +1,15 @@
 package com.example.autocodetemplate.ohter.practice.designpattern;
 
 /**
+ * 门面模式
+ *
+ * 对接口做整合，解决多借口调用问题
+ *
  * 1）为一个复杂子系统提供一个简单接口。
  * 2）提高子系统的独立性。
  * 3）在层次化结构中，可以使用Facade模式定义系统中每一层的入口
+ *
+ *
  */
 public class Facade {
     registerClass rc = new registerClass();
