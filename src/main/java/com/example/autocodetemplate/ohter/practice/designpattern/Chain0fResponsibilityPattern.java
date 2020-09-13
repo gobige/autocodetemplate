@@ -16,6 +16,7 @@ public class Chain0fResponsibilityPattern {
 }
 
 
+
 @Component
 class ChainHandler1 implements BaseChainHandler {
 

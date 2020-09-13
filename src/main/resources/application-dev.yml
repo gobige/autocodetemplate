@@ -12,18 +12,17 @@ mybatis:
 
 ### 数据源，redis缓存配置，mongodb配置，邮件服务配置
 spring:
-  datasource:
-    driverClassName: org.h2.Driver
-    url: jdbc:h2:mem:testdb
-    username: sa
-    password:
-
 #  datasource:
-#    driverClassName: com.mysql.jdbc.Driver
-#    url: jdbc:mysql://localhost:3306/testdb?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&autoReconnect=true&failOverReadOnly=false&maxReconnects=10
-#    username: root
+#    driverClassName: org.h2.Driver
+#    url: jdbc:h2:mem:testdb
+#    username: sa
 #    password:
-#    initialize: true
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/orderdb0?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&autoReconnect=true&failOverReadOnly=false&maxReconnects=10&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+    initialize: true
   redis:
     database: 11
     host: 127.0.0.1
@@ -68,7 +67,7 @@ spring:
 ### 服务器地址
 server:
     address: 0.0.0.0
-    port: 8090
+    port: 8091
     tomcat:
       # 最大线程数
       max-threads: 10
@@ -92,4 +91,4 @@ logging:
   level:
     com:
       example:
-        autocodetemplate: debug
+        autocodetemplate: info
