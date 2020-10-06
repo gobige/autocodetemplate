@@ -21,7 +21,7 @@ spring:
     driverClassName: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/orderdb0?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&autoReconnect=true&failOverReadOnly=false&maxReconnects=10&serverTimezone=Asia/Shanghai
     username: root
-    password: 123456
+    password: root
     initialize: true
   redis:
     database: 11
@@ -37,8 +37,8 @@ spring:
   rabbitmq:
     host: localhost
     port: 5672
-    password: admin
-    username: admin
+    password: guest
+    username: guest
   output:
     ansi:
     enabled: DETECT
@@ -91,4 +91,4 @@ logging:
   level:
     com:
       example:
-        autocodetemplate: info
+        autocodetemplate: debug

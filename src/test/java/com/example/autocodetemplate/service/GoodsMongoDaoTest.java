@@ -6,8 +6,6 @@ import com.example.autocodetemplate.domain.mongodb.SupplierMongo;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;

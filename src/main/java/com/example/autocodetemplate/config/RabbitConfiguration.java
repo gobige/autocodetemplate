@@ -31,9 +31,9 @@ public class RabbitConfiguration {
     @Bean
     public ConnectionFactory connectionFactory() {
         // CachingConnectionFactory，默认情况下，它建立一个可由应用程序共享的单个连接代理
-        CachingConnectionFactory connectionFactory = new CachingConnectionFactory("dev-rabbit.car-house.cn");
-        connectionFactory.setUsername("admin");
-        connectionFactory.setPassword("admin");
+        CachingConnectionFactory connectionFactory = new CachingConnectionFactory("localhost");
+        connectionFactory.setUsername("guest");
+        connectionFactory.setPassword("guest");
         // 支持对这些通道进行缓存，并根据通道是否是事务性的维护它们的独立缓存。
         //  可以缓存的通道数,
         // 如果您看到许多通道正在创建和关闭，则应该考虑进一步增加缓存大小
