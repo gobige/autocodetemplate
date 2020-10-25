@@ -9,6 +9,9 @@ package com.example.autocodetemplate.ohter.practice.designpattern;
  * 2）提高子系统的独立性。
  * 3）在层次化结构中，可以使用Facade模式定义系统中每一层的入口
  *
+ * 解决易用性问题 隐藏实现复杂性，提供更易用接口
+ * 解决性能问题 多个接口替换为一个接口调用，
+ * 分布式事务问题
  *
  */
 public class Facade {

@@ -4,7 +4,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * 享元模式
  *
+ * 不可变对象
+ *
+ * 经常通过Map或List缓存享元对象
+ *
+ * 复用对象，节省内存
+ *
+ * 享元与单例：单例时一个类只有一个对象，而享元时多例对象
+ * 享元与缓存：缓存是为了提高访问效率，享元是为了复用
+ * 享元与对象池：对象池是重复使用，节省对象创建时间，每时每刻只有一个线程对其使用；享元是共享使用
  */
 public class FlyweightPattern {
     private static final ExpressCompanyEnum express[] = ExpressCompanyEnum.values();
