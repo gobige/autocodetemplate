@@ -9,10 +9,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.Date;
-
-/**
- * 定时任务类
- */
+/*定时任务类*/
 @Component
 public class SchedulingTaskController {
 
