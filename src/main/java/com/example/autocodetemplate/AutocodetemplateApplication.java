@@ -71,7 +71,7 @@ import java.util.concurrent.TimeUnit;
  */
 @SpringBootApplication
 @EnableScheduling
-@EnableCaching(proxysTargetClass = true) // 如果proxy-target-class 属性值被设置为true，那么基于类的代理将起作用（这时需要cglib库）。如果proxy-target-class属值被设置为false或者这个属性被省略
+@EnableCaching(proxyTargetClass = true) // 如果proxy-target-class 属性值被设置为true，那么基于类的代理将起作用（这时需要cglib库）。如果proxy-target-class属值被设置为false或者这个属性被省略
 @EnableAsync
 @EnableJpaRepositories
 public class AutocodetemplateApplication implements WebMvcConfigurer {
