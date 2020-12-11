@@ -19,6 +19,7 @@ public class L767ReorganizeString {
     /**
      * 1. 将字符串字符提取到 priorityQueue中
      * 2. 每次获取大顶推两个字符，直到所有的字符被出堆
+     * 3. 排序规则可以借助外界数组来实现
      * @param S
      * @return
      */
