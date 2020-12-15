@@ -27,7 +27,7 @@ public class L39CombinedSum {
 
         List<Integer> list = new ArrayList<>();
 
-        if (target - candidates)
+        return lists;
     }
 
     public boolean ge(int target, int candindex, int[] candidates, List<Integer> list) {
