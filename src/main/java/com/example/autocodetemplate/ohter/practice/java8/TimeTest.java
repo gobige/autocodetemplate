@@ -2,6 +2,7 @@ package com.example.autocodetemplate.ohter.practice.java8;
 
 import com.example.autocodetemplate.util.TimeUtil;
 
+import java.math.BigDecimal;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoField;
@@ -16,6 +17,7 @@ import static java.time.temporal.TemporalAdjusters.lastDayOfMonth;
 public class TimeTest {
     public static void main(String[] args) {
 
+        System.out.println(new BigDecimal(-2).compareTo(BigDecimal.ZERO));
 
         LocalDate nowdate = LocalDate.now();
         LocalDate test =  nowdate.plusMonths(1);

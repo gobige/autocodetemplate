@@ -17,6 +17,7 @@ import java.io.DataInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -73,10 +74,6 @@ public class OcrImageRecognitionServiceImpl implements OcrImageRecognitionServic
         }
 
         return ocrRecResult;
-    }
-
-    public static void main(String[] args) {
-
     }
 
     public static byte[] downloadPicture(String urlList) throws IOException {
