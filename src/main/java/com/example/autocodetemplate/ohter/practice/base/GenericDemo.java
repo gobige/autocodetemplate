@@ -155,6 +155,14 @@ class GenericCompenate<T> {
 
 
     }
+
+    public static <T extends Comparable<? super T>> void printGen(List<T> list, T val) {
+        for (T t : list) {
+            if (t.compareTo(val) > 0) {
+                System.out.println();
+            }
+        }
+    }
 }
 
 class test {
