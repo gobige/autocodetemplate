@@ -181,7 +181,7 @@
         <dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper-spring-boot-starter</artifactId>
-            <version>1.2.10</version>
+            <version>1.3.1</version>
         </dependency>
         <!--分页框架 miemiedev依赖-->
         <dependency>
@@ -240,7 +240,7 @@
         <dependency>
             <groupId>org.apache.rocketmq</groupId>
             <artifactId>rocketmq-client</artifactId>
-            <version>4.3.0</version>
+            <version>4.7.1</version>
         </dependency>
         <!--spring mongdb操作依赖-->
         <dependency>
