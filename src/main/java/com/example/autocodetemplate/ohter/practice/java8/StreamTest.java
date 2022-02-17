@@ -1,10 +1,13 @@
 package com.example.autocodetemplate.ohter.practice.java8;
 
 import com.example.autocodetemplate.ohter.practice.Apple;
+import org.springframework.http.MediaType;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.function.BinaryOperator;
 import java.util.function.Function;
@@ -146,7 +149,6 @@ public class StreamTest {
         // 根据国家 获取 国家 wight总量
         Map<String, Integer> totalWerghtGroupByProvince = apples.stream().collect(Collectors.groupingBy(Apple::getCountry, Collectors.summingInt(Apple::getWight)));
 
-
         // 根据country分组 求最大weight的apple  Collectors.reducing将集合缩减为一个数
         Apple identity = new Apple(1, 1, "xx", "xxx");
         Map<String, Apple> collect =  apples.stream().collect(Collectors.groupingBy(Apple::getCountry, Collectors.reducing(identity, BinaryOperator.maxBy(Comparator.comparing(Apple::getWight)))));
@@ -202,6 +204,8 @@ public class StreamTest {
     }
 
     public static void main(String[] args) {
+
+
     }
 
 }

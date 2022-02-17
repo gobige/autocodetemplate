@@ -22,7 +22,6 @@ import java.util.Map;
 import java.util.Properties;
 
 @Slf4j
-@Configuration
 public class ShardingJdbcConfiguration {
 
     // 数据分片

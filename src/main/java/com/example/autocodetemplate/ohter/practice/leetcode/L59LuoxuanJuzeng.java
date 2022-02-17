@@ -76,47 +76,6 @@ public class L59LuoxuanJuzeng {
 
 }
 
-enum StatusChangeEventEnum {
-    ARRAY_INDEX_OUT_OF_BOUND_SENUM(1, "数组越界"),
-    PLACEHOLDER(2, "已有占位"),
-    ;
-
-    private Integer key;
-    private String value;
-
-    static StatusChangeEventEnum findKey(Integer key) {
-        for (StatusChangeEventEnum statusChangeEventEnum : StatusChangeEventEnum.values()) {
-            if (statusChangeEventEnum.key.equals(key)) {
-                return statusChangeEventEnum;
-            }
-        }
-
-        return null;
-    }
-
-    StatusChangeEventEnum(Integer key, String value) {
-        this.key = key;
-        this.value = value;
-    }
-
-    public Integer getKey() {
-        return key;
-    }
-
-    public void setKey(Integer key) {
-        this.key = key;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
-
-
-}
 enum StatusChangeEnum {
     COL_PLUS(1, "col+"),
     ROW_PLUS(2, "row+"),

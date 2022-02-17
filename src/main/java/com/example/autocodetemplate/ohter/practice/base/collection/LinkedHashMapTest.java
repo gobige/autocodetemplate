@@ -24,7 +24,7 @@ public class LinkedHashMapTest {
         }
         System.out.println("HashMap 无序 遍历---跟插入顺序无关------------------------------------------");
 
-        LinkedHashMap linkedHashMap = new LinkedHashMap(4, 0.6f, true);
+        LinkedHashMap linkedHashMap = new LinkedHashMap(4, 0.6f, false);
         linkedHashMap.put("yates", "yangchao");
         linkedHashMap.put("billy", "xxxass");
         linkedHashMap.put("tom", "clouanr");

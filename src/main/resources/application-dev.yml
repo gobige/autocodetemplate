@@ -19,9 +19,9 @@ spring:
 #    password:
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/orderdb0?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&autoReconnect=true&failOverReadOnly=false&maxReconnects=10&serverTimezone=Asia/Shanghai
-    username: root
-    password: root
+    url: jdbc:mysql://10.9.21.122:20043/IndusFinDB?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&autoReconnect=true&failOverReadOnly=false&maxReconnects=10&serverTimezone=Asia/Shanghai
+    username: indust_master
+    password: indust_master@123
     initialize: true
   redis:
     database: 11
