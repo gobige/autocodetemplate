@@ -75,7 +75,7 @@
         <dependency>
             <groupId>org.redisson</groupId>
             <artifactId>redisson-spring-boot-starter</artifactId>
-            <version>3.11.0</version>
+            <version>3.11.6</version>
         </dependency>
         <!--jedis客户端依赖-->
         <dependency>
@@ -198,7 +198,7 @@
         <dependency>
             <groupId>net.logstash.logback</groupId>
             <artifactId>logstash-logback-encoder</artifactId>
-            <version>4.4</version>
+            <version>7.0</version>
         </dependency>
 
         <dependency>
