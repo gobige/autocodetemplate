@@ -32,27 +32,19 @@ public enum ElasticGoodsTypeEnum {
      * @return
      * @throws ServiceRuntimeException
      */
-    public static double getElastics(BigDecimal beforPrice, BigDecimal afterPrice, Long beforQuota, Long afterQuota) throws ServiceRuntimeException {
+    public static double getpriceElastics(BigDecimal beforPrice, BigDecimal afterPrice, Long beforQuota, Long afterQuota) throws ServiceRuntimeException {
         if (beforPrice == null || afterPrice == null || beforQuota == null || afterQuota == null) {
             throw new ServiceRuntimeException("参数不能为空");
         }
 
-        BigDecimal deltaPrice = afterPrice.subtract(beforPrice);
+        long changeQuota = afterQuota - beforQuota;
+        BigDecimal deltaPrice =BigDecimal.valueOf(changeQuota).divide(afterPrice.subtract(beforPrice)) ;
 
         BigDecimal priceDivQuato = afterPrice.divide(BigDecimal.valueOf(afterQuota), FinancialConstants.PRICE_SCALE, BigDecimal.ROUND_HALF_DOWN);
 
         return deltaPrice.multiply(priceDivQuato).doubleValue();
     }
 
-    public static ElasticGoodsTypeEnum findByQ(Integer key) {
-        for (ElasticGoodsTypeEnum typeEnum : ElasticGoodsTypeEnum.values()) {
-            if (typeEnum.getKey().equals(key)) {
-                return typeEnum;
-            }
-        }
-
-        return null;
-    }
 
     public static ElasticGoodsTypeEnum findByKey(Integer key) {
         for (ElasticGoodsTypeEnum typeEnum : ElasticGoodsTypeEnum.values()) {
