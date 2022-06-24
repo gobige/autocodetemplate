@@ -33,6 +33,23 @@ public class FileUtil {
 
         return sb.toString();
     }
+    /**
+     * 获取磁盘文件输入流转换为string输出
+     * @param
+     * @return
+     * @throws IOException
+     */
+    public static String fileInputStreamToString(File file) throws IOException {
+        FileInputStream fis = new FileInputStream(file);
+        byte[] buf = new byte[BUFFER_SIZE];
+        StringBuffer sb = new StringBuffer();
+        while ((fis.read(buf)) != -1) {
+            sb.append(new String(buf));
+            buf = new byte[BUFFER_SIZE];
+        }
+
+        return sb.toString();
+    }
 
     /**
      * 输出文件
