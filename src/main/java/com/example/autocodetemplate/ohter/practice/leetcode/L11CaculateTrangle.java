@@ -1,7 +1,5 @@
 package com.example.autocodetemplate.ohter.practice.leetcode;
 
-import sun.applet.Main;
-
 /**
  * 计算长方形最大面积
  *

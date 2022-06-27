@@ -29,42 +29,48 @@ public class StockLogic {
         if (response != null) {
             String[] arrays = response.split(";");
             for (String array : arrays) {
-                QuotaDTO quotaDTO = new QuotaDTO();
-                if (StringUtils.isNotBlank(array)) {
-                    String[] fields = array.split("~");
-
-                    quotaDTO.setName(getF(fields, 1));
-                    quotaDTO.setCode(getF(fields, 2));
-                    quotaDTO.setCurPrice(getF(fields, 3));
-                    quotaDTO.setYesClosingPrice(getF(fields, 4));
-                    quotaDTO.setNowOpenPrice(getF(fields, 5));
-                    quotaDTO.setVolume(getF(fields, 6));
-                    quotaDTO.setBuyVol(getF(fields, 7));
-                    quotaDTO.setSellVol(getF(fields, 8));
-                    quotaDTO.setTime(getF(fields, 30));
-                    quotaDTO.setUpAndDown(getF(fields, 31));
-                    quotaDTO.setUpAndDownPer(getF(fields, 32));
-                    quotaDTO.setHighest(getF(fields, 33));
-                    quotaDTO.setLowest(getF(fields, 34));
-                    quotaDTO.set价格成交量成交额(getF(fields, 35));
-                    quotaDTO.set成交量手(getF(fields, 36));
-                    quotaDTO.set成交额(getF(fields, 37));
-                    quotaDTO.setTurnoverRate(getF(fields, 38));
-                    quotaDTO.setPe(getF(fields, 39));
-                    quotaDTO.set最高(getF(fields, 41));
-                    quotaDTO.set最低(getF(fields, 42));
-                    quotaDTO.set振幅(getF(fields, 43));
-                    quotaDTO.setCirculatingMarketVal(getF(fields, 44));
-                    quotaDTO.setTotalMarketVal(getF(fields, 45));
-                    quotaDTO.setPb(getF(fields, 46));
-                    quotaDTO.set涨停价(getF(fields, 47));
-                    quotaDTO.set跌停价(getF(fields, 48));
-                }
+                QuotaDTO quotaDTO = getQuotaDTO(array);
                 quotaDTOS.add(quotaDTO);
             }
         }
 
         return quotaDTOS;
+    }
+
+
+    private QuotaDTO getQuotaDTO(String array) {
+        QuotaDTO quotaDTO = new QuotaDTO();
+        if (StringUtils.isNotBlank(array)) {
+            String[] fields = array.split("~");
+
+            quotaDTO.setName(getF(fields, 1));
+            quotaDTO.setCode(getF(fields, 2));
+            quotaDTO.setCurPrice(getF(fields, 3));
+            quotaDTO.setYesClosingPrice(getF(fields, 4));
+            quotaDTO.setNowOpenPrice(getF(fields, 5));
+            quotaDTO.setVolume(getF(fields, 6));
+            quotaDTO.setBuyVol(getF(fields, 7));
+            quotaDTO.setSellVol(getF(fields, 8));
+            quotaDTO.setTime(getF(fields, 30));
+            quotaDTO.setUpAndDown(getF(fields, 31));
+            quotaDTO.setUpAndDownPer(getF(fields, 32));
+            quotaDTO.setHighest(getF(fields, 33));
+            quotaDTO.setLowest(getF(fields, 34));
+            quotaDTO.set价格成交量成交额(getF(fields, 35));
+            quotaDTO.set成交量手(getF(fields, 36));
+            quotaDTO.set成交额(getF(fields, 37));
+            quotaDTO.setTurnoverRate(getF(fields, 38));
+            quotaDTO.setPe(getF(fields, 39));
+            quotaDTO.set最高(getF(fields, 41));
+            quotaDTO.set最低(getF(fields, 42));
+            quotaDTO.set振幅(getF(fields, 43));
+            quotaDTO.setCirculatingMarketVal(getF(fields, 44));
+            quotaDTO.setTotalMarketVal(getF(fields, 45));
+            quotaDTO.setPb(getF(fields, 46));
+            quotaDTO.set涨停价(getF(fields, 47));
+            quotaDTO.set跌停价(getF(fields, 48));
+        }
+        return quotaDTO;
     }
 
     private String getF(String[] fields, int getI) {
