@@ -13,6 +13,7 @@ import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * 函数式接口
@@ -116,6 +117,15 @@ public class StreamTest {
 
         //2.value为空,直接存放  不调用map.merge。同样适用于1(key重复的情况)
         apples.stream().collect(Collector.of(HashMap::new, (m, per)->m.put(per.getSeqNo(),per.getName()), (k, v)->v, Collector.Characteristics.IDENTITY_FINISH));
+
+        // 重组 修改元素内容
+        apples.stream().peek(e -> e.setDesc(e.getCountry() + "-" + e.getName())).collect(Collectors.toList());
+        System.out.println(apples);
+
+        // 重组 拆分 flatMap  将元素拍平拍扁 ，将拍扁的元素重新组成Stream
+        Stream.of("a-b-c-d","e-f-i-g-h")
+                .flatMap(e->Stream.of(e.split("-")))
+                .forEach(e->System.out.println(e));
     }
 
     public static void sort() {
@@ -204,7 +214,7 @@ public class StreamTest {
     }
 
     public static void main(String[] args) {
-
+        listConvert();
 
     }
 
