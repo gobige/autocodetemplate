@@ -30,7 +30,7 @@ public class LimitFlow {
                 @Override
                 public void run() {
                     // 阻塞获取
-                    System.out.println("获取到令牌：" + rateLimiter.acquire(1));
+                    System.out.println(Thread.currentThread().getName() + "获取到令牌：" + rateLimiter.acquire(1));
 //                    // 获取失败返回false
 //                    System.out.println("获取令牌：" + rateLimiter.tryAcquire(1));
 //                    // 超时获取
