@@ -1,0 +1,40 @@
+/**
+ */
+@startuml
+title 表示该UML用例图的标题
+actor 表示人形的参与者 as user
+
+participant "gateway" as gateway
+participant "user-core" as userCore
+database "MySQL" as mysql
+database "Redis" as redis
+
+autonumber
+user-> gateway:login request，param：username，password
+activate gateway
+gateway-> userCore:forward the login request
+activate userCore
+userCore-> userCore :check the login param
+userCore-> mysql:query user info from mysql by username
+activate mysql
+mysql-> userCore:response with username and password
+deactivate mysql
+userCore->userCore:compare the requested password with the DB's password
+alt 登录成功
+    userCore-> userCore: generate an unique token
+    userCore--> redis: save the token to redis
+    userCore-> gateway: response with the token
+else 某种失败情况
+
+    group 登录失败记录
+    gateway-> userCore: 记录攻击日志
+        loop
+          gateway-> userCore: DNS攻击
+        end
+    gateway-> userCore: 结束记录日志
+    userCore-> gateway: response fail
+    end
+deactivate userCore
+gateway-> user: login success with the token
+deactivate gateway
+@enduml
