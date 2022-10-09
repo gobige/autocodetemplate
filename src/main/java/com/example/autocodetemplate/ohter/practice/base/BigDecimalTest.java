@@ -1,4 +1,4 @@
-package com.example.autocodetemplate.ohter.practice.java8;
+package com.example.autocodetemplate.ohter.practice.base;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;
