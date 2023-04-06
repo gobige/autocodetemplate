@@ -22,7 +22,7 @@ public class Apple implements Serializable {
             System.out.println(nextSupplierId.get());
         }
     }
-    Apple() {
+    public Apple() {
         super();
     }
 
