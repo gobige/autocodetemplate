@@ -1,0 +1,15 @@
+package com.example.autocodetemplate.ohter.practice.dataStructrue;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class BitMapTest {
+    public static void main(String[] args) {
+        List<Integer> arrs = new ArrayList<>();
+        for (int i = 0; i < 10000000; i++) {
+            arrs.add(new Integer(i));
+        }
+
+        System.out.println(arrs);
+    }
+}
