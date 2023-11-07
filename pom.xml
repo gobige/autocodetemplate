@@ -75,7 +75,7 @@
         <dependency>
             <groupId>org.redisson</groupId>
             <artifactId>redisson-spring-boot-starter</artifactId>
-            <version>3.11.0</version>
+            <version>3.17.2</version>
         </dependency>
         <!--jedis客户端依赖-->
         <dependency>
