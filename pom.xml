@@ -39,7 +39,7 @@
         <dependency>
             <groupId>org.springframework.kafka</groupId>
             <artifactId>spring-kafka</artifactId>
-            <version>2.1.0.RELEASE</version>
+            <version>3.1.10</version>
             <type>pom</type>
         </dependency>
         <dependency>
@@ -75,7 +75,7 @@
         <dependency>
             <groupId>org.redisson</groupId>
             <artifactId>redisson-spring-boot-starter</artifactId>
-            <version>3.11.0</version>
+            <version>3.39.0</version>
         </dependency>
         <!--jedis客户端依赖-->
         <dependency>
@@ -204,7 +204,7 @@
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
-            <version>2.2.2</version>
+            <version>2.3.1</version>
         </dependency>
         <dependency>
             <groupId>io.springfox</groupId>
@@ -224,7 +224,7 @@
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-transport</artifactId>
-            <version>4.1.24.Final</version>
+            <version>4.1.115.Final</version>
         </dependency>
         <dependency>
             <groupId>org.apache.shiro</groupId>
